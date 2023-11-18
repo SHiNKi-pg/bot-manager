@@ -4,3 +4,5 @@
 /BotManager.Engine/obj
 /BotManager.Service.Compiler/obj
 /BotManager.Reactive/obj
+/BotManager.Service.Discord/obj/Debug/net8.0
+/BotManager.Service.Discord/obj
