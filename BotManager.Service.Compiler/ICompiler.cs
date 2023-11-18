@@ -11,5 +11,9 @@ namespace BotManager.Service.Compiler
     /// </summary>
     public interface ICompiler
     {
+        /// <summary>
+        /// ソースコードをコンパイルします。
+        /// </summary>
+        void Compile();
     }
 }
