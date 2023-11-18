@@ -13,3 +13,5 @@
 /BotManager.Service.Compiler/bin
 /BotManager.Service.Discord/bin
 /BotManager.Service.Twitter/bin
+/BotManager.Service.Misskey/obj
+/BotManager.Service.Misskey/bin
