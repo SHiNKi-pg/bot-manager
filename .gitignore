@@ -4,3 +4,4 @@
 /BotManager.Engine/obj
 /BotManager.Service.Compiler/obj
 /BotManager.Reactive/obj
+/BotManager.Service.Discord/obj
