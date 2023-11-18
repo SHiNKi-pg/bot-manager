@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 namespace BotManager.Service.Discord
 {
     /// <summary>
-    /// Bot用Discordクライアント
+    /// Discordイベント通知者インターフェース
     /// </summary>
-    public interface IDiscordServiceClient : IServiceClient, IDiscordEventNotifier
+    public interface IDiscordEventNotifier : IEventNotifier
     {
     }
 }
