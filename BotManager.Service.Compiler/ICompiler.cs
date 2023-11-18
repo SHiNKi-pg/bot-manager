@@ -9,7 +9,7 @@ namespace BotManager.Service.Compiler
     /// <summary>
     /// コンパイラインターフェース
     /// </summary>
-    public interface ICompiler
+    public interface ICompiler : IDisposable
     {
         /// <summary>
         /// ソースコードをコンパイルします。
