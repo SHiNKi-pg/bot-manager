@@ -10,9 +10,9 @@ using System.Threading.Tasks;
 namespace BotManager.Service.Compiler
 {
     /// <summary>
-    /// 
+    /// <see cref="Type"/>の<see cref="IObservable{T}"/>の拡張メソッド定義用
     /// </summary>
-    internal static class TypeObservableEx
+    public static class TypeObservableEx
     {
         /// <summary>
         /// 流れてきた<see cref="Type"/>の属性が指定した条件を満たす場合、後続に型情報を流します。
@@ -59,9 +59,11 @@ namespace BotManager.Service.Compiler
                 {
                     try
                     {
+                        // Typeからインスタンスを作成する
                         var obj = Activator.CreateInstance(t);
                         if (obj is not null && obj is T tobj)
                         {
+                            // T型であればオブザーバーに作成したインスタンスを通知する
                             obsr.OnNext(tobj);
                         }
                     }
