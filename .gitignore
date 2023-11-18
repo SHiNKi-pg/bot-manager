@@ -17,3 +17,5 @@
 /BotManager.Service.Misskey/bin
 /BotManager.Web/obj
 /BotManager.Web/bin
+/BotManager.Notifiers.EarthquakeMonitor/obj
+/BotManager.Notifiers.EarthquakeMonitor/bin

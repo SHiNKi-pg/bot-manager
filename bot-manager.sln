@@ -23,6 +23,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BotManager.Service.Misskey"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BotManager.Common.Web", "BotManager.Web\BotManager.Common.Web.csproj", "{6950C1E7-CDAC-4157-A7DF-6DCF8FDCA3FA}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Notifiers", "Notifiers", "{EB74C6FC-FC0C-4185-90D5-B86E42F2AF3E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BotManager.Notifiers.EarthquakeMonitor", "BotManager.Notifiers.EarthquakeMonitor\BotManager.Notifiers.EarthquakeMonitor.csproj", "{BD71369D-33CD-42D5-BF26-8BA1C52CDE3B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -65,6 +69,10 @@ Global
 		{6950C1E7-CDAC-4157-A7DF-6DCF8FDCA3FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6950C1E7-CDAC-4157-A7DF-6DCF8FDCA3FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6950C1E7-CDAC-4157-A7DF-6DCF8FDCA3FA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BD71369D-33CD-42D5-BF26-8BA1C52CDE3B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BD71369D-33CD-42D5-BF26-8BA1C52CDE3B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BD71369D-33CD-42D5-BF26-8BA1C52CDE3B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BD71369D-33CD-42D5-BF26-8BA1C52CDE3B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -74,6 +82,7 @@ Global
 		{B1883A79-5D08-49AB-8B7C-FC94C8CB70D8} = {47EE59C4-08D2-4B93-AD3B-68D6C2CB4DAE}
 		{D50DC9DE-DFEE-423C-8B76-900AD78E1D4F} = {47EE59C4-08D2-4B93-AD3B-68D6C2CB4DAE}
 		{37D3E5B8-A345-43F8-9318-BC674C94D782} = {47EE59C4-08D2-4B93-AD3B-68D6C2CB4DAE}
+		{BD71369D-33CD-42D5-BF26-8BA1C52CDE3B} = {EB74C6FC-FC0C-4185-90D5-B86E42F2AF3E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {14DEB328-F00E-4E18-B492-EA3C6F66ECEC}
