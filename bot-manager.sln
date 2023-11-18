@@ -21,6 +21,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BotManager.Service.Twitter"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BotManager.Service.Misskey", "BotManager.Service.Misskey\BotManager.Service.Misskey.csproj", "{37D3E5B8-A345-43F8-9318-BC674C94D782}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BotManager.Common.Web", "BotManager.Web\BotManager.Common.Web.csproj", "{6950C1E7-CDAC-4157-A7DF-6DCF8FDCA3FA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -59,6 +61,10 @@ Global
 		{37D3E5B8-A345-43F8-9318-BC674C94D782}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{37D3E5B8-A345-43F8-9318-BC674C94D782}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{37D3E5B8-A345-43F8-9318-BC674C94D782}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6950C1E7-CDAC-4157-A7DF-6DCF8FDCA3FA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6950C1E7-CDAC-4157-A7DF-6DCF8FDCA3FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6950C1E7-CDAC-4157-A7DF-6DCF8FDCA3FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6950C1E7-CDAC-4157-A7DF-6DCF8FDCA3FA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

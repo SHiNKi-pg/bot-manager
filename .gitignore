@@ -15,3 +15,5 @@
 /BotManager.Service.Twitter/bin
 /BotManager.Service.Misskey/obj
 /BotManager.Service.Misskey/bin
+/BotManager.Web/obj
+/BotManager.Web/bin
