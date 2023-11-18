@@ -25,5 +25,15 @@ namespace BotManager.Reactive
                 .Take(1)
                 .Subscribe(_ => disposable.Dispose());
         }
+
+        /// <summary>
+        /// このオブジェクトの <see cref="IDisposable.Dispose"/>が呼び出されると通知されるオブジェクトを作成します。
+        /// </summary>
+        /// <param name="baseDisposable"></param>
+        /// <returns></returns>
+        public static IDisposalNotifier ToNotifiable(this IDisposable baseDisposable)
+        {
+            return new DisposalNotifier(baseDisposable);
+        }
     }
 }
