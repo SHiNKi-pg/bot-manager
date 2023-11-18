@@ -9,7 +9,12 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.7.0" />
+    <PackageReference Include="NLog" Version="5.2.5" />
     <PackageReference Include="System.Reactive" Version="6.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BotManager.Common\BotManager.Common.csproj" />
   </ItemGroup>
 
 </Project>
