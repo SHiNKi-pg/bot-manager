@@ -6,3 +6,10 @@
 /BotManager.Reactive/obj
 /BotManager.Service.Discord/obj
 /BotManager.Service.Twitter/obj
+/BotManager/bin
+/BotManager.Common/bin
+/BotManager.Engine/bin
+/BotManager.Reactive/bin
+/BotManager.Service.Compiler/bin
+/BotManager.Service.Discord/bin
+/BotManager.Service.Twitter/bin
