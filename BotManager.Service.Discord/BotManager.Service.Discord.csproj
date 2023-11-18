@@ -11,4 +11,8 @@
     <PackageReference Include="Discord.Net.WebSocket" Version="3.12.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\BotManager.Common\BotManager.Common.csproj" />
+  </ItemGroup>
+
 </Project>
