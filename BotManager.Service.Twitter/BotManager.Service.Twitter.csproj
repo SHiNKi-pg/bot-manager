@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <PackageReference Include="linqtotwitter" Version="6.15.0" />
+    <PackageReference Include="NLog" Version="5.2.5" />
   </ItemGroup>
 
 </Project>
