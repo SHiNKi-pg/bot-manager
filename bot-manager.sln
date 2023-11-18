@@ -15,9 +15,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Service", "Service", "{47EE
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BotManager.Service.Compiler", "BotManager.Service.Compiler\BotManager.Service.Compiler.csproj", "{F5483FD6-5AC0-4779-AD99-281C16A3B47F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BotManager.Service.Discord", "BotManager.Service.Discord\BotManager.Service.Discord.csproj", "{B1883A79-5D08-49AB-8B7C-FC94C8CB70D8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BotManager.Service.Discord", "BotManager.Service.Discord\BotManager.Service.Discord.csproj", "{B1883A79-5D08-49AB-8B7C-FC94C8CB70D8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BotManager.Service.Twitter", "BotManager.Service.Twitter\BotManager.Service.Twitter.csproj", "{D50DC9DE-DFEE-423C-8B76-900AD78E1D4F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BotManager.Service.Twitter", "BotManager.Service.Twitter\BotManager.Service.Twitter.csproj", "{D50DC9DE-DFEE-423C-8B76-900AD78E1D4F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BotManager.Service.Misskey", "BotManager.Service.Misskey\BotManager.Service.Misskey.csproj", "{37D3E5B8-A345-43F8-9318-BC674C94D782}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -53,6 +55,10 @@ Global
 		{D50DC9DE-DFEE-423C-8B76-900AD78E1D4F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D50DC9DE-DFEE-423C-8B76-900AD78E1D4F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D50DC9DE-DFEE-423C-8B76-900AD78E1D4F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{37D3E5B8-A345-43F8-9318-BC674C94D782}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{37D3E5B8-A345-43F8-9318-BC674C94D782}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{37D3E5B8-A345-43F8-9318-BC674C94D782}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{37D3E5B8-A345-43F8-9318-BC674C94D782}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -61,6 +67,7 @@ Global
 		{F5483FD6-5AC0-4779-AD99-281C16A3B47F} = {47EE59C4-08D2-4B93-AD3B-68D6C2CB4DAE}
 		{B1883A79-5D08-49AB-8B7C-FC94C8CB70D8} = {47EE59C4-08D2-4B93-AD3B-68D6C2CB4DAE}
 		{D50DC9DE-DFEE-423C-8B76-900AD78E1D4F} = {47EE59C4-08D2-4B93-AD3B-68D6C2CB4DAE}
+		{37D3E5B8-A345-43F8-9318-BC674C94D782} = {47EE59C4-08D2-4B93-AD3B-68D6C2CB4DAE}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {14DEB328-F00E-4E18-B492-EA3C6F66ECEC}
