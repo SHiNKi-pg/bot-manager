@@ -17,6 +17,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BotManager.Service.Compiler
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BotManager.Service.Discord", "BotManager.Service.Discord\BotManager.Service.Discord.csproj", "{B1883A79-5D08-49AB-8B7C-FC94C8CB70D8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BotManager.Service.Twitter", "BotManager.Service.Twitter\BotManager.Service.Twitter.csproj", "{D50DC9DE-DFEE-423C-8B76-900AD78E1D4F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,6 +49,10 @@ Global
 		{B1883A79-5D08-49AB-8B7C-FC94C8CB70D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B1883A79-5D08-49AB-8B7C-FC94C8CB70D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B1883A79-5D08-49AB-8B7C-FC94C8CB70D8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D50DC9DE-DFEE-423C-8B76-900AD78E1D4F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D50DC9DE-DFEE-423C-8B76-900AD78E1D4F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D50DC9DE-DFEE-423C-8B76-900AD78E1D4F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D50DC9DE-DFEE-423C-8B76-900AD78E1D4F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -54,6 +60,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{F5483FD6-5AC0-4779-AD99-281C16A3B47F} = {47EE59C4-08D2-4B93-AD3B-68D6C2CB4DAE}
 		{B1883A79-5D08-49AB-8B7C-FC94C8CB70D8} = {47EE59C4-08D2-4B93-AD3B-68D6C2CB4DAE}
+		{D50DC9DE-DFEE-423C-8B76-900AD78E1D4F} = {47EE59C4-08D2-4B93-AD3B-68D6C2CB4DAE}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {14DEB328-F00E-4E18-B492-EA3C6F66ECEC}
