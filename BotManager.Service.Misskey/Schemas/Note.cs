@@ -10,7 +10,7 @@ namespace BotManager.Service.Misskey.Schemas
     /// <summary>
     /// ノート
     /// </summary>
-    [JsonObject]
+    [JsonObject("note")]
     public sealed class Note
     {
         /// <summary>
