@@ -90,11 +90,32 @@ namespace BotManager.Service.Misskey
         }
 
         /// <summary>
-        /// Globalタイムラインを取得します。
+        /// グローバルタイムラインを取得します。
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
         public IObservable<Note> GetGlobalTimeline(string id) => GetTimeline("globalTimeline", id);
+
+        /// <summary>
+        /// ホームタイムラインを取得します。
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public IObservable<Note> GetHomeTimeline(string id) => GetTimeline("homeTimeline", id);
+
+        /// <summary>
+        /// ソーシャルタイムラインを取得します。
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public IObservable<Note> GetHybridTimeline(string id) => GetTimeline("hybridTimeline", id);
+
+        /// <summary>
+        /// ローカルタイムラインを取得します。
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public IObservable<Note> GetLocalTimeline(string id) => GetTimeline("localTimeline", id);
 
         /// <summary>
         /// MisskeyClientを開始します。
