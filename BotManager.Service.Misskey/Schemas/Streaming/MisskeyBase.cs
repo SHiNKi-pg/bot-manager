@@ -7,12 +7,22 @@ using System.Threading.Tasks;
 
 namespace BotManager.Service.Misskey.Schemas.Streaming
 {
+    /// <summary>
+    /// Misskey Base
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     [JsonObject]
-    internal class MisskeyBase<T>
+    public class MisskeyBase<T> : IObjectType
     {
+        /// <summary>
+        /// タイプ
+        /// </summary>
         [JsonProperty("type")]
         public required string Type { get; set; }
 
+        /// <summary>
+        /// ボディ部
+        /// </summary>
         [JsonProperty("body")]
         public required T Body { get; set; }
 

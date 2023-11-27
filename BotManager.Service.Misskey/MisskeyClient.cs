@@ -12,6 +12,7 @@ using BotManager.Reactive;
 using BotManager.Service.Misskey.Schemas.Streaming;
 using Newtonsoft.Json;
 using System.Reactive.Disposables;
+using BotManager.Service.Misskey.Schemas.Streaming.Captures;
 
 namespace BotManager.Service.Misskey
 {
@@ -63,7 +64,7 @@ namespace BotManager.Service.Misskey
                     .Where(mr => mr.MessageType == WebSocketMessageType.Text)
                     .Select(mr => mr.Text)
                     .IsNotNull()
-                    .WhereIs<MisskeyBase<IReceivedBody<Note>>>()
+                    .WhereIs<MisskeyBase<ReceivedBody<Note>>>()
                     .Where(mes => mes.Type == "channel" && mes.Body.Id == id)
                     .Select(mes => mes.Body.Body)
                     .Subscribe(observer)
@@ -116,6 +117,62 @@ namespace BotManager.Service.Misskey
         /// <param name="id"></param>
         /// <returns></returns>
         public IObservable<Note> GetLocalTimeline(string id) => GetTimeline("localTimeline", id);
+        #endregion
+
+        #region Streaming Capture
+        /// <summary>
+        /// 投稿をキャプチャします
+        /// </summary>
+        /// <param name="noteId"></param>
+        /// <returns></returns>
+        public IObservable<MisskeyBase<ReceivedBody<dynamic>>> CaptureNote(string noteId)
+        {
+            return Observable.Create<MisskeyBase<ReceivedBody<dynamic>>>(async observer =>
+            {
+                // ノートのキャプチャ
+                var connectionData = new MisskeyBase<NoteSubscriptionBody>()
+                {
+                    Type = "subNote",
+                    Body = new()
+                    {
+                        NoteId = noteId
+                    }
+                };
+
+                string connectionJson = JsonConvert.SerializeObject(connectionData);
+                if (websocketClient.IsRunning)
+                    await websocketClient.SendInstant(connectionJson);
+
+                // データ購読
+                var subscription = websocketClient
+                    .MessageReceived
+                    .Where(mr => mr.MessageType == WebSocketMessageType.Text)
+                    .Select(mr => mr.Text)
+                    .IsNotNull()
+                    .WhereIs<MisskeyBase<ReceivedBody<dynamic>>>()
+                    .Where(mes => mes.Body.Id == noteId)
+                    .Subscribe(observer)
+                    ;
+
+                // Dispose時にキャプチャを解除
+                var disconnection = Disposable.Create(() =>
+                {
+                    var disconnectionData = new MisskeyBase<NoteSubscriptionBody>()
+                    {
+                        Type = "unsubNote",
+                        Body = new()
+                        {
+                            NoteId = noteId
+                        },
+                    };
+                    string disconnectionJson = JsonConvert.SerializeObject(disconnectionData);
+                    if (websocketClient.IsRunning)
+                        websocketClient.Send(disconnectionJson);
+                });
+
+                return StableCompositeDisposable.Create(subscription, disconnection);
+            });
+        }
         #endregion
 
         #region Method
