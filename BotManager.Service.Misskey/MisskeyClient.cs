@@ -117,6 +117,8 @@ namespace BotManager.Service.Misskey
         /// <param name="id"></param>
         /// <returns></returns>
         public IObservable<Note> GetLocalTimeline(string id) => GetTimeline("localTimeline", id);
+
+        // TODO: Mainタイムライン取得メソッドの追加
         #endregion
 
         #region Streaming Capture
