@@ -36,7 +36,7 @@ namespace BotManager.Service.Misskey
         }
         #endregion
 
-        #region Method
+        #region Streaming Timeline
 
         private IObservable<Note> GetTimeline(string channelName, string id)
         {
@@ -116,7 +116,9 @@ namespace BotManager.Service.Misskey
         /// <param name="id"></param>
         /// <returns></returns>
         public IObservable<Note> GetLocalTimeline(string id) => GetTimeline("localTimeline", id);
+        #endregion
 
+        #region Method
         /// <summary>
         /// MisskeyClientを開始します。
         /// </summary>
