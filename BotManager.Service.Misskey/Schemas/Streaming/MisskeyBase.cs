@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace BotManager.Service.Misskey.Schemas.Streaming
 {
     [JsonObject]
-    internal class MisskeyBase<T> where T : MisskeyBody
+    internal class MisskeyBase<T>
     {
         [JsonProperty("type")]
         public required string Type { get; set; }
