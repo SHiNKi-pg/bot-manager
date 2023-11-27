@@ -31,6 +31,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{2759ECCC
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BotManager.Tests.Common", "BotManager.Tests.Common\BotManager.Tests.Common.csproj", "{EC8595C4-F5F8-45C2-BD28-B0835B496449}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BotManager.Reactive.Json", "BotManager.Reactive.Json\BotManager.Reactive.Json.csproj", "{3CF007D8-991A-4971-9A22-87A2B5F9384F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -81,6 +83,10 @@ Global
 		{EC8595C4-F5F8-45C2-BD28-B0835B496449}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EC8595C4-F5F8-45C2-BD28-B0835B496449}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EC8595C4-F5F8-45C2-BD28-B0835B496449}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3CF007D8-991A-4971-9A22-87A2B5F9384F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3CF007D8-991A-4971-9A22-87A2B5F9384F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3CF007D8-991A-4971-9A22-87A2B5F9384F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3CF007D8-991A-4971-9A22-87A2B5F9384F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
