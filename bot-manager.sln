@@ -19,13 +19,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BotManager.Service.Discord"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BotManager.Service.Twitter", "BotManager.Service.Twitter\BotManager.Service.Twitter.csproj", "{D50DC9DE-DFEE-423C-8B76-900AD78E1D4F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BotManager.Service.Misskey", "BotManager.Service.Misskey\BotManager.Service.Misskey.csproj", "{37D3E5B8-A345-43F8-9318-BC674C94D782}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BotManager.Service.Misskey", "BotManager.Service.Misskey\BotManager.Service.Misskey.csproj", "{37D3E5B8-A345-43F8-9318-BC674C94D782}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BotManager.Common.Web", "BotManager.Web\BotManager.Common.Web.csproj", "{6950C1E7-CDAC-4157-A7DF-6DCF8FDCA3FA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BotManager.Common.Web", "BotManager.Web\BotManager.Common.Web.csproj", "{6950C1E7-CDAC-4157-A7DF-6DCF8FDCA3FA}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Notifiers", "Notifiers", "{EB74C6FC-FC0C-4185-90D5-B86E42F2AF3E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BotManager.Notifiers.EarthquakeMonitor", "BotManager.Notifiers.EarthquakeMonitor\BotManager.Notifiers.EarthquakeMonitor.csproj", "{BD71369D-33CD-42D5-BF26-8BA1C52CDE3B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BotManager.Notifiers.EarthquakeMonitor", "BotManager.Notifiers.EarthquakeMonitor\BotManager.Notifiers.EarthquakeMonitor.csproj", "{BD71369D-33CD-42D5-BF26-8BA1C52CDE3B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{2759ECCC-1841-473D-BD88-DD8BA06A9E28}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BotManager.Tests.Common", "BotManager.Tests.Common\BotManager.Tests.Common.csproj", "{EC8595C4-F5F8-45C2-BD28-B0835B496449}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -73,6 +77,10 @@ Global
 		{BD71369D-33CD-42D5-BF26-8BA1C52CDE3B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BD71369D-33CD-42D5-BF26-8BA1C52CDE3B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BD71369D-33CD-42D5-BF26-8BA1C52CDE3B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EC8595C4-F5F8-45C2-BD28-B0835B496449}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EC8595C4-F5F8-45C2-BD28-B0835B496449}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EC8595C4-F5F8-45C2-BD28-B0835B496449}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EC8595C4-F5F8-45C2-BD28-B0835B496449}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -83,6 +91,7 @@ Global
 		{D50DC9DE-DFEE-423C-8B76-900AD78E1D4F} = {47EE59C4-08D2-4B93-AD3B-68D6C2CB4DAE}
 		{37D3E5B8-A345-43F8-9318-BC674C94D782} = {47EE59C4-08D2-4B93-AD3B-68D6C2CB4DAE}
 		{BD71369D-33CD-42D5-BF26-8BA1C52CDE3B} = {EB74C6FC-FC0C-4185-90D5-B86E42F2AF3E}
+		{EC8595C4-F5F8-45C2-BD28-B0835B496449} = {2759ECCC-1841-473D-BD88-DD8BA06A9E28}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {14DEB328-F00E-4E18-B492-EA3C6F66ECEC}
