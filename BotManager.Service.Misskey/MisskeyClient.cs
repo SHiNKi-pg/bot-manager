@@ -84,6 +84,8 @@ namespace BotManager.Service.Misskey
             });
         }
 
+        public IObservable<Note> GetGlobalTimeline(string id) => GetTimeline("globalTimeline", id);
+
         public Task StartAsync()
         {
             return Task.CompletedTask;
