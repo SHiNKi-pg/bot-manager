@@ -19,7 +19,7 @@ namespace BotManager.Service.Misskey
     /// <summary>
     /// Misskeyクライアントクラス
     /// </summary>
-    public class MisskeyClient : IMisskeyServiceClient
+    public partial class MisskeyClient : IMisskeyServiceClient
     {
         #region Private Field
         private WebsocketClient websocketClient;
