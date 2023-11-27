@@ -19,3 +19,7 @@
 /BotManager.Web/bin
 /BotManager.Notifiers.EarthquakeMonitor/obj
 /BotManager.Notifiers.EarthquakeMonitor/bin
+/BotManager.Tests.Common/obj
+/BotManager.Tests.Common/bin
+/BotManager.Reactive.Json/obj
+/BotManager.Reactive.Json/bin
