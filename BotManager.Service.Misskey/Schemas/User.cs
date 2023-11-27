@@ -60,5 +60,14 @@ namespace BotManager.Service.Misskey.Schemas
         /// </summary>
         [JsonProperty("avatarBlurhash")]
         public string AvatarBlurhash { get; private set; } = "";
+
+        /// <summary>
+        /// このオブジェクトをJSON文字列として返します。
+        /// </summary>
+        /// <returns></returns>
+        public override string ToString()
+        {
+            return JsonConvert.SerializeObject(this);
+        }
     }
 }

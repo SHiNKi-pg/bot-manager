@@ -15,5 +15,14 @@ namespace BotManager.Service.Misskey.Schemas.Streaming
 
         [JsonProperty("body")]
         public required T Body { get; set; }
+
+        /// <summary>
+        /// このオブジェクトをJSON文字列として返します。
+        /// </summary>
+        /// <returns></returns>
+        public override string ToString()
+        {
+            return JsonConvert.SerializeObject(this);
+        }
     }
 }

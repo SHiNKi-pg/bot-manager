@@ -18,7 +18,7 @@ namespace BotManager.Service.Misskey
     /// <summary>
     /// Misskeyクライアントクラス
     /// </summary>
-    internal class MisskeyClient : IMisskeyServiceClient
+    public class MisskeyClient : IMisskeyServiceClient
     {
         #region Private Field
         private WebsocketClient websocketClient;
@@ -52,7 +52,10 @@ namespace BotManager.Service.Misskey
                         Id = id
                     }
                 };
-                await websocketClient.SendInstant(JsonConvert.SerializeObject(connectionData));
+
+                string connectionJson = JsonConvert.SerializeObject(connectionData);
+                if(websocketClient.IsRunning)
+                    await websocketClient.SendInstant(connectionJson);
 
                 // データ購読
                 var subscription = websocketClient
@@ -60,9 +63,9 @@ namespace BotManager.Service.Misskey
                     .Where(mr => mr.MessageType == WebSocketMessageType.Text)
                     .Select(mr => mr.Text)
                     .IsNotNull()
-                    .WhereIs<MisskeyBase<Note>>()
+                    .WhereIs<MisskeyBase<IReceivedBody<Note>>>()
                     .Where(mes => mes.Type == "channel" && mes.Body.Id == id)
-                    .Select(mes => mes.Body)
+                    .Select(mes => mes.Body.Body)
                     .Subscribe(observer)
                     ;
 
@@ -77,27 +80,45 @@ namespace BotManager.Service.Misskey
                             Id = id
                         },
                     };
-                    websocketClient.Send(JsonConvert.SerializeObject(disconnectionData));
+                    var disconnectionJson = JsonConvert.SerializeObject(disconnectionData);
+                    if(websocketClient.IsRunning)
+                        websocketClient.Send(disconnectionJson);
                 });
 
                 return StableCompositeDisposable.Create(subscription, disconnection);
             });
         }
 
+        /// <summary>
+        /// Globalタイムラインを取得します。
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public IObservable<Note> GetGlobalTimeline(string id) => GetTimeline("globalTimeline", id);
 
+        /// <summary>
+        /// MisskeyClientを開始します。
+        /// </summary>
+        /// <returns></returns>
         public Task StartAsync()
         {
-            return Task.CompletedTask;
+            return websocketClient.Start();
         }
 
-        public Task EndAsync()
+        /// <summary>
+        /// MisskeyClientを終了します。
+        /// </summary>
+        /// <returns></returns>
+        public async Task EndAsync()
         {
-            return Task.CompletedTask;
+            await websocketClient.Stop(WebSocketCloseStatus.NormalClosure, "stop websockets");
         }
         #endregion
 
         #region Disposal
+        /// <summary>
+        /// 
+        /// </summary>
         public void Dispose()
         {
             websocketClient.Dispose();
