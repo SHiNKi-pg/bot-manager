@@ -29,9 +29,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BotManager.Notifiers.Earthq
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{2759ECCC-1841-473D-BD88-DD8BA06A9E28}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BotManager.Tests.Common", "BotManager.Tests.Common\BotManager.Tests.Common.csproj", "{EC8595C4-F5F8-45C2-BD28-B0835B496449}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BotManager.Tests.Common", "BotManager.Tests.Common\BotManager.Tests.Common.csproj", "{EC8595C4-F5F8-45C2-BD28-B0835B496449}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BotManager.Reactive.Json", "BotManager.Reactive.Json\BotManager.Reactive.Json.csproj", "{3CF007D8-991A-4971-9A22-87A2B5F9384F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BotManager.Reactive.Json", "BotManager.Reactive.Json\BotManager.Reactive.Json.csproj", "{3CF007D8-991A-4971-9A22-87A2B5F9384F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BotManager.Database", "BotManager.Database\BotManager.Database.csproj", "{172D0FA0-B283-4297-9B9C-1DB7E4E7216B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -87,6 +89,10 @@ Global
 		{3CF007D8-991A-4971-9A22-87A2B5F9384F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3CF007D8-991A-4971-9A22-87A2B5F9384F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3CF007D8-991A-4971-9A22-87A2B5F9384F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{172D0FA0-B283-4297-9B9C-1DB7E4E7216B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{172D0FA0-B283-4297-9B9C-1DB7E4E7216B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{172D0FA0-B283-4297-9B9C-1DB7E4E7216B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{172D0FA0-B283-4297-9B9C-1DB7E4E7216B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
