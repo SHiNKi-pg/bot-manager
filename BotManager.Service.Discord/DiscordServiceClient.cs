@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reactive.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Discord;
@@ -29,6 +30,18 @@ namespace BotManager.Service.Discord
             this.token = token;
             client = new(config);
         }
+        #endregion
+
+        #region Events
+        /// <summary>
+        /// メッセージを受信した時に通知されます。
+        /// </summary>
+        public IObservable<SocketMessage> MessageReceived =>
+            Observable.FromEvent<Func<SocketMessage, Task>, SocketMessage>(
+                h => e => { h(e); return Task.CompletedTask; },
+                h => client.MessageReceived += h,
+                h => client.MessageReceived -= h
+                );
         #endregion
 
         #region Method

@@ -1,4 +1,5 @@
 ﻿using BotManager.Common;
+using Discord.WebSocket;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,5 +13,9 @@ namespace BotManager.Service.Discord
     /// </summary>
     public interface IDiscordEventNotifier : IEventNotifier
     {
+        /// <summary>
+        /// メッセージを受信した時に通知されます。
+        /// </summary>
+        IObservable<SocketMessage> MessageReceived { get; }
     }
 }
