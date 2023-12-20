@@ -1,4 +1,5 @@
 ﻿using BotManager.Common.Web;
+using BotManager.Service.Misskey.Api;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using System;
@@ -49,6 +50,13 @@ namespace BotManager.Service.Misskey
         /// アクセストークン
         /// </summary>
         internal string AccessToken { get => accessToken; }
+        #endregion
+
+        #region EndPoint
+        /// <summary>
+        /// ノート
+        /// </summary>
+        public Notes Notes { get => new(this); }
         #endregion
     }
 }
