@@ -15,12 +15,16 @@ namespace BotManager.Service.Misskey.Api
     {
         #region Private Fields
         private MisskeyApi misskeyApi;
+
+        private JsonSerializerSettings JsonSerializerSettings;
         #endregion
 
         #region Constractor
         internal MisskeyApiBase(MisskeyApi misskeyApi)
         {
             this.misskeyApi = misskeyApi;
+            this.JsonSerializerSettings = new();
+            JsonSerializerSettings.NullValueHandling = NullValueHandling.Ignore;
         }
         #endregion
 
@@ -33,15 +37,11 @@ namespace BotManager.Service.Misskey.Api
         /// <param name="requestBody">リクエストボディ</param>
         /// <returns></returns>
         /// <exception cref="HttpRequestException"></exception>
-        internal protected async Task<T?> PostAsync<T>(string endPoint, Dictionary<string, object?> requestBody)
+        internal protected async Task<T> PostAsync<T>(string endPoint, object requestBody)
         {
             string url = misskeyApi.BaseUrl + endPoint;
 
-            // 認証情報の付与
-            requestBody.Add("i", misskeyApi.AccessToken);
-            requestBody.Add("detail", false);
-
-            string json = JsonConvert.SerializeObject(requestBody);
+            string json = JsonConvert.SerializeObject(requestBody, JsonSerializerSettings);
             using (var content = new StringContent(json, Encoding.UTF8, "application/json"))
             {
                 var response = await HttpClientSingleton.HttpClient.PostAsync(url, content);
@@ -52,7 +52,7 @@ namespace BotManager.Service.Misskey.Api
                 }
                 string responseString = await response.Content.ReadAsStringAsync();
 
-                var jsonObj = JsonConvert.DeserializeObject<T>(responseString);
+                var jsonObj = JsonConvert.DeserializeObject<T>(responseString)!;
                 return jsonObj;
             }
         }
