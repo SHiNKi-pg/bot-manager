@@ -31,7 +31,7 @@ namespace BotManager.Service.Misskey.Api
         /// <param name="sinceId">指定すると、idがその値よりも大きいノートを返します。</param>
         /// <param name="untilId">指定すると、idがその値よりも小さいノートを返します。</param>
         /// <returns></returns>
-        public async Task<IEnumerable<Note>?> GetNotesAsync(
+        public async Task<IEnumerable<Note>> GetNotesAsync(
             bool? local = false,
             bool? reply = false,
             bool? renote = false,
