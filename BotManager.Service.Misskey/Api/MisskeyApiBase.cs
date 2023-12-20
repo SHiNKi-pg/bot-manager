@@ -14,7 +14,10 @@ namespace BotManager.Service.Misskey.Api
     public abstract class MisskeyApiBase
     {
         #region Private Fields
-        private MisskeyApi misskeyApi;
+        /// <summary>
+        /// MisskeyAPI
+        /// </summary>
+        protected MisskeyApi misskeyApi { get; private set; }
 
         private JsonSerializerSettings JsonSerializerSettings;
         #endregion
