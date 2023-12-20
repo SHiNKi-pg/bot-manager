@@ -11,7 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Tables\" />
+    <Folder Include="Entities\" />
   </ItemGroup>
 
 </Project>
