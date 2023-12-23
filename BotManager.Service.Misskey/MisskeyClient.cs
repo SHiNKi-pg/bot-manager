@@ -199,6 +199,16 @@ namespace BotManager.Service.Misskey
         {
             await websocketClient.Stop(WebSocketCloseStatus.NormalClosure, "stop websockets");
         }
+
+        /// <summary>
+        /// Misskey HTTP APIにアクセスするオブジェクトを返します。
+        /// </summary>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        public IMisskeyApi GetMisskeyHttpApiClient()
+        {
+            return new MisskeyApi(host, token);
+        }
         #endregion
 
         #region Disposal
