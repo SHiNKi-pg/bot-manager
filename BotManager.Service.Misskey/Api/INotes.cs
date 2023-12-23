@@ -8,17 +8,10 @@ using System.Threading.Tasks;
 namespace BotManager.Service.Misskey.Api
 {
     /// <summary>
-    /// ノート関連のAPI
+    /// NoteAPIインターフェース
     /// </summary>
-    public class Notes : MisskeyApiBase, INotes
+    public interface INotes
     {
-        #region Constructor
-        internal Notes(MisskeyApi misskeyApi) : base(misskeyApi)
-        {
-        }
-        #endregion
-
-        #region notes
         /// <summary>
         /// ノート一覧を取得します。
         /// </summary>
@@ -31,7 +24,7 @@ namespace BotManager.Service.Misskey.Api
         /// <param name="sinceId">指定すると、idがその値よりも大きいノートを返します。</param>
         /// <param name="untilId">指定すると、idがその値よりも小さいノートを返します。</param>
         /// <returns></returns>
-        public async Task<IEnumerable<Note>> GetNotesAsync(
+        Task<IEnumerable<Note>> GetNotesAsync(
             bool? local = false,
             bool? reply = false,
             bool? renote = false,
@@ -40,22 +33,6 @@ namespace BotManager.Service.Misskey.Api
             int? limit = 10,
             string? sinceId = null,
             string? untilId = null
-            )
-        {
-            return await base.PostAsync<IEnumerable<Note>>("notes", new
-            {
-                i = misskeyApi.AccessToken,
-                detail = false,
-                local,
-                reply,
-                renote,
-                withFiles,
-                poll,
-                limit,
-                sinceId,
-                untilId
-            });
-        }
-            #endregion
+            );
     }
 }

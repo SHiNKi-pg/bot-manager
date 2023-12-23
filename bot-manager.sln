@@ -33,7 +33,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BotManager.Tests.Common", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BotManager.Reactive.Json", "BotManager.Reactive.Json\BotManager.Reactive.Json.csproj", "{3CF007D8-991A-4971-9A22-87A2B5F9384F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BotManager.Database", "BotManager.Database\BotManager.Database.csproj", "{172D0FA0-B283-4297-9B9C-1DB7E4E7216B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BotManager.Database", "BotManager.Database\BotManager.Database.csproj", "{172D0FA0-B283-4297-9B9C-1DB7E4E7216B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

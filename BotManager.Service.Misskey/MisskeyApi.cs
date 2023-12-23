@@ -13,7 +13,7 @@ namespace BotManager.Service.Misskey
     /// <summary>
     /// Misskey Web API
     /// </summary>
-    public partial class MisskeyApi
+    public partial class MisskeyApi : IMisskeyApi
     {
         #region Private Fields
         /// <summary>
@@ -37,6 +37,10 @@ namespace BotManager.Service.Misskey
         {
             this.accessToken = accessToken;
             this.baseUrl = $"https://{hostName}/api/";
+
+            #region Property Initialize
+            this.Notes = new Notes(this);
+            #endregion
         }
         #endregion
 
@@ -56,7 +60,7 @@ namespace BotManager.Service.Misskey
         /// <summary>
         /// ノート
         /// </summary>
-        public Notes Notes { get => new(this); }
+        public INotes Notes { get; init; }
         #endregion
     }
 }
