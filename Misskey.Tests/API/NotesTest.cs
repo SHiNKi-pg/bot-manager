@@ -1,4 +1,5 @@
-﻿using BotManager.Service.Misskey;
+﻿using BotManager.Engine;
+using BotManager.Service.Misskey;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -16,8 +17,9 @@ namespace Misskey.Tests.API
 
         public NotesTest(ITestOutputHelper output)
         {
+            var certification = AppSettings.GetBotDictionary()["test"].MisskeySetting!.Certificate;
             this.output = output;
-            client = new("misskey.io", "");
+            client = new(certification.Host, certification.AccessToken);
         }
 
         [Fact]
