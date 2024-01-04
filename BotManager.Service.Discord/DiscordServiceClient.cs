@@ -32,6 +32,16 @@ namespace BotManager.Service.Discord
             this.token = token;
             client = new(config);
         }
+
+        /// <summary>
+        /// <see cref="DiscordServiceClient"/>オブジェクトを作成します。
+        /// </summary>
+        /// <param name="token">アクセストークン</param>
+        public DiscordServiceClient(string token) : this(token, new()
+        {
+            GatewayIntents = GatewayIntents.All
+        })
+        { }
         #endregion
 
         #region Events

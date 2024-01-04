@@ -20,6 +20,11 @@ namespace BotManager.Setting.Settings
         /// メインで動作するサーバーID
         /// </summary>
         ulong MainGuildId { get; }
+
+        /// <summary>
+        /// テストで使用する<seealso cref="MainGuildId"/>のサーバーのチャンネルのID
+        /// </summary>
+        ulong TestChannelId { get; }
     }
 
     /// <summary>
@@ -41,6 +46,8 @@ namespace BotManager.Setting.Settings
         public IDiscordCertification Certificate { get => Certification; }
 
         public ulong MainGuildId { get; set; }
+
+        public ulong TestChannelId { get; set; }
     }
 
     internal class DiscordCertification : IDiscordCertification
