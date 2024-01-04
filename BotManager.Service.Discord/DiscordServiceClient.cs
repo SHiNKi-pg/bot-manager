@@ -4,6 +4,8 @@ using System.Linq;
 using System.Reactive.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BotManager.Service.Discord.Extensions;
+using BotManager.Service.Discord.Wrapper;
 using Discord;
 using Discord.WebSocket;
 
@@ -63,6 +65,16 @@ namespace BotManager.Service.Discord
         {
             await client.LogoutAsync();
             await client.StopAsync();
+        }
+
+        /// <summary>
+        /// 指定したIDのサーバーのオブジェクトを返します。
+        /// </summary>
+        /// <param name="guildId">サーバーID</param>
+        /// <returns></returns>
+        public IWrappedGuild<SocketGuild> GetGuild(ulong guildId)
+        {
+            return client.GetGuild(guildId).ToWrappedGuild();
         }
         #endregion
 
