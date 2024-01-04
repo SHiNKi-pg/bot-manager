@@ -111,5 +111,24 @@ namespace BotManager.Service.Misskey.Api
         /// <returns></returns>
         Task<Note> ShowNote(string noteId);
         #endregion
+
+        #region notes/reactions/create
+        /// <summary>
+        /// ノートにリアクションします。
+        /// </summary>
+        /// <param name="noteId">ノートID</param>
+        /// <param name="reaction">リアクションを指定します。リアクションはUnicode絵文字もしくはカスタム絵文字です。カスタム絵文字の場合はコロンで絵文字名を括ります。</param>
+        /// <returns></returns>
+        Task AddReaction(string noteId, string reaction);
+        #endregion
+
+        #region notes/reactions/delete
+        /// <summary>
+        /// ノートのリアクションを解除します。
+        /// </summary>
+        /// <param name="noteId">リアクションを解除するノートID</param>
+        /// <returns></returns>
+        Task RemoveReaction(string noteId);
+        #endregion
     }
 }

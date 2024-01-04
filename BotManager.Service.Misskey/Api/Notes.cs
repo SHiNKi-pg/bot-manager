@@ -112,5 +112,26 @@ namespace BotManager.Service.Misskey.Api
                 noteId
             });
         }
+
+        public async Task AddReaction(string noteId, string reaction)
+        {
+            await base.PostAsync<object>("notes/reactions/create", new
+            {
+                i = misskeyApi.AccessToken,
+                detail = false,
+                noteId,
+                reaction
+            });
+        }
+
+        public async Task RemoveReaction(string noteId)
+        {
+            await base.PostAsync<object>("notes/reactions/delete", new
+            {
+                i = misskeyApi.AccessToken,
+                detail = false,
+                noteId
+            });
+        }
     }
 }
