@@ -40,6 +40,37 @@ namespace Twitter.Tests
             }
         }
 
+        [Fact(DisplayName = "認証＆ツイート＆削除テスト")]
+        public async Task PostAndDeleteTweet()
+        {
+            // 認証
+            await client.StartAsync();
+
+            // ツイート（テキスト）
+            var tweet = await client.Tweet("APIからツイートテスト");
+            if(tweet is null)
+            {
+                Assert.Fail("Tweetオブジェクトが null");
+                return;
+            }
+            output.WriteLine("ツイートID : {0}", tweet.ID);
+
+            if(tweet.ID is null)
+            {
+                Assert.Fail("Tweet.IDが null");
+                return;
+            }
+
+            // 3秒待機
+            await Task.Delay(3000);
+
+            // 先ほどのツイートを削除
+            var response = await client.DeleteTweet(tweet.ID);
+
+            // 停止
+            await client.EndAsync();
+        }
+
         public void Dispose()
         {
             client.Dispose();
