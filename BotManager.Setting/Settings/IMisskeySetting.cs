@@ -6,10 +6,20 @@ using System.Threading.Tasks;
 
 namespace BotManager.Setting.Settings
 {
+    /// <summary>
+    /// Misskey Bot設定スキーマ
+    /// </summary>
     public interface IMisskeySetting
     {
+        /// <summary>
+        /// 認証
+        /// </summary>
+        IMisskeyCertification Certificate { get; }
     }
 
+    /// <summary>
+    /// Misskey Bot認証スキーマ
+    /// </summary>
     public interface IMisskeyCertification
     {
         /// <summary>
