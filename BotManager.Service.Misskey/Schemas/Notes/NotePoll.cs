@@ -5,13 +5,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BotManager.Service.Misskey.Schemas
+namespace BotManager.Service.Misskey.Schemas.Notes
 {
     /// <summary>
     /// 投票
     /// </summary>
     [JsonObject("poll")]
-    public sealed class NotePoll
+    public sealed class Poll
     {
         /// <summary>
         /// 選択肢
@@ -38,13 +38,13 @@ namespace BotManager.Service.Misskey.Schemas
         public int? ExpiredAfter { get; private set; }
 
         /// <summary>
-        /// <see cref="NotePoll"/>オブジェクトを作成します。
+        /// <see cref="Poll"/>オブジェクトを作成します。
         /// </summary>
         /// <param name="choices">選択肢</param>
         /// <param name="multiple">trueにすると、複数選択を許容します。</param>
         /// <param name="expiresAt">投票の締め切り。エポック秒で指定します。</param>
         /// <param name="expiredAfter">指定すると、ノート作成からexpiredAfter秒後に投票を締め切ります。expiresAtと併せて指定した場合、expiresAtが優先されます。</param>
-        public NotePoll(IEnumerable<string> choices, bool multiple, int? expiresAt = null, int? expiredAfter = null)
+        public Poll(IEnumerable<string> choices, bool multiple, int? expiresAt = null, int? expiredAfter = null)
         {
             Choices = choices;
             Multiple = multiple;

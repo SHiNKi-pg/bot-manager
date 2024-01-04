@@ -1,4 +1,5 @@
 ﻿using BotManager.Service.Misskey.Schemas;
+using BotManager.Service.Misskey.Schemas.Notes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -71,7 +72,7 @@ namespace BotManager.Service.Misskey.Api
             string? replyId = null, 
             string? renoteId = null, 
             string? channelId = null, 
-            NotePoll? poll = null)
+            Poll? poll = null)
         {
             return await base.PostAsync<Note>("notes/create", new
             {
