@@ -98,5 +98,41 @@ namespace BotManager.Common.Mutex
         {
             return WaitAsync(mutexName, () => Task.CompletedTask, cancellationToken);
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="mutexName">ミューテックス名</param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        /// <exception cref="TaskCanceledException"></exception>
+        public static async Task<IAsyncDisposable> LockAsync(string mutexName, CancellationToken cancellationToken)
+        {
+            IAsyncMutex mutex = new AsyncMutex(mutexName);
+            try
+            {
+                await mutex.AcquireAsync(cancellationToken);
+
+                var asyncDisposable = AsyncDisposable.Create(mutex, async m =>
+                {
+                    try
+                    {
+                        // 呼び出し元でDisposeAsyncを呼んでミューテックスを解放する
+                        await m.ReleaseAsync();
+                    }
+                    finally
+                    {
+                        // 確実にDisposeAsyncが呼ばれるようにする
+                        await m.DisposeAsync();
+                    }
+                });
+                return asyncDisposable;
+            }
+            catch (Exception)
+            {
+                await mutex.DisposeAsync();
+                throw;
+            }
+        }
     }
 }
