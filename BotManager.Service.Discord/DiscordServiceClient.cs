@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reactive;
 using System.Reactive.Linq;
+using System.Reactive.Subjects;
 using System.Text;
 using System.Threading.Tasks;
 using BotManager.Service.Discord.Extensions;
@@ -54,6 +56,26 @@ namespace BotManager.Service.Discord
                 h => client.MessageReceived += h,
                 h => client.MessageReceived -= h
                 );
+
+        /// <summary>
+        /// ログインした時に通知されます。
+        /// </summary>
+        public IObservable<Unit> LoggedIn =>
+            Observable.FromEvent<Func<Task>, Unit>(
+                h => () => { h(Unit.Default); return Task.CompletedTask; },
+                h => client.LoggedIn += h,
+                h => client.LoggedIn -= h
+                );
+
+        /// <summary>
+        /// ログアウトした時に通知されます。
+        /// </summary>
+        public IObservable<Unit> LoggedOut =>
+            Observable.FromEvent<Func<Task>, Unit>(
+                h => () => { h(Unit.Default); return Task.CompletedTask; },
+                h => client.LoggedOut += h,
+                h => client.LoggedOut -= h
+                );
         #endregion
 
         #region Properties
@@ -70,9 +92,13 @@ namespace BotManager.Service.Discord
         /// <returns></returns>
         public async Task StartAsync()
         {
-            await client.StartAsync();
-            await client.LoginAsync(TokenType.Bot, token);
-            await client.SetStatusAsync(UserStatus.Online);
+            using (ReplaySubject<Unit> subject = new(1))
+            {
+                LoggedIn.Take(1).Subscribe(subject);
+                await client.StartAsync();
+                await client.LoginAsync(TokenType.Bot, token);
+                await subject;
+            }
         }
 
         /// <summary>
