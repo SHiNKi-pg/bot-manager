@@ -57,5 +57,39 @@ namespace BotManager.Service.Misskey.Api
             });
         }
         #endregion
+
+        public async Task<Note> CreateNote(string visibility = "public", 
+            IEnumerable<string>? visibleUserIds = null, 
+            string? text = null, 
+            string? cw = null, 
+            bool localOnly = false, 
+            bool noExtractMentions = false, 
+            bool noExtractHashtags = false, 
+            bool noExtractEmojis = false, 
+            IEnumerable<string>? fileIds = null, 
+            IEnumerable<string>? mediaIds = null, 
+            string? replyId = null, 
+            string? renoteId = null, 
+            string? channelId = null, 
+            NotePoll? poll = null)
+        {
+            return await base.PostAsync<Note>("notes/create", new
+            {
+                i = misskeyApi.AccessToken,
+                detail = false,
+                visibility, visibleUserIds, text, cw, localOnly,
+                noExtractMentions, noExtractHashtags, noExtractEmojis, fileIds, mediaIds, replyId, renoteId, channelId, poll
+            });
+        }
+
+        public async Task<IEnumerable<Note>> GetChildren(string noteId, int? limit = 10, string? sinceId = null, string? untilId = null)
+        {
+            return await base.PostAsync<IEnumerable<Note>>("notes/children", new
+            {
+                i = misskeyApi.AccessToken,
+                detail = false,
+                noteId, limit, sinceId, untilId
+            });
+        }
     }
 }

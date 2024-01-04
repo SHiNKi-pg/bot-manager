@@ -36,7 +36,7 @@ namespace Misskey.Tests.API
             }
         }
 
-        [Fact]
+        [Fact(DisplayName = "ノート情報取得")]
         public async Task GetNotesTest()
         {
             try
@@ -47,6 +47,21 @@ namespace Misskey.Tests.API
                 {
                     output.WriteLine(note.Text);
                 }
+            }
+            catch (Exception ex)
+            {
+                Assert.Fail(ex.Message);
+            }
+        }
+
+        [Fact(DisplayName = "ノート投稿テスト")]
+        public async Task PostNoteAsync()
+        {
+            try
+            {
+                var api = client.GetMisskeyHttpApiClient();
+                var note = await api.Notes.CreateNote(text: "APIで投稿テスト");
+                output.WriteLine("ノートID : {0}", note.Id);
             }
             catch (Exception ex)
             {
