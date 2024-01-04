@@ -102,5 +102,14 @@ namespace BotManager.Service.Misskey.Api
         /// <returns></returns>
         Task DeleteNote(string noteId);
         #endregion
+
+        #region notes/show
+        /// <summary>
+        /// ノートを取得します。
+        /// </summary>
+        /// <param name="noteId">ノートのid。</param>
+        /// <returns></returns>
+        Task<Note> ShowNote(string noteId);
+        #endregion
     }
 }

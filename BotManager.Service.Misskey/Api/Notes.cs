@@ -102,5 +102,15 @@ namespace BotManager.Service.Misskey.Api
                 noteId
             });
         }
+
+        public async Task<Note> ShowNote(string noteId)
+        {
+            return await base.PostAsync<Note>("notes/show", new
+            {
+                i = misskeyApi.AccessToken,
+                detail = false,
+                noteId
+            });
+        }
     }
 }
