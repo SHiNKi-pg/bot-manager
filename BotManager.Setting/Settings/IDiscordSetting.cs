@@ -15,6 +15,11 @@ namespace BotManager.Setting.Settings
         /// 認証
         /// </summary>
         IDiscordCertification Certificate { get; }
+
+        /// <summary>
+        /// メインで動作するサーバーID
+        /// </summary>
+        ulong MainGuildId { get; }
     }
 
     /// <summary>
@@ -34,6 +39,8 @@ namespace BotManager.Setting.Settings
         public DiscordCertification Certification { get; set; }
 
         public IDiscordCertification Certificate { get => Certification; }
+
+        public ulong MainGuildId { get; set; }
     }
 
     internal class DiscordCertification : IDiscordCertification
