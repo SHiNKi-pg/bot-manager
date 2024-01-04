@@ -46,6 +46,13 @@ namespace BotManager.Service.Discord
                 );
         #endregion
 
+        #region Properties
+        /// <summary>
+        /// 現在のオンライン状態を取得します。
+        /// </summary>
+        public UserStatus Status => client.Status;
+        #endregion
+
         #region Method
         /// <summary>
         /// 開始してログインします
@@ -55,6 +62,7 @@ namespace BotManager.Service.Discord
         {
             await client.StartAsync();
             await client.LoginAsync(TokenType.Bot, token);
+            await client.SetStatusAsync(UserStatus.Online);
         }
 
         /// <summary>
@@ -63,6 +71,7 @@ namespace BotManager.Service.Discord
         /// <returns></returns>
         public async Task EndAsync()
         {
+            await client.SetStatusAsync(UserStatus.Invisible);
             await client.LogoutAsync();
             await client.StopAsync();
         }
@@ -75,6 +84,16 @@ namespace BotManager.Service.Discord
         public IWrappedGuild<SocketGuild> GetGuild(ulong guildId)
         {
             return client.GetGuild(guildId).ToWrappedGuild();
+        }
+
+        /// <summary>
+        /// オンライン状態を変更します。
+        /// </summary>
+        /// <param name="status"></param>
+        /// <returns></returns>
+        public async Task SetUserStatus(UserStatus status)
+        {
+            await client.SetStatusAsync(status);
         }
         #endregion
 

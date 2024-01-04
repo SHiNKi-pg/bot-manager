@@ -1,5 +1,6 @@
 ﻿using BotManager.Common;
 using BotManager.Service.Discord.Wrapper;
+using Discord;
 using Discord.WebSocket;
 using System;
 using System.Collections.Generic;
@@ -20,5 +21,17 @@ namespace BotManager.Service.Discord
         /// <param name="guildId">サーバーID</param>
         /// <returns></returns>
         IWrappedGuild<SocketGuild> GetGuild(ulong guildId);
+
+        /// <summary>
+        /// 現在のオンライン状態を取得します。
+        /// </summary>
+        UserStatus Status { get; }
+
+        /// <summary>
+        /// オンライン状態を変更します。
+        /// </summary>
+        /// <param name="status"></param>
+        /// <returns></returns>
+        Task SetUserStatus(UserStatus status);
     }
 }
