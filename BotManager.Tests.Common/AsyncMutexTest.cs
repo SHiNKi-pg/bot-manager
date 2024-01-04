@@ -17,7 +17,7 @@ namespace BotManager.Tests.Common
             this.output = output;
         }
 
-        [Fact]
+        [Fact(DisplayName = "ミューテックス名同名（排他制御）")]
         public async Task MultiThread_SameName()
         {
             List<int> list = new();
@@ -46,7 +46,7 @@ namespace BotManager.Tests.Common
             Assert.Equal(list.AsEnumerable(), new int[] { 1, 2, 3, 4});
         }
 
-        [Fact]
+        [Fact(DisplayName = "ミューテックス名別名")]
         public async Task MultiThread()
         {
             List<int> list = new();
@@ -71,6 +71,46 @@ namespace BotManager.Tests.Common
             await Task.WhenAll(task1, task2);
             output.WriteLine("Task Await End");
             Assert.Equal(list.AsEnumerable(), new int[] { 2, 1});
+        }
+
+        [Fact(DisplayName = "途中キャンセル")]
+        public async Task CancelThread()
+        {
+            using (CancellationTokenSource cts = new CancellationTokenSource())
+            {
+                var task1 = MutexUtility.WaitAsync("test_3_A", async ct =>
+                {
+                    output.WriteLine("Task1 Start");
+                    await Task.Delay(2000);
+                    output.WriteLine("Task1 End");
+                }, cts.Token);
+
+                var task2 = MutexUtility.WaitAsync("test_3_A", async ct =>
+                {
+                    output.WriteLine("Task2 Start");
+                    await Task.Delay(1000);
+
+                    // キャンセル
+                    cts.Cancel();
+                    output.WriteLine("Task2 End");
+                }, cts.Token);
+
+                var task3 = MutexUtility.WaitAsync("test_3_A", async ct =>
+                {
+                    Assert.Fail("キャンセルしているので実行されないはず");
+                    output.WriteLine("Task3 Start");
+                    await Task.Delay(3000);
+                    output.WriteLine("Task3 End");
+                }, cts.Token);
+
+                output.WriteLine("Task Await Start");
+                await Task.WhenAll(task1, task2, task3);
+                output.WriteLine("Task Await End");
+
+                Assert.True(await task1, "Task1は実行されている");
+                Assert.False(await task2, "Task2は途中でキャンセルしているのでFalseになるはず");
+                Assert.False(await task3, "Task3は実行されていないはず");
+            }
         }
     }
 }
