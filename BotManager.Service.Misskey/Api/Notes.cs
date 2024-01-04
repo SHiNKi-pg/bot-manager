@@ -10,7 +10,7 @@ namespace BotManager.Service.Misskey.Api
     /// <summary>
     /// ノート関連のAPI
     /// </summary>
-    public class Notes : MisskeyApiBase, INotes
+    internal class Notes : MisskeyApiBase, INotes
     {
         #region Constructor
         internal Notes(MisskeyApi misskeyApi) : base(misskeyApi)
@@ -56,6 +56,6 @@ namespace BotManager.Service.Misskey.Api
                 untilId
             });
         }
-            #endregion
+        #endregion
     }
 }
