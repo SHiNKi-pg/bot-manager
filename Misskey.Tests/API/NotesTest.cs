@@ -22,6 +22,20 @@ namespace Misskey.Tests.API
             client = new(certification.Host, certification.AccessToken);
         }
 
+        [Fact(DisplayName = "設定ファイルからの取得テスト")]
+        public void MisskeyBotSettingTest()
+        {
+            var bots = AppSettings.Bots;
+            foreach (var bot in bots)
+            {
+                var misskey = bot.MisskeySetting;
+                if (misskey != null)
+                {
+                    output.WriteLine("BotId : {0}, Host : {1}, Token : {2}", bot.Id, misskey.Certificate.Host, misskey.Certificate.AccessToken);
+                }
+            }
+        }
+
         [Fact]
         public async Task GetNotesTest()
         {
