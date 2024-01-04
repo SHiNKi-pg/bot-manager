@@ -59,7 +59,7 @@ namespace BotManager.Service.Misskey.Api
         }
         #endregion
 
-        public async Task<Note> CreateNote(string visibility = "public", 
+        public async Task<CreatedNote> CreateNote(string visibility = "public", 
             IEnumerable<string>? visibleUserIds = null, 
             string? text = null, 
             string? cw = null, 
@@ -74,7 +74,7 @@ namespace BotManager.Service.Misskey.Api
             string? channelId = null, 
             Poll? poll = null)
         {
-            return await base.PostAsync<Note>("notes/create", new
+            return await base.PostAsync<CreatedNote>("notes/create", new
             {
                 i = misskeyApi.AccessToken,
                 detail = false,

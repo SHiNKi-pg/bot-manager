@@ -76,7 +76,7 @@ namespace BotManager.Service.Misskey.Api
         /// <param name="channelId">投稿先のチャンネルのid。</param>
         /// <param name="poll">投票に関するパラメータ。</param>
         /// <returns>作成されたノート</returns>
-        Task<Note> CreateNote(
+        Task<CreatedNote> CreateNote(
             string visibility = MisskeyVisibility.PUBLIC,
             IEnumerable<string>? visibleUserIds = null,
             string? text = null,

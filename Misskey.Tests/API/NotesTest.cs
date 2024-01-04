@@ -61,7 +61,7 @@ namespace Misskey.Tests.API
             {
                 var api = client.GetMisskeyHttpApiClient();
                 var note = await api.Notes.CreateNote(text: "APIで投稿テスト");
-                output.WriteLine("ノートID : {0}", note.Id);
+                output.WriteLine("ノートID : {0}", note.Note.Id);
             }
             catch (Exception ex)
             {
