@@ -46,6 +46,7 @@ namespace Misskey.Tests.API
                 foreach(var note in notes)
                 {
                     output.WriteLine(note.Text);
+                    Assert.False(string.IsNullOrEmpty(note.Id), "取得したノートのIDは取得できるはず");
                 }
             }
             catch (Exception ex)
@@ -60,8 +61,10 @@ namespace Misskey.Tests.API
             try
             {
                 var api = client.GetMisskeyHttpApiClient();
-                var note = await api.Notes.CreateNote(text: "APIで投稿テスト");
+                var note = await api.Notes.CreateNote(text: "APIで投稿テスト\n" + DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss"));
                 output.WriteLine("ノートID : {0}", note.Note.Id);
+
+                Assert.False(string.IsNullOrEmpty(note.Note.Id), "作成したノートのIDは取得できるはず");
             }
             catch (Exception ex)
             {
