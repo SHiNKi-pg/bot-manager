@@ -93,5 +93,14 @@ namespace BotManager.Service.Misskey.Api
             Poll? poll = null
             );
         #endregion
+
+        #region notes/delete
+        /// <summary>
+        /// ノートを削除します。
+        /// </summary>
+        /// <param name="noteId">削除するノートのID</param>
+        /// <returns></returns>
+        Task DeleteNote(string noteId);
+        #endregion
     }
 }

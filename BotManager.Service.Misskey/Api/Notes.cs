@@ -92,5 +92,15 @@ namespace BotManager.Service.Misskey.Api
                 noteId, limit, sinceId, untilId
             });
         }
+
+        public async Task DeleteNote(string noteId)
+        {
+            await base.PostAsync<object>("notes/delete", new
+            {
+                i = misskeyApi.AccessToken,
+                detail = false,
+                noteId
+            });
+        }
     }
 }

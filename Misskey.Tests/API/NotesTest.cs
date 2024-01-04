@@ -55,16 +55,22 @@ namespace Misskey.Tests.API
             }
         }
 
-        [Fact(DisplayName = "ノート投稿テスト")]
+        [Fact(DisplayName = "ノート投稿＆削除テスト")]
         public async Task PostNoteAsync()
         {
             try
             {
                 var api = client.GetMisskeyHttpApiClient();
                 var note = await api.Notes.CreateNote(text: "APIで投稿テスト\n" + DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss"));
-                output.WriteLine("ノートID : {0}", note.Note.Id);
 
-                Assert.False(string.IsNullOrEmpty(note.Note.Id), "作成したノートのIDは取得できるはず");
+                string noteId = note.Note.Id;
+                output.WriteLine("ノートID : {0}", noteId);
+
+                Assert.False(string.IsNullOrEmpty(noteId), "作成したノートのIDは取得できるはず");
+
+                // 3秒後、投稿したノートの削除
+                await Task.Delay(3000);
+                await api.Notes.DeleteNote(noteId);
             }
             catch (Exception ex)
             {
