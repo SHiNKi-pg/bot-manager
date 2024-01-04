@@ -99,6 +99,8 @@ namespace BotManager.Service.Discord
                 await client.LoginAsync(TokenType.Bot, token);
                 await subject;
             }
+            // 認証してから3秒間は待機しないとなぜかサーバー取得に失敗する
+            await Task.Delay(3000);
         }
 
         /// <summary>
