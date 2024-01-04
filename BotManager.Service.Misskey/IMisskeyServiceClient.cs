@@ -12,5 +12,10 @@ namespace BotManager.Service.Misskey
     /// </summary>
     public interface IMisskeyServiceClient : IServiceClient, IMisskeyEventNotifier
     {
+        /// <summary>
+        /// Misskey HTTP APIにアクセスするオブジェクトを返します。
+        /// </summary>
+        /// <returns></returns>
+        IMisskeyApi GetMisskeyHttpApiClient();
     }
 }

@@ -70,6 +70,47 @@ namespace BotManager.Service.Twitter
         }
         #endregion
 
+        #region API
+        /// <summary>
+        /// 指定したテキストをツイートします。
+        /// </summary>
+        /// <param name="text">ツイート本文</param>
+        /// <returns></returns>
+        public async Task<Tweet?> Tweet(string text)
+        {
+            return await twitterContext.TweetAsync(text);
+        }
+
+        /// <summary>
+        /// 指定したテキストと添付ファイルをツイートします。
+        /// </summary>
+        /// <param name="text">ツイート本文</param>
+        /// <param name="mediaBytes">メディアデータ</param>
+        /// <param name="mediaType">メディアタイプ</param>
+        /// <param name="mediaCategory">メディアカテゴリ</param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentException"></exception>
+        public async Task<Tweet?> Tweet(string text, byte[] mediaBytes, string mediaType, string mediaCategory)
+        {
+            var media = await twitterContext.UploadMediaAsync(mediaBytes, mediaType, mediaCategory);
+            if(media != null)
+            {
+                throw new ArgumentException("Mediaが nullです");
+            }
+            return await twitterContext.TweetMediaAsync(text, new string[] { media!.MediaID.ToString() });
+        }
+
+        /// <summary>
+        /// 指定したIDのツイートを削除します。
+        /// </summary>
+        /// <param name="tweetId">ツイートID</param>
+        /// <returns></returns>
+        public async Task<TweetDeletedResponse?> DeleteTweet(string tweetId)
+        {
+            return await twitterContext.DeleteTweetAsync(tweetId);
+        }
+        #endregion
+
         #region Disposal
         /// <summary>
         /// 

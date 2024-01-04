@@ -1,4 +1,5 @@
 ﻿using BotManager.Service.Misskey.Schemas;
+using BotManager.Service.Misskey.Schemas.Notes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +11,7 @@ namespace BotManager.Service.Misskey.Api
     /// <summary>
     /// ノート関連のAPI
     /// </summary>
-    public class Notes : MisskeyApiBase
+    internal class Notes : MisskeyApiBase, INotes
     {
         #region Constructor
         internal Notes(MisskeyApi misskeyApi) : base(misskeyApi)
@@ -56,6 +57,81 @@ namespace BotManager.Service.Misskey.Api
                 untilId
             });
         }
-            #endregion
+        #endregion
+
+        public async Task<CreatedNote> CreateNote(string visibility = "public", 
+            IEnumerable<string>? visibleUserIds = null, 
+            string? text = null, 
+            string? cw = null, 
+            bool localOnly = false, 
+            bool noExtractMentions = false, 
+            bool noExtractHashtags = false, 
+            bool noExtractEmojis = false, 
+            IEnumerable<string>? fileIds = null, 
+            IEnumerable<string>? mediaIds = null, 
+            string? replyId = null, 
+            string? renoteId = null, 
+            string? channelId = null, 
+            Poll? poll = null)
+        {
+            return await base.PostAsync<CreatedNote>("notes/create", new
+            {
+                i = misskeyApi.AccessToken,
+                detail = false,
+                visibility, visibleUserIds, text, cw, localOnly,
+                noExtractMentions, noExtractHashtags, noExtractEmojis, fileIds, mediaIds, replyId, renoteId, channelId, poll
+            });
+        }
+
+        public async Task<IEnumerable<Note>> GetChildren(string noteId, int? limit = 10, string? sinceId = null, string? untilId = null)
+        {
+            return await base.PostAsync<IEnumerable<Note>>("notes/children", new
+            {
+                i = misskeyApi.AccessToken,
+                detail = false,
+                noteId, limit, sinceId, untilId
+            });
+        }
+
+        public async Task DeleteNote(string noteId)
+        {
+            await base.PostAsync<object>("notes/delete", new
+            {
+                i = misskeyApi.AccessToken,
+                detail = false,
+                noteId
+            });
+        }
+
+        public async Task<Note> ShowNote(string noteId)
+        {
+            return await base.PostAsync<Note>("notes/show", new
+            {
+                i = misskeyApi.AccessToken,
+                detail = false,
+                noteId
+            });
+        }
+
+        public async Task AddReaction(string noteId, string reaction)
+        {
+            await base.PostAsync<object>("notes/reactions/create", new
+            {
+                i = misskeyApi.AccessToken,
+                detail = false,
+                noteId,
+                reaction
+            });
+        }
+
+        public async Task RemoveReaction(string noteId)
+        {
+            await base.PostAsync<object>("notes/reactions/delete", new
+            {
+                i = misskeyApi.AccessToken,
+                detail = false,
+                noteId
+            });
+        }
     }
 }

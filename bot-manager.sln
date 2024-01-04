@@ -35,9 +35,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BotManager.Reactive.Json", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BotManager.Database", "BotManager.Database\BotManager.Database.csproj", "{172D0FA0-B283-4297-9B9C-1DB7E4E7216B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BotManager.Setting", "BotManager.Setting\BotManager.Setting.csproj", "{A439AA85-301A-4E08-8F08-ED40F3A93D2E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BotManager.Setting", "BotManager.Setting\BotManager.Setting.csproj", "{A439AA85-301A-4E08-8F08-ED40F3A93D2E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BotManager.Setting.Test", "BotManager.Setting.Test\BotManager.Setting.Test.csproj", "{EC36D2EE-D4D6-4271-B820-D6E4A7B180D0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BotManager.Setting.Test", "BotManager.Setting.Test\BotManager.Setting.Test.csproj", "{EC36D2EE-D4D6-4271-B820-D6E4A7B180D0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{7E56B339-BC8D-424F-8F7C-68943F92D31D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Misskey.Tests", "Misskey.Tests\Misskey.Tests.csproj", "{0F51A545-B0B7-46FC-A313-7CB84F385409}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Twitter.Tests", "Twitter.Tests\Twitter.Tests.csproj", "{A3D324E4-C13F-4520-9E1D-C008798F069D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -105,6 +111,14 @@ Global
 		{EC36D2EE-D4D6-4271-B820-D6E4A7B180D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EC36D2EE-D4D6-4271-B820-D6E4A7B180D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EC36D2EE-D4D6-4271-B820-D6E4A7B180D0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0F51A545-B0B7-46FC-A313-7CB84F385409}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0F51A545-B0B7-46FC-A313-7CB84F385409}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0F51A545-B0B7-46FC-A313-7CB84F385409}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0F51A545-B0B7-46FC-A313-7CB84F385409}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A3D324E4-C13F-4520-9E1D-C008798F069D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A3D324E4-C13F-4520-9E1D-C008798F069D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A3D324E4-C13F-4520-9E1D-C008798F069D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A3D324E4-C13F-4520-9E1D-C008798F069D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -116,6 +130,9 @@ Global
 		{37D3E5B8-A345-43F8-9318-BC674C94D782} = {47EE59C4-08D2-4B93-AD3B-68D6C2CB4DAE}
 		{BD71369D-33CD-42D5-BF26-8BA1C52CDE3B} = {EB74C6FC-FC0C-4185-90D5-B86E42F2AF3E}
 		{EC8595C4-F5F8-45C2-BD28-B0835B496449} = {2759ECCC-1841-473D-BD88-DD8BA06A9E28}
+		{7E56B339-BC8D-424F-8F7C-68943F92D31D} = {2759ECCC-1841-473D-BD88-DD8BA06A9E28}
+		{0F51A545-B0B7-46FC-A313-7CB84F385409} = {7E56B339-BC8D-424F-8F7C-68943F92D31D}
+		{A3D324E4-C13F-4520-9E1D-C008798F069D} = {7E56B339-BC8D-424F-8F7C-68943F92D31D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {14DEB328-F00E-4E18-B492-EA3C6F66ECEC}
