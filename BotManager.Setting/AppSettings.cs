@@ -41,10 +41,27 @@ namespace BotManager.Engine
         /// </summary>
         public static IDatabase Database { get; }
 
+        /// <summary>
+        /// Botスクリプトリポジトリ
+        /// </summary>
         public static IScript Script { get; }
 
+        /// <summary>
+        /// Bot設定
+        /// </summary>
         public static IEnumerable<IBotSetting> Bots { get; }
 
+        #endregion
+
+        #region static method
+        /// <summary>
+        /// Bot辞書
+        /// </summary>
+        /// <returns></returns>
+        public static IReadOnlyDictionary<string, IBotSetting> GetBotDictionary()
+        {
+            return Bots.ToDictionary(bot => bot.Id);
+        }
         #endregion
     }
 }
