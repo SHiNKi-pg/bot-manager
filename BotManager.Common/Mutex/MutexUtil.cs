@@ -87,5 +87,16 @@ namespace BotManager.Common.Mutex
         {
             return WaitAsync(mutexName, action, CancellationToken.None);
         }
+
+        /// <summary>
+        /// ミューテックスが解放されるまで待機します。
+        /// </summary>
+        /// <param name="mutexName">ミューテックス名</param>
+        /// <param name="cancellationToken"></param>
+        /// <returns>途中でキャンセルが要求された場合は true、それ以外はfalse。</returns>
+        public static Task<bool> WaitAsync(string mutexName, CancellationToken cancellationToken)
+        {
+            return WaitAsync(mutexName, () => Task.CompletedTask, cancellationToken);
+        }
     }
 }
