@@ -45,6 +45,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Misskey.Tests", "Misskey.Te
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Twitter.Tests", "Twitter.Tests\Twitter.Tests.csproj", "{A3D324E4-C13F-4520-9E1D-C008798F069D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Discord.Tests", "Discord.Tests\Discord.Tests.csproj", "{9EA8685E-36F7-4CA8-BB2F-CE8612E34DC0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -119,6 +121,10 @@ Global
 		{A3D324E4-C13F-4520-9E1D-C008798F069D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A3D324E4-C13F-4520-9E1D-C008798F069D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A3D324E4-C13F-4520-9E1D-C008798F069D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9EA8685E-36F7-4CA8-BB2F-CE8612E34DC0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9EA8685E-36F7-4CA8-BB2F-CE8612E34DC0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9EA8685E-36F7-4CA8-BB2F-CE8612E34DC0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9EA8685E-36F7-4CA8-BB2F-CE8612E34DC0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -133,6 +139,7 @@ Global
 		{7E56B339-BC8D-424F-8F7C-68943F92D31D} = {2759ECCC-1841-473D-BD88-DD8BA06A9E28}
 		{0F51A545-B0B7-46FC-A313-7CB84F385409} = {7E56B339-BC8D-424F-8F7C-68943F92D31D}
 		{A3D324E4-C13F-4520-9E1D-C008798F069D} = {7E56B339-BC8D-424F-8F7C-68943F92D31D}
+		{9EA8685E-36F7-4CA8-BB2F-CE8612E34DC0} = {7E56B339-BC8D-424F-8F7C-68943F92D31D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {14DEB328-F00E-4E18-B492-EA3C6F66ECEC}
