@@ -20,7 +20,6 @@
     <ProjectReference Include="..\BotManager.Service.Discord\BotManager.Service.Discord.csproj" />
     <ProjectReference Include="..\BotManager.Service.Misskey\BotManager.Service.Misskey.csproj" />
     <ProjectReference Include="..\BotManager.Service.Twitter\BotManager.Service.Twitter.csproj" />
-    <ProjectReference Include="..\BotManager.Setting\BotManager.Setting.csproj" />
     <ProjectReference Include="..\BotManager.Web\BotManager.Common.Web.csproj" />
   </ItemGroup>
 
