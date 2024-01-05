@@ -28,5 +28,10 @@ namespace BotManager.Service.Discord
         /// ログアウトした時に通知されます。
         /// </summary>
         IObservable<Unit> LoggedOut { get; }
+
+        /// <summary>
+        /// サーバーデータが取得できた時に通知されます。
+        /// </summary>
+        IObservable<Unit> Ready { get; }
     }
 }

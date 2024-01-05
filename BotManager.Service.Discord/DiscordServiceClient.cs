@@ -76,6 +76,16 @@ namespace BotManager.Service.Discord
                 h => client.LoggedOut += h,
                 h => client.LoggedOut -= h
                 );
+
+        /// <summary>
+        /// サーバーデータが取得できた時に通知されます。
+        /// </summary>
+        public IObservable<Unit> Ready =>
+            Observable.FromEvent<Func<Task>, Unit>(
+                h => () => { h(Unit.Default); return Task.CompletedTask; },
+                h => client.Ready += h,
+                h => client.Ready -= h
+                );
         #endregion
 
         #region Properties
@@ -94,13 +104,12 @@ namespace BotManager.Service.Discord
         {
             using (ReplaySubject<Unit> subject = new(1))
             {
-                LoggedIn.Take(1).Subscribe(subject);
+                Ready.Take(1).Subscribe(subject);
                 await client.StartAsync();
                 await client.LoginAsync(TokenType.Bot, token);
+                // 準備完了するまで待機する
                 await subject;
             }
-            // 認証してから3秒間は待機しないとなぜかサーバー取得に失敗する
-            await Task.Delay(3000);
         }
 
         /// <summary>
