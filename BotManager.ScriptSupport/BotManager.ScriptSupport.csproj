@@ -1,0 +1,27 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <Authors>SHINKI</Authors>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <PackageOutputPath>..\Nuget\$(Configuration)\</PackageOutputPath>
+    <Description>BotManagerスクリプト作成支援用パッケージ。
+これをインストールすると開発に必要なパッケージが全てインストールされます。</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BotManager.Common\BotManager.Common.csproj" />
+    <ProjectReference Include="..\BotManager.Database\BotManager.Database.csproj" />
+    <ProjectReference Include="..\BotManager.Notifiers.EarthquakeMonitor\BotManager.Notifiers.EarthquakeMonitor.csproj" />
+    <ProjectReference Include="..\BotManager.Reactive.Json\BotManager.Reactive.Json.csproj" />
+    <ProjectReference Include="..\BotManager.Reactive\BotManager.Reactive.csproj" />
+    <ProjectReference Include="..\BotManager.Service.Discord\BotManager.Service.Discord.csproj" />
+    <ProjectReference Include="..\BotManager.Service.Misskey\BotManager.Service.Misskey.csproj" />
+    <ProjectReference Include="..\BotManager.Service.Twitter\BotManager.Service.Twitter.csproj" />
+    <ProjectReference Include="..\BotManager.Setting\BotManager.Setting.csproj" />
+    <ProjectReference Include="..\BotManager.Web\BotManager.Common.Web.csproj" />
+  </ItemGroup>
+
+</Project>
