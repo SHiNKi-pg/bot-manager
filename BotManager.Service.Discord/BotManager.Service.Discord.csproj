@@ -5,6 +5,9 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <PackageOutputPath>..\Nuget\$(Configuration)\</PackageOutputPath>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <Authors>SHINKI</Authors>
   </PropertyGroup>
 
   <ItemGroup>
