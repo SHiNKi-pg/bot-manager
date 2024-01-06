@@ -53,6 +53,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Git.Tests", "Git.Tests\Git.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BotManager.ScriptSupport", "BotManager.ScriptSupport\BotManager.ScriptSupport.csproj", "{1F08D4A3-27F5-4021-AB4A-A9711E9D4804}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BotManager.Tests.Database", "BotManager.Tests.Database\BotManager.Tests.Database.csproj", "{0FFBCE6A-0306-48BF-9A63-2CDFE6D946C9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -143,6 +145,10 @@ Global
 		{1F08D4A3-27F5-4021-AB4A-A9711E9D4804}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1F08D4A3-27F5-4021-AB4A-A9711E9D4804}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1F08D4A3-27F5-4021-AB4A-A9711E9D4804}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0FFBCE6A-0306-48BF-9A63-2CDFE6D946C9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0FFBCE6A-0306-48BF-9A63-2CDFE6D946C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0FFBCE6A-0306-48BF-9A63-2CDFE6D946C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0FFBCE6A-0306-48BF-9A63-2CDFE6D946C9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -160,6 +166,7 @@ Global
 		{9EA8685E-36F7-4CA8-BB2F-CE8612E34DC0} = {7E56B339-BC8D-424F-8F7C-68943F92D31D}
 		{43BE38E0-E55A-4EC1-8027-EE65976AAB11} = {47EE59C4-08D2-4B93-AD3B-68D6C2CB4DAE}
 		{291446C3-D40A-43E1-9B6D-542FBA490BA3} = {7E56B339-BC8D-424F-8F7C-68943F92D31D}
+		{0FFBCE6A-0306-48BF-9A63-2CDFE6D946C9} = {2759ECCC-1841-473D-BD88-DD8BA06A9E28}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {14DEB328-F00E-4E18-B492-EA3C6F66ECEC}
