@@ -37,6 +37,7 @@ namespace Git.Tests
             {
                 // プル
                 var result = repos.Pull(gitSetting.UserName, gitSetting.Email);
+                output.WriteLine("プル結果 : {0}", result);
                 Assert.True(result != LibGit2Sharp.MergeStatus.Conflicts, "コンフリクトが発生しています。");
 
                 // ディレクトリ名

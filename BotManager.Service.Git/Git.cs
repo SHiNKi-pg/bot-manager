@@ -34,7 +34,8 @@ namespace BotManager.Service.Git
             if(Directory.Exists(path))
             {
                 // ディレクトリが存在していればそのリポジトリを返す
-                var repositry = new Repository(repositryPath);
+                // NOTE: Repositryコンストラクタにはローカルのディレクトリを入れる
+                var repositry = new Repository(path);
                 IGitRepositry gitRepositry = new GitRepository(repositry, path);
                 return gitRepositry;
             }
