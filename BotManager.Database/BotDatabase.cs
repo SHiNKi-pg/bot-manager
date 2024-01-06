@@ -10,7 +10,7 @@ namespace BotManager.Database
     /// <summary>
     /// データベースクラス
     /// </summary>
-    public static class Database
+    public static class BotDatabase
     {
         /// <summary>
         /// 予め設定されたデータベースへ接続します。
