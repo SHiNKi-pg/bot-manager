@@ -2,6 +2,7 @@
 using BotManager.Common.Scripting;
 using BotManager.Common.Scripting.Attributes;
 using BotManager.Service.Compiler;
+using BotManager.Service.Git;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -102,10 +103,22 @@ namespace BotManager.Engine
         }
         #endregion
 
-        public Task Start()
+        public async Task Start()
         {
-            // TODO: 開始した時に行う処理
-            throw new NotImplementedException();
+            // Gitリポジトリからスクリプトファイルを取得
+            var directory = GitPullAndGetDirectory();
+
+            // コンパイル(C#)
+            await compiler.CompileFrom(directory, "*.cs");
+        }
+
+        private DirectoryInfo GitPullAndGetDirectory()
+        {
+            var setting = AppSettings.Script;
+            using(var repos = Git.GetOrClone(setting.RepositoryUrl, setting.Path))
+            {
+                return repos.LocalDirectory.DirectoryInfo;
+            }
         }
 
         public void Dispose()
