@@ -20,11 +20,6 @@ namespace BotManager.Service.Git
         /// ディレクトリ名
         /// </summary>
         string Name { get; }
-
-        /// <summary>
-        /// このディレクトリを削除します。このディレクトリの中にあるディレクトリやファイルも全て削除されます。
-        /// </summary>
-        void Delete();
     }
 
     internal class GitDirectory : IDirectory
@@ -39,10 +34,5 @@ namespace BotManager.Service.Git
         public string Path => _directory.FullName;
 
         public string Name => _directory.Name;
-
-        public void Delete()
-        {
-            this._directory.Delete(true);
-        }
     }
 }

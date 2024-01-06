@@ -16,6 +16,13 @@ namespace BotManager.Service.Git
         /// ローカルリポジトリのディレクトリを取得します。
         /// </summary>
         IDirectory LocalDirectory { get; }
+
+        /// <summary>
+        /// このリポジトリで git pullを実行します。
+        /// </summary>
+        /// <param name="userName">ユーザー名</param>
+        /// <param name="emailAddress">ユーザーのメールアドレス</param>
+        MergeStatus Pull(string userName, string emailAddress);
     }
     internal sealed class GitRepository : IGitRepositry
     {
@@ -25,9 +32,13 @@ namespace BotManager.Service.Git
         #endregion
 
         #region Constructor
-        public GitRepository(string repositryPath, string directory)
+        public GitRepository(string repositryPath, string directory) : this(new Repository(repositryPath), directory)
         {
-            repository = new Repository(repositryPath);
+        }
+
+        public GitRepository(Repository repository, string directory)
+        {
+            this.repository = repository;
             this.localDirectory = new GitDirectory(directory);
         }
         #endregion
@@ -40,6 +51,14 @@ namespace BotManager.Service.Git
         public void Dispose()
         {
             repository.Dispose();
+        }
+
+        public MergeStatus Pull(string userName, string emailAddress)
+        {
+            PullOptions options = new();
+            Signature signature = new(userName, emailAddress, DateTimeOffset.Now);
+            var mergeResult = Commands.Pull(repository, signature, options);
+            return mergeResult.Status;
         }
         #endregion
     }

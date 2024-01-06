@@ -13,14 +13,36 @@ namespace BotManager.Service.Git
     public static class Git
     {
         /// <summary>
-        /// 
+        /// 指定したリポジトリを指定ディレクトリにクローンします。
         /// </summary>
-        /// <param name="repositry">リポジトリのURLまたはパス</param>
+        /// <param name="repositryPath">リポジトリのURLまたはパス</param>
         /// <param name="path">クローン先のディレクトリ</param>
         /// <returns></returns>
-        public static IGitRepositry Clone(string repositry, string path)
+        public static IGitRepositry Clone(string repositryPath, string path)
         {
-            return new GitRepository(Repository.Clone(repositry, path), path);
+            return new GitRepository(Repository.Clone(repositryPath, path), path);
+        }
+
+        /// <summary>
+        /// 指定したディレクトリが存在する場合はそのリポジトリ、存在しなければクローンして返します。
+        /// </summary>
+        /// <param name="repositryPath">リポジトリのURLまたはパス</param>
+        /// <param name="path">クローン先のディレクトリ</param>
+        /// <returns></returns>
+        public static IGitRepositry GetOrClone(string repositryPath, string path)
+        {
+            if(Directory.Exists(path))
+            {
+                // ディレクトリが存在していればそのリポジトリを返す
+                var repositry = new Repository(repositryPath);
+                IGitRepositry gitRepositry = new GitRepository(repositry, path);
+                return gitRepositry;
+            }
+            else
+            {
+                // ディレクトリが存在しなければCloneする
+                return Clone(repositryPath, path);
+            }
         }
     }
 }

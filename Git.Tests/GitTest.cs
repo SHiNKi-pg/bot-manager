@@ -33,15 +33,16 @@ namespace Git.Tests
         {
             var gitSetting = AppSettings.Script;
             // クローン
-            using (var repos = BotManager.Service.Git.Git.Clone(gitSetting.RepositoryUrl, gitSetting.Path))
+            using (var repos = BotManager.Service.Git.Git.GetOrClone(gitSetting.RepositoryUrl, gitSetting.Path))
             {
+                // プル
+                var result = repos.Pull(gitSetting.UserName, gitSetting.Email);
+                Assert.True(result != LibGit2Sharp.MergeStatus.Conflicts, "コンフリクトが発生しています。");
+
                 // ディレクトリ名
                 string directoryPath = repos.LocalDirectory.Path;
                 output.WriteLine("クローン先ディレクトリ : {0}", directoryPath);
                 Assert.False(string.IsNullOrEmpty(directoryPath));
-
-                // ディレクトリ削除
-                repos.LocalDirectory.Delete();
             }
         }
     }
