@@ -20,7 +20,7 @@ namespace BotManager.Service.Git
         /// <returns></returns>
         public static IGitRepositry Clone(string repositry, string path)
         {
-            return new GitRepository(Repository.Clone(repositry, path));
+            return new GitRepository(Repository.Clone(repositry, path), path);
         }
     }
 }
