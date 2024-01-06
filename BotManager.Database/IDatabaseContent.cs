@@ -9,7 +9,7 @@ namespace BotManager.Database
     /// <summary>
     /// データベースアクセスインターフェース
     /// </summary>
-    public interface IDatabaseContent
+    public interface IDatabaseContent : IDisposable
     {
     }
 }

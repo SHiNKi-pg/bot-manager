@@ -9,13 +9,20 @@ namespace BotManager.Database
 {
     internal class DatabaseContext : DbContext, IDatabaseContent
     {
+        #region Private Field
+        private string _connectionString;
+        #endregion
         #region Constructor
+        public DatabaseContext(string connectionString)
+        {
+            this._connectionString = connectionString;
+        }
         #endregion
 
         #region Overrides
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseOracle();
+            optionsBuilder.UseOracle(_connectionString);
         }
         #endregion
 

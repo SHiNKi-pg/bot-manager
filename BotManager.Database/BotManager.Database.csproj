@@ -18,4 +18,8 @@
     <Folder Include="Entities\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\BotManager.Setting\BotManager.Setting.csproj" />
+  </ItemGroup>
+
 </Project>
