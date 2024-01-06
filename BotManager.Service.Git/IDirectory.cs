@@ -20,6 +20,11 @@ namespace BotManager.Service.Git
         /// ディレクトリ名
         /// </summary>
         string Name { get; }
+
+        /// <summary>
+        /// <see cref="System.IO.DirectoryInfo"/>オブジェクトを取得します。
+        /// </summary>
+        DirectoryInfo DirectoryInfo { get; }
     }
 
     internal class GitDirectory : IDirectory
@@ -34,5 +39,7 @@ namespace BotManager.Service.Git
         public string Path => _directory.FullName;
 
         public string Name => _directory.Name;
+
+        public DirectoryInfo DirectoryInfo => _directory;
     }
 }
