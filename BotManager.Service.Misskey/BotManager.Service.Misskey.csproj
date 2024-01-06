@@ -5,14 +5,21 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <Authors>SHINKI</Authors>
+    <PackageOutputPath>..\Nuget\$(Configuration)\</PackageOutputPath>
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="NLog" Version="5.2.5" />
+    <PackageReference Include="Websocket.Client" Version="5.0.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\BotManager.Common\BotManager.Common.csproj" />
+    <ProjectReference Include="..\BotManager.Reactive.Json\BotManager.Reactive.Json.csproj" />
+    <ProjectReference Include="..\BotManager.Web\BotManager.Common.Web.csproj" />
   </ItemGroup>
 
 </Project>

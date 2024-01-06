@@ -12,9 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="NLog.config">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    <ProjectReference Include="..\BotManager.Setting\BotManager.Setting.csproj" />
   </ItemGroup>
 
 </Project>
