@@ -20,6 +20,16 @@ namespace BotManager.Setting.Settings
         /// スクリプトのリポジトリURL
         /// </summary>
         string RepositoryUrl { get; }
+
+        /// <summary>
+        /// Gitユーザー名
+        /// </summary>
+        string UserName { get; }
+
+        /// <summary>
+        /// Gitユーザーのメールアドレス
+        /// </summary>
+        string Email { get; }
     }
 
 #pragma warning disable 8618
@@ -28,6 +38,10 @@ namespace BotManager.Setting.Settings
         public string Path { get; set; }
 
         public string RepositoryUrl { get; set; }
+
+        public string UserName { get; set; }
+
+        public string Email { get; set; }
     }
 #pragma warning restore
 }
