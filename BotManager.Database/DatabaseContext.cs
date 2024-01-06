@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BotManager.Database
 {
-    internal class DatabaseContext : DbContext
+    internal class DatabaseContext : DbContext, IDatabaseContent
     {
         #region Constructor
         #endregion
