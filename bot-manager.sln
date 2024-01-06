@@ -47,9 +47,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Twitter.Tests", "Twitter.Te
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Discord.Tests", "Discord.Tests\Discord.Tests.csproj", "{9EA8685E-36F7-4CA8-BB2F-CE8612E34DC0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BotManager.Service.Git", "BotManager.Service.Git\BotManager.Service.Git.csproj", "{43BE38E0-E55A-4EC1-8027-EE65976AAB11}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BotManager.Service.Git", "BotManager.Service.Git\BotManager.Service.Git.csproj", "{43BE38E0-E55A-4EC1-8027-EE65976AAB11}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Git.Tests", "Git.Tests\Git.Tests.csproj", "{291446C3-D40A-43E1-9B6D-542FBA490BA3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Git.Tests", "Git.Tests\Git.Tests.csproj", "{291446C3-D40A-43E1-9B6D-542FBA490BA3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BotManager.ScriptSupport", "BotManager.ScriptSupport\BotManager.ScriptSupport.csproj", "{1F08D4A3-27F5-4021-AB4A-A9711E9D4804}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -137,6 +139,10 @@ Global
 		{291446C3-D40A-43E1-9B6D-542FBA490BA3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{291446C3-D40A-43E1-9B6D-542FBA490BA3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{291446C3-D40A-43E1-9B6D-542FBA490BA3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1F08D4A3-27F5-4021-AB4A-A9711E9D4804}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1F08D4A3-27F5-4021-AB4A-A9711E9D4804}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1F08D4A3-27F5-4021-AB4A-A9711E9D4804}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1F08D4A3-27F5-4021-AB4A-A9711E9D4804}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
