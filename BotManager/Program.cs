@@ -1,10 +1,18 @@
-﻿namespace BotManager
+﻿using BotManager.Engine;
+
+namespace BotManager
 {
     internal class Program
     {
-        static void Main(string[] args)
+        static async Task Main(string[] args)
         {
-            Console.WriteLine("Hello, World!");
+            using(var botm = Core.Create("botmanage.dll"))
+            {
+                await botm.Start();
+
+                // TODO: 待機処理を作成する
+                Console.ReadLine();
+            }
         }
     }
 }
