@@ -55,6 +55,7 @@ namespace BotManager.Engine
             Import<IDbConnection>();
             Import<Expression>();
             Import<RestUserMessage>();
+            Import<External.SubscriptionArguments>();
         }
 
         public async Task CompileFrom(DirectoryInfo directory, string filter)

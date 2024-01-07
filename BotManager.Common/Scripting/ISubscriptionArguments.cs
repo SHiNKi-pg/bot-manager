@@ -14,6 +14,6 @@ namespace BotManager.Common.Scripting
         /// <summary>
         /// Botマネージャ
         /// </summary>
-        IBotManager BotManager { get; init; }
+        IBotManager BotManager { get; }
     }
 }

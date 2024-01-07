@@ -1,4 +1,5 @@
-﻿using BotManager.Common.Scripting;
+﻿using BotManager.Common;
+using BotManager.Common.Scripting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,11 +18,5 @@ namespace BotManager.Engine
         /// Bot機能を開始します。
         /// </summary>
         Task Start();
-
-        /// <summary>
-        /// <seealso cref="ISubscription.SubscribeFrom(ISubscriptionArguments)"/>の引数を設定します。
-        /// </summary>
-        /// <param name="settingArguments">引数設定。 <seealso cref="ISubscriptionArguments.BotManager"/>は設定する必要はありません。</param>
-        void SetSubscriptionArgument(Action<SubscriptionArguments> settingArguments);
     }
 }

@@ -34,6 +34,7 @@ namespace Compiler.Tests
             Import(typeof(AppSettings));
             Import<IDbConnection>();
             Import<Expression>();
+            Import<BotManager.External.SubscriptionArguments>();
         }
 
         public async Task CompileFrom(DirectoryInfo directory, string filter)

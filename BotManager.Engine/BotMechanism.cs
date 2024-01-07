@@ -22,14 +22,15 @@ namespace BotManager.Engine
         #region Private Fields
         private readonly Compiler compiler;
         private BotManager? _botManager;
-        private Action<SubscriptionArgument>? setArgument;
+        private Func<IBotManager, SubscriptionArgument> gettingSubscriptionArgument;
 
         private readonly IDisposable compileSubscription;
         #endregion
 
         #region Constructor
-        public BotMechanism(string assemblyName)
+        public BotMechanism(string assemblyName, Func<IBotManager, SubscriptionArgument> gettingSubscriptionArgument)
         {
+            this.gettingSubscriptionArgument = gettingSubscriptionArgument;
             compiler = new Compiler(assemblyName);
             compileSubscription = CompileSubscription();
         }
@@ -91,10 +92,7 @@ namespace BotManager.Engine
                         .NewAs<ISubscription>()
                         .Subscribe(s =>
                         {
-                            SubscriptionArgument args = new SubscriptionArgument()
-                            {
-                                BotManager = _botManager,
-                            };
+                            var args = gettingSubscriptionArgument(_botManager);
                             var subscription = s.SubscribeFrom(args);
 
                             // アセンブリのアンロードが要求されたらサブスクリプションを解除する
@@ -132,11 +130,6 @@ namespace BotManager.Engine
             compileSubscription.Dispose();
             _botManager?.Dispose();
             compiler.Dispose();
-        }
-
-        public void SetSubscriptionArgument(Action<SubscriptionArgument> settingArguments)
-        {
-            this.setArgument = settingArguments;
         }
     }
 }

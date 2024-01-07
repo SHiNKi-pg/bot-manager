@@ -23,7 +23,9 @@
   <ItemGroup>
     <ProjectReference Include="..\BotManager.Common\BotManager.Common.csproj" />
     <ProjectReference Include="..\BotManager.Database\BotManager.Database.csproj" />
+    <ProjectReference Include="..\BotManager.External\BotManager.External.csproj" />
     <ProjectReference Include="..\BotManager.Notifiers.EarthquakeMonitor\BotManager.Notifiers.EarthquakeMonitor.csproj" />
+    <ProjectReference Include="..\BotManager.Notifiers\BotManager.Notifiers.csproj" />
     <ProjectReference Include="..\BotManager.Reactive\BotManager.Reactive.csproj" />
     <ProjectReference Include="..\BotManager.Service.Compiler\BotManager.Service.Compiler.csproj" />
     <ProjectReference Include="..\BotManager.Service.Discord\BotManager.Service.Discord.csproj" />
