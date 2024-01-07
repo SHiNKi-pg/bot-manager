@@ -151,6 +151,9 @@ namespace BotManager.Engine
             var setting = AppSettings.Script;
             using(var repos = Git.GetOrClone(setting.RepositoryUrl, setting.Path))
             {
+                // GitPull
+                repos.Pull(setting.UserName, setting.Email);
+
                 return repos.LocalDirectory.DirectoryInfo;
             }
         }
