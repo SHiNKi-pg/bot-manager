@@ -12,7 +12,7 @@ namespace Twitter.Tests
 {
     public abstract class TestBase : IDisposable
     {
-        protected readonly DiscordServiceClient client;
+        protected readonly IDiscordServiceClient client;
         protected readonly ITestOutputHelper output;
         protected readonly IDiscordSetting setting;
 
@@ -21,7 +21,7 @@ namespace Twitter.Tests
             this.setting = AppSettings.GetBotDictionary()["test"].DiscordSetting!;
             var certification = setting.Certificate!;
             this.output = output;
-            client = new(certification.Token, new());
+            client = DiscordService.Create(certification.Token, new());
         }
 
         public virtual void Dispose()

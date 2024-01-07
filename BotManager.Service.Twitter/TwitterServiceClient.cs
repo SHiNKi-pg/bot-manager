@@ -11,7 +11,7 @@ namespace BotManager.Service.Twitter
     /// <summary>
     /// Twitterクライアントクラス
     /// </summary>
-    public class TwitterServiceClient : ITwitterServiceClient
+    internal class TwitterServiceClient : ITwitterServiceClient
     {
         private readonly IAuthorizer authorizer;
         private readonly TwitterContext twitterContext;

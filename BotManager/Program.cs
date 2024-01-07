@@ -10,7 +10,7 @@ namespace BotManager
         static async Task Main(string[] args)
         {
             using(Clock clock = new Clock())
-            using(IEEWMonitor eewMonitor = new EEWMonitor(clock))
+            using(var eewMonitor = EEWNotifier.Create(clock))
             using(var botm = Core.Create<SubscriptionArguments>("botmanage.dll",
                 bm => new()
                 {
