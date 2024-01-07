@@ -1,4 +1,5 @@
-﻿using BotManager.Common;
+using BotManager.Common;
+using BotManager.Database.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 using System;
@@ -18,11 +19,13 @@ namespace BotManager.Database
         private static readonly ILog Logger = Log.GetLogger("DB");
         #endregion
         #region Constructor
+#pragma warning disable 8618
         public DatabaseContext(string connectionString)
         {
             this._connectionString = connectionString;
             Logger.Debug("DBContext Created");
         }
+#pragma warning restore
         #endregion
 
         #region Overrides
@@ -34,12 +37,21 @@ namespace BotManager.Database
         #endregion
 
         #region DBSet
+        // NOTE: 実テーブル名のプロパティを作成しないとアクセスできない
+        public DbSet<User> MST_USER { get; internal set; }
+        public DbSet<User> Users => MST_USER;
+
         #endregion
 
         #region Method
         public Task<IDbContextTransaction> BeginTransactionAsync()
         {
             return base.Database.BeginTransactionAsync();
+        }
+
+        public Task<int> SaveChangesAsync()
+        {
+            return base.SaveChangesAsync();
         }
 
         public override void Dispose()

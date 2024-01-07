@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore.Storage;
+﻿using BotManager.Database.Entities;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -18,5 +20,16 @@ namespace BotManager.Database
         /// </summary>
         /// <returns></returns>
         Task<IDbContextTransaction> BeginTransactionAsync();
+
+        /// <summary>
+        /// 変更内容をコミットします。
+        /// </summary>
+        /// <returns></returns>
+        Task<int> SaveChangesAsync();
+
+        /// <summary>
+        /// MST_USER
+        /// </summary>
+        DbSet<User> Users { get; }
     }
 }
