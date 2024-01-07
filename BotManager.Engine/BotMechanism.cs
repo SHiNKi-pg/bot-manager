@@ -63,6 +63,8 @@ namespace BotManager.Engine
                     // Botコンパイル
                     var botobs = types
                         .HasAttribute<BotAttribute>()
+                        .NotHaveAttribute<ObsoleteAttribute>()
+                        .NotHaveAttribute<IgnoreAttribute>()
                         .NewAs<IBot>()
                         .Publish();
 
@@ -82,6 +84,8 @@ namespace BotManager.Engine
                     // コマンドのコンパイル
                     var subscobs = types
                         .HasAttribute<ActionAttribute>()
+                        .NotHaveAttribute<ObsoleteAttribute>()
+                        .NotHaveAttribute<IgnoreAttribute>()
                         .NewAs<ISubscription>()
                         .Subscribe(s =>
                         {

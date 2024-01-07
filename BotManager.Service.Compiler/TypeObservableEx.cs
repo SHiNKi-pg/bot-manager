@@ -46,6 +46,21 @@ namespace BotManager.Service.Compiler
         }
 
         /// <summary>
+        /// 流れてきた<see cref="Type"/>の属性を持たない場合、後続に型情報を流します。
+        /// </summary>
+        /// <typeparam name="Attr"></typeparam>
+        /// <param name="observable"></param>
+        /// <returns></returns>
+        public static IObservable<Type> NotHaveAttribute<Attr>(this IObservable<Type> observable) where Attr : Attribute
+        {
+            return observable.Where(t =>
+            {
+                var attr = t.GetCustomAttribute<Attr>();
+                return attr is null;
+            });
+        }
+
+        /// <summary>
         /// 流れてきた型のインスタンスを作成します。コンストラクタの引数が0個のものを定義されている必要があります。
         /// </summary>
         /// <typeparam name="T"></typeparam>

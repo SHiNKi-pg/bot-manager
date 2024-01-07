@@ -7,11 +7,10 @@ using System.Threading.Tasks;
 namespace BotManager.Common.Scripting.Attributes
 {
     /// <summary>
-    /// このクラスがBot定義クラスであることを示します。
-    /// この属性を付与する場合はクラスに <seealso cref="IBot"/>インターフェースを実装しなければなりません。
+    /// この属性が付与されていると、 <see cref="BotAttribute"/>属性や <see cref="ActionAttribute"/>属性が付与されていても無視されるようになります。
     /// </summary>
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = false, Inherited = false)]
-    public class BotAttribute : Attribute
+    public class IgnoreAttribute : Attribute
     {
     }
 }
