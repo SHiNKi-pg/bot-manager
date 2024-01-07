@@ -21,6 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\BotManager.Common\BotManager.Common.csproj" />
     <ProjectReference Include="..\BotManager.Setting\BotManager.Setting.csproj" />
   </ItemGroup>
 
