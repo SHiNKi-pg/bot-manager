@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using BotManager.Common;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,6 +35,8 @@ namespace BotManager.Notifiers.EarthquakeMonitor
 
         private Subject<IEEWInfo> _eewSubject;
 
+        private readonly static ILog Logger = Log.GetLogger("eew");
+
         /// <summary>
         /// 緊急地震速報が発表されると通知されます。
         /// </summary>
@@ -51,6 +54,7 @@ namespace BotManager.Notifiers.EarthquakeMonitor
             _eewSubject = new();
             // 出来れば1秒毎に通知されるものが望ましい。
             subscription = nowObservable.Subscribe(NotifyEarthquakeNotification);
+            Logger.Debug("EEWMonitor Created");
         }
 
         private async void NotifyEarthquakeNotification(DateTime dateTime)
@@ -60,10 +64,12 @@ namespace BotManager.Notifiers.EarthquakeMonitor
                 var eewInfo = await FetchData(dateTime);
                 if(eewInfo is not null && eewInfo.Result.Message != NO_DATA_MESSAGE)
                 {
+                    Logger.Info($"緊急地震速報({(eewInfo.IsAlert ? "警報" : "予報")})\n地震ID : {eewInfo.ReportId}(第{eewInfo.ReportNum}報)\n予想最大震度 : {eewInfo.Calcintensity}\nマグニチュード : {eewInfo.Magunitude}");
                     _eewSubject.OnNext(eewInfo);
                 }
             }catch(Exception ex)
             {
+                Logger.Error(ex, "EEW");
                 _eewSubject.OnError(ex);
             }
         }
@@ -85,10 +91,12 @@ namespace BotManager.Notifiers.EarthquakeMonitor
         /// </summary>
         public void Dispose()
         {
+            Logger.Debug("EEWMonitor Disposing");
             subscription.Dispose();
             _eewSubject.Dispose();
             cancellationTokenSource.Cancel();
             cancellationTokenSource.Dispose();
+            Logger.Debug("EEWMonitor Disposed");
         }
     }
 }
