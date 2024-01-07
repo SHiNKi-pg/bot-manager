@@ -9,7 +9,7 @@ namespace BotManager.Common.Scripting
     /// <summary>
     /// サブスクリプションインターフェース
     /// </summary>
-    public interface ISubscription<Args> where Args : ISubscriptionArguments
+    public interface ISubscription<Args> : INamed where Args : ISubscriptionArguments
     {
         /// <summary>
         /// イベントを購読します。

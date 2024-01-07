@@ -1,4 +1,5 @@
-﻿using LibGit2Sharp;
+﻿using BotManager.Common;
+using LibGit2Sharp;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,6 +30,8 @@ namespace BotManager.Service.Git
         #region Private Fields
         private Repository repository;
         private IDirectory localDirectory;
+
+        private readonly static ILog Logger = Log.GetLogger("git");
         #endregion
 
         #region Constructor
@@ -50,14 +53,18 @@ namespace BotManager.Service.Git
         #region Method
         public void Dispose()
         {
+            Logger.Trace($"{this.GetType().Name} Disposing");
             repository.Dispose();
+            Logger.Trace($"{this.GetType().Name} Disposed");
         }
 
         public MergeStatus Pull(string userName, string emailAddress)
         {
             PullOptions options = new();
             Signature signature = new(userName, emailAddress, DateTimeOffset.Now);
+            Logger.Info($"git pull (User = {userName}, Email = {emailAddress})");
             var mergeResult = Commands.Pull(repository, signature, options);
+            Logger.Info($"git pull result : ${mergeResult.Status}");
             return mergeResult.Status;
         }
         #endregion

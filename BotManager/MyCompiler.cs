@@ -1,15 +1,16 @@
-﻿using BotManager.Common;
-using BotManager.Common.Web;
+﻿using BotManager.Common.Web;
+using BotManager.Common;
 using BotManager.Database;
+using BotManager.Engine;
 using BotManager.Notifiers.EarthquakeMonitor;
 using BotManager.Reactive;
 using BotManager.Service.Compiler;
 using BotManager.Service.Discord;
 using BotManager.Service.Misskey;
 using BotManager.Service.Twitter;
-using Discord;
 using Discord.Rest;
 using Discord.WebSocket;
+using Discord;
 using LinqToTwitter;
 using Microsoft.CodeAnalysis.CSharp;
 using System;
@@ -22,12 +23,14 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Websocket.Client;
+using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations.Schema;
 
-namespace BotManager.Engine
+namespace BotManager
 {
-    internal class Compiler : CSharpCompiler
+    internal class MyCompiler : CSharpCompiler
     {
-        public Compiler(string assemblyName) : base(assemblyName, LanguageVersion.Latest)
+        public MyCompiler(string assemblyName) : base(assemblyName, LanguageVersion.Latest)
         {
             // スクリプトで使用しているクラスを正しく読み取れるようにする
             Import<Regex>();
@@ -56,17 +59,10 @@ namespace BotManager.Engine
             Import<Expression>();
             Import<RestUserMessage>();
             Import<External.SubscriptionArguments>();
-        }
-
-        public async Task CompileFrom(DirectoryInfo directory, string filter)
-        {
-            ClearSources();
-            var files = directory.EnumerateFiles(filter, SearchOption.AllDirectories);
-            foreach(var file in files)
-            {
-                await AddSourceFile(file.FullName, Encoding.UTF8, true);
-            }
-            Compile();
+            Import<DbContext>();
+            Import<TableAttribute>();
+            Import<ColumnAttribute>();
+            Import(typeof(DbSet<>));
         }
     }
 }

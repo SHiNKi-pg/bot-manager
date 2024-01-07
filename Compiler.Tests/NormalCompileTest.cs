@@ -51,9 +51,45 @@ namespace Compiler.Tests
                 [Action]
                 public class SubscriptionTest : ISubscription<SubscriptionArguments>
                 {
+                    public string Id => "ID";
+
+                    public string Name => "Name";
+
                     public IDisposable SubscribeFrom(SubscriptionArguments args)
                     {
                         return Disposable.Empty;
+                    }
+                }
+                """);
+
+            compiler.Compile();
+        }
+
+        [Fact(DisplayName = "DBアクセスソース")]
+        public void DBSourceTest()
+        {
+            compiler.ClearSources();
+            compiler.AddSource("""
+                using System;
+                using System.Reactive.Disposables;
+                using BotManager.Common.Scripting;
+                using BotManager.Common.Scripting.Attributes;
+                using BotManager.External;
+                using BotManager.Database;
+
+                [Action]
+                public class SubscriptionTest : ISubscription<SubscriptionArguments>
+                {
+                    public string Id => "ID";
+
+                    public string Name => "Name";
+
+                    public IDisposable SubscribeFrom(SubscriptionArguments args)
+                    {
+                        using (var db = BotDatabase.Connect())
+                        {
+                            return Disposable.Empty;
+                        }
                     }
                 }
                 """);

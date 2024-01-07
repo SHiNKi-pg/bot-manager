@@ -31,6 +31,11 @@ namespace BotManager.External
         /// </summary>
         public IEEWMonitor EEWMonitor { get; init; }
 
+        /// <summary>
+        /// ログ出力オブジェクト
+        /// </summary>
+        public ILog Logger { get; init; }
+
         // TODO: 新しい引数を追加したい場合はここに記載していく
 #pragma warning restore
     }

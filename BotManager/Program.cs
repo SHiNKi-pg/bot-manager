@@ -1,4 +1,5 @@
-﻿using BotManager.Engine;
+﻿using BotManager.Common;
+using BotManager.Engine;
 using BotManager.External;
 using BotManager.Notifiers;
 using BotManager.Notifiers.EarthquakeMonitor;
@@ -9,20 +10,32 @@ namespace BotManager
     {
         static async Task Main(string[] args)
         {
-            using(Clock clock = new Clock())
-            using(var eewMonitor = EEWNotifier.Create(clock))
-            using(var botm = Core.Create<SubscriptionArguments>("botmanage.dll",
-                bm => new()
-                {
-                    BotManager = bm,
-                    Clock = clock,
-                    EEWMonitor = eewMonitor
-                }))
+            var sysLog = Log.GetLogger("main");
+            sysLog.Info("BotManager Start");
+            try
             {
-                await botm.Start();
+                using (Clock clock = new Clock())
+                using (var eewMonitor = EEWNotifier.Create(clock))
+                using (var botm = Core.Create<SubscriptionArguments>(new MyCompiler("botmanage.dll"),
+                    (named, bm) => new()
+                    {
+                        BotManager = bm,
+                        Clock = clock,
+                        EEWMonitor = eewMonitor,
+                        Logger = Log.GetLogger("SBSC_" + named.Id)
+                    }))
+                {
+                    await botm.Start();
 
-                // TODO: 待機処理を作成する
-                Console.ReadLine();
+                    // TODO: 待機処理を作成する
+                    Console.ReadLine();
+                }
+
+                sysLog.Info("BotManager End");
+            }catch(Exception ex)
+            {
+                sysLog.Fatal(ex, "BotManager Abort");
+                throw;
             }
         }
     }

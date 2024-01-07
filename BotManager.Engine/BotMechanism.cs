@@ -20,19 +20,23 @@ namespace BotManager.Engine
         where SubscriptionArgument : ISubscriptionArguments, new()
     {
         #region Private Fields
-        private readonly Compiler compiler;
+        private readonly ICompiler compiler;
         private BotManager? _botManager;
-        private Func<IBotManager, SubscriptionArgument> gettingSubscriptionArgument;
+        private Func<INamed, IBotManager, SubscriptionArgument> gettingSubscriptionArgument;
+        private ILog logger;    // コンパイラ用ロガー
+        private readonly static ILog Logger = Log.GetLogger("engine");
 
         private readonly IDisposable compileSubscription;
         #endregion
 
         #region Constructor
-        public BotMechanism(string assemblyName, Func<IBotManager, SubscriptionArgument> gettingSubscriptionArgument)
+        public BotMechanism(ICompiler compiler, Func<INamed, IBotManager, SubscriptionArgument> gettingSubscriptionArgument)
         {
+            this.logger = Log.GetLogger("compiler");
             this.gettingSubscriptionArgument = gettingSubscriptionArgument;
-            compiler = new Compiler(assemblyName);
+            this.compiler = compiler;
             compileSubscription = CompileSubscription();
+            Logger.Debug("BotMechanism Created");
         }
 
         private IDisposable CompileSubscription()
@@ -43,7 +47,31 @@ namespace BotManager.Engine
             disposables.Add(
                 compiler.CompileError.Subscribe(errors =>
                 {
-                    // TODO: エラーや警告の内容を表示する
+                    foreach(var diag in errors)
+                    {
+                        string message = string.Format("[{0}][{1}]L{2} : {3}",
+                            diag.Severity.ToString(),
+                            diag.Id,
+                            diag.Location.GetLineSpan().StartLinePosition.ToString(),
+                            diag.GetMessage()
+                            );
+
+                        switch (diag.Severity)
+                        {
+                            case Microsoft.CodeAnalysis.DiagnosticSeverity.Hidden:
+                                logger.Debug(message);
+                                break;
+                            case Microsoft.CodeAnalysis.DiagnosticSeverity.Info:
+                                logger.Info(message);
+                                break;
+                            case Microsoft.CodeAnalysis.DiagnosticSeverity.Warning:
+                                logger.Warn(message);
+                                break;
+                            case Microsoft.CodeAnalysis.DiagnosticSeverity.Error:
+                                logger.Error(message);
+                                break;
+                        }
+                    }
                 })
             );
 
@@ -51,6 +79,7 @@ namespace BotManager.Engine
             disposables.Add(
                 compiler.AssemblyUnloading.Subscribe(_ =>
                 {
+                    logger.Info("アセンブリアンロード要求");
                     _botManager?.Dispose();
                 })
             );
@@ -59,6 +88,7 @@ namespace BotManager.Engine
             disposables.Add(
                 compiler.AssemblyCreated.Subscribe(async asm =>
                 {
+                    logger.Info("コンパイル成功");
                     _botManager = new BotManager();
                     List<Task> tasklist = new();
                     var types = asm.GetTypes().ToObservable();
@@ -74,6 +104,7 @@ namespace BotManager.Engine
                     botobs.Subscribe(bot =>
                     {
                         _botManager.AddBot(bot);
+                        logger.Info($"{bot.Name} Bot({bot.Id}) 追加");
                         tasklist.Add(bot.StartAsync());
                     });
 
@@ -92,8 +123,9 @@ namespace BotManager.Engine
                         .NewAs<ISubscription<SubscriptionArgument>>()
                         .Subscribe(s =>
                         {
-                            var args = gettingSubscriptionArgument(_botManager);
+                            var args = gettingSubscriptionArgument(s, _botManager);
                             var subscription = s.SubscribeFrom(args);
+                            logger.Info($"サブスクリプション {s.Name}({s.Id}) 開始");
 
                             // アセンブリのアンロードが要求されたらサブスクリプションを解除する
                             compiler.AssemblyUnloading
@@ -109,11 +141,12 @@ namespace BotManager.Engine
 
         public async Task Start()
         {
+            Logger.Info("BotMechanism Start");
             // Gitリポジトリからスクリプトファイルを取得
             var directory = GitPullAndGetDirectory();
 
             // コンパイル(C#)
-            await compiler.CompileFrom(directory, "*.cs");
+            await compiler.CompileFrom(directory.EnumerateFiles("*.cs", SearchOption.AllDirectories));
         }
 
         private DirectoryInfo GitPullAndGetDirectory()
@@ -121,15 +154,20 @@ namespace BotManager.Engine
             var setting = AppSettings.Script;
             using(var repos = Git.GetOrClone(setting.RepositoryUrl, setting.Path))
             {
+                // GitPull
+                repos.Pull(setting.UserName, setting.Email);
+
                 return repos.LocalDirectory.DirectoryInfo;
             }
         }
 
         public void Dispose()
         {
+            Logger.Debug("BotMechanism Disposing");
             compileSubscription.Dispose();
             _botManager?.Dispose();
             compiler.Dispose();
+            Logger.Debug("BotMechanism Disposed");
         }
     }
 }
