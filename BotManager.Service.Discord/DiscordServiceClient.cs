@@ -16,7 +16,7 @@ namespace BotManager.Service.Discord
     /// <summary>
     /// Bot用 Discordクライアントクラス
     /// </summary>
-    public class DiscordServiceClient : IDiscordServiceClient
+    internal class DiscordServiceClient : IDiscordServiceClient
     {
         #region Private Fields
         private readonly string token;
@@ -34,16 +34,6 @@ namespace BotManager.Service.Discord
             this.token = token;
             client = new(config);
         }
-
-        /// <summary>
-        /// <see cref="DiscordServiceClient"/>オブジェクトを作成します。
-        /// </summary>
-        /// <param name="token">アクセストークン</param>
-        public DiscordServiceClient(string token) : this(token, new()
-        {
-            GatewayIntents = GatewayIntents.All
-        })
-        { }
         #endregion
 
         #region Events

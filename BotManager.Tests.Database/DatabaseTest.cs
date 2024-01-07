@@ -19,7 +19,7 @@ namespace BotManager.Tests.Database
         [Fact(DisplayName = "データベース接続")]
         public async Task ConnectionTest()
         {
-            using(var db = BotManager.Database.Database.Connect())
+            using(var db = BotManager.Database.BotDatabase.Connect())
             {
                 using(var tran = await db.BeginTransactionAsync())
                 {

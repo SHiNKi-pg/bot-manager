@@ -19,7 +19,7 @@ namespace BotManager.Service.Misskey
     /// <summary>
     /// Misskeyクライアントクラス
     /// </summary>
-    public partial class MisskeyClient : IMisskeyServiceClient
+    internal partial class MisskeyClient : IMisskeyServiceClient
     {
         #region Private Field
         private string host;

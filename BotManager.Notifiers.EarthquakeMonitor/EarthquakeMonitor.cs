@@ -23,7 +23,7 @@ namespace BotManager.Notifiers.EarthquakeMonitor
     /// <summary>
     /// 強震モニタ
     /// </summary>
-    public class EEWMonitor : IEEWMonitor
+    internal class EEWMonitor : IEEWMonitor
     {
         // 強震モニタ取得URL
         private const string MONITOR_BASE_URL = "http://www.kmoni.bosai.go.jp/webservice/hypo/eew/";

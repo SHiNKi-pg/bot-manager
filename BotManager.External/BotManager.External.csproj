@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <PackageOutputPath>..\Nuget\$(Configuration)\</PackageOutputPath>
+    <Authors>SHINKI</Authors>
+    <Description>BotManagerの核となる部分とメインプログラムの間を担うクラスを定義したパッケージ群</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BotManager.Common\BotManager.Common.csproj" />
+    <ProjectReference Include="..\BotManager.Notifiers.EarthquakeMonitor\BotManager.Notifiers.EarthquakeMonitor.csproj" />
+    <ProjectReference Include="..\BotManager.Notifiers\BotManager.Notifiers.csproj" />
+  </ItemGroup>
+
+</Project>

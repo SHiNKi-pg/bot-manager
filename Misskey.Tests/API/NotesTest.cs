@@ -12,14 +12,14 @@ namespace Misskey.Tests.API
 {
     public class NotesTest : IDisposable
     {
-        private readonly MisskeyClient client;
+        private readonly IMisskeyServiceClient client;
         private readonly ITestOutputHelper output;
 
         public NotesTest(ITestOutputHelper output)
         {
             var certification = AppSettings.GetBotDictionary()["test"].MisskeySetting!.Certificate;
             this.output = output;
-            client = new(certification.Host, certification.AccessToken);
+            client = MisskeyService.Create(certification.Host, certification.AccessToken);
         }
 
         [Fact(DisplayName = "設定ファイルからの取得テスト")]
