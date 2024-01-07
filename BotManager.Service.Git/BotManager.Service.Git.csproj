@@ -11,4 +11,8 @@
     <PackageReference Include="LibGit2Sharp" Version="0.29.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\BotManager.Common\BotManager.Common.csproj" />
+  </ItemGroup>
+
 </Project>

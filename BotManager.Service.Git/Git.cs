@@ -1,4 +1,5 @@
-﻿using LibGit2Sharp;
+﻿using BotManager.Common;
+using LibGit2Sharp;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +13,8 @@ namespace BotManager.Service.Git
     /// </summary>
     public static class Git
     {
+        private readonly static ILog Logger = Log.GetLogger("git");
+
         /// <summary>
         /// 指定したリポジトリを指定ディレクトリにクローンします。
         /// </summary>
@@ -20,7 +23,15 @@ namespace BotManager.Service.Git
         /// <returns></returns>
         public static IGitRepositry Clone(string repositryPath, string path)
         {
-            return new GitRepository(Repository.Clone(repositryPath, path), path);
+            try
+            {
+                Logger.Info($"git clone {repositryPath} -> {path}");
+                return new GitRepository(Repository.Clone(repositryPath, path), path);
+            }catch(Exception ex)
+            {
+                Logger.Error(ex, "Clone");
+                throw;
+            }
         }
 
         /// <summary>
@@ -31,18 +42,28 @@ namespace BotManager.Service.Git
         /// <returns></returns>
         public static IGitRepositry GetOrClone(string repositryPath, string path)
         {
-            if(Directory.Exists(path))
+            try
             {
-                // ディレクトリが存在していればそのリポジトリを返す
-                // NOTE: Repositryコンストラクタにはローカルのディレクトリを入れる
-                var repositry = new Repository(path);
-                IGitRepositry gitRepositry = new GitRepository(repositry, path);
-                return gitRepositry;
-            }
-            else
+                Logger.Debug("GetOrClone Start");
+                if (Directory.Exists(path))
+                {
+                    Logger.Trace($"'{path}' が存在");
+                    // ディレクトリが存在していればそのリポジトリを返す
+                    // NOTE: Repositryコンストラクタにはローカルのディレクトリを入れる
+                    var repositry = new Repository(path);
+                    IGitRepositry gitRepositry = new GitRepository(repositry, path);
+                    return gitRepositry;
+                }
+                else
+                {
+                    Logger.Trace($"{path} は存在しない");
+                    // ディレクトリが存在しなければCloneする
+                    return Clone(repositryPath, path);
+                }
+            }catch(Exception ex)
             {
-                // ディレクトリが存在しなければCloneする
-                return Clone(repositryPath, path);
+                Logger.Error(ex, "GetOrClone");
+                throw;
             }
         }
     }
