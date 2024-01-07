@@ -23,6 +23,8 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Websocket.Client;
+using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BotManager
 {
@@ -57,6 +59,10 @@ namespace BotManager
             Import<Expression>();
             Import<RestUserMessage>();
             Import<External.SubscriptionArguments>();
+            Import<DbContext>();
+            Import<TableAttribute>();
+            Import<ColumnAttribute>();
+            Import(typeof(DbSet<>));
         }
     }
 }
