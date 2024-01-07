@@ -20,7 +20,7 @@ namespace BotManager.Engine
         where SubscriptionArgument : ISubscriptionArguments, new()
     {
         #region Private Fields
-        private readonly Compiler compiler;
+        private readonly ICompiler compiler;
         private BotManager? _botManager;
         private Func<IBotManager, SubscriptionArgument> gettingSubscriptionArgument;
 
@@ -28,10 +28,10 @@ namespace BotManager.Engine
         #endregion
 
         #region Constructor
-        public BotMechanism(string assemblyName, Func<IBotManager, SubscriptionArgument> gettingSubscriptionArgument)
+        public BotMechanism(ICompiler compiler, Func<IBotManager, SubscriptionArgument> gettingSubscriptionArgument)
         {
             this.gettingSubscriptionArgument = gettingSubscriptionArgument;
-            compiler = new Compiler(assemblyName);
+            this.compiler = compiler;
             compileSubscription = CompileSubscription();
         }
 
@@ -113,7 +113,7 @@ namespace BotManager.Engine
             var directory = GitPullAndGetDirectory();
 
             // コンパイル(C#)
-            await compiler.CompileFrom(directory, "*.cs");
+            await compiler.CompileFrom(directory.EnumerateFiles("*.cs", SearchOption.AllDirectories));
         }
 
         private DirectoryInfo GitPullAndGetDirectory()

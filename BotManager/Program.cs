@@ -11,7 +11,7 @@ namespace BotManager
         {
             using(Clock clock = new Clock())
             using(var eewMonitor = EEWNotifier.Create(clock))
-            using(var botm = Core.Create<SubscriptionArguments>("botmanage.dll",
+            using(var botm = Core.Create<SubscriptionArguments>(new MyCompiler("botmanage.dll"),
                 bm => new()
                 {
                     BotManager = bm,

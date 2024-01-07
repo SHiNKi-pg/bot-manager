@@ -58,16 +58,5 @@ namespace Compiler.Tests
             Import<RestUserMessage>();
             Import<BotManager.External.SubscriptionArguments>();
         }
-
-        public async Task CompileFrom(DirectoryInfo directory, string filter)
-        {
-            ClearSources();
-            var files = directory.EnumerateFiles(filter, SearchOption.AllDirectories);
-            foreach (var file in files)
-            {
-                await AddSourceFile(file.FullName, Encoding.UTF8, true);
-            }
-            Compile();
-        }
     }
 }

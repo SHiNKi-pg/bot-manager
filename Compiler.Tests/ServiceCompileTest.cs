@@ -1,4 +1,5 @@
 ﻿using BotManager.Engine;
+using BotManager.Service.Compiler;
 using BotManager.Service.Git;
 using System;
 using System.Collections.Generic;
@@ -30,7 +31,7 @@ namespace Compiler.Tests
 
             // ソース設定
             compiler.ClearSources();
-            await compiler.CompileFrom(repositry.LocalDirectory.DirectoryInfo, "*.cs");
+            await compiler.CompileFrom(files);
         }
     }
 }
