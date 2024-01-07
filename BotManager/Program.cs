@@ -34,8 +34,7 @@ namespace BotManager
                 sysLog.Info("BotManager End");
             }catch(Exception ex)
             {
-                sysLog.Fatal(ex.Message);
-                sysLog.Fatal("BotManager Abort");
+                sysLog.Fatal(ex, "BotManager Abort");
                 throw;
             }
         }
