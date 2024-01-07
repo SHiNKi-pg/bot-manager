@@ -29,6 +29,7 @@
     <ProjectReference Include="..\BotManager.Common\BotManager.Common.csproj" />
     <ProjectReference Include="..\BotManager.Reactive\BotManager.Reactive.csproj" />
     <ProjectReference Include="..\BotManager.Service.Compiler\BotManager.Service.Compiler.csproj" />
+    <ProjectReference Include="..\BotManager.Service.Git\BotManager.Service.Git.csproj" />
     <ProjectReference Include="..\BotManager.Setting\BotManager.Setting.csproj" />
   </ItemGroup>
 

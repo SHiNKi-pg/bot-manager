@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 
 namespace Compiler.Tests
 {
-    internal class TestCompiler : CSharpCompiler
+    public class TestCompiler : CSharpCompiler
     {
         public TestCompiler(string assemblyName) : base(assemblyName, LanguageVersion.Latest)
         {
