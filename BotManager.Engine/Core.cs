@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BotManager.Common.Scripting;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,9 +17,10 @@ namespace BotManager.Engine
         /// </summary>
         /// <param name="assembly">アセンブリ名</param>
         /// <returns></returns>
-        public static IBotMechanism Create(string assembly)
+        public static IBotMechanism<SubscriptionArguments> Create<SubscriptionArguments>(string assembly)
+            where SubscriptionArguments : ISubscriptionArguments, new()
         {
-            return new BotMechanism(assembly);
+            return new BotMechanism<SubscriptionArguments>(assembly);
         }
     }
 }

@@ -16,11 +16,13 @@ namespace BotManager.Engine
     /// <summary>
     /// BotManager 実行機関クラス
     /// </summary>
-    internal sealed class BotMechanism : IBotMechanism
+    internal sealed class BotMechanism<SubscriptionArgument> : IBotMechanism<SubscriptionArgument>
+        where SubscriptionArgument : ISubscriptionArguments, new()
     {
         #region Private Fields
         private readonly Compiler compiler;
         private BotManager? _botManager;
+        private Action<SubscriptionArgument>? setArgument;
 
         private readonly IDisposable compileSubscription;
         #endregion
@@ -89,7 +91,7 @@ namespace BotManager.Engine
                         .NewAs<ISubscription>()
                         .Subscribe(s =>
                         {
-                            ISubscriptionArguments args = new SubscriptionArguments()
+                            SubscriptionArgument args = new SubscriptionArgument()
                             {
                                 BotManager = _botManager,
                             };
@@ -130,6 +132,11 @@ namespace BotManager.Engine
             compileSubscription.Dispose();
             _botManager?.Dispose();
             compiler.Dispose();
+        }
+
+        public void SetSubscriptionArgument(Action<SubscriptionArgument> settingArguments)
+        {
+            this.setArgument = settingArguments;
         }
     }
 }
