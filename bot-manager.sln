@@ -55,13 +55,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BotManager.ScriptSupport", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BotManager.Tests.Database", "BotManager.Tests.Database\BotManager.Tests.Database.csproj", "{0FFBCE6A-0306-48BF-9A63-2CDFE6D946C9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Compiler.Tests", "Compiler.Tests\Compiler.Tests.csproj", "{2B98F10A-018E-495D-91E8-8BB8120A11BF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Compiler.Tests", "Compiler.Tests\Compiler.Tests.csproj", "{2B98F10A-018E-495D-91E8-8BB8120A11BF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BotManager.Notifiers", "BotManager.Notifiers\BotManager.Notifiers.csproj", "{3491F053-A5AA-43C2-91EF-51C5303EBCB6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BotManager.Notifiers", "BotManager.Notifiers\BotManager.Notifiers.csproj", "{3491F053-A5AA-43C2-91EF-51C5303EBCB6}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Notifiers", "Notifiers", "{9F3DD49A-338C-4223-A280-8CA808DB7748}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Notifiers.Test", "Notifiers.Test\Notifiers.Test.csproj", "{DD4D14D5-6C8E-4315-BD14-F5853281AE2D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Notifiers.Test", "Notifiers.Test\Notifiers.Test.csproj", "{DD4D14D5-6C8E-4315-BD14-F5853281AE2D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BotManager.External", "BotManager.External\BotManager.External.csproj", "{30D106F0-8A43-4B0B-ACE0-5963D9918BE5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -169,6 +171,10 @@ Global
 		{DD4D14D5-6C8E-4315-BD14-F5853281AE2D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DD4D14D5-6C8E-4315-BD14-F5853281AE2D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DD4D14D5-6C8E-4315-BD14-F5853281AE2D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{30D106F0-8A43-4B0B-ACE0-5963D9918BE5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{30D106F0-8A43-4B0B-ACE0-5963D9918BE5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{30D106F0-8A43-4B0B-ACE0-5963D9918BE5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{30D106F0-8A43-4B0B-ACE0-5963D9918BE5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
