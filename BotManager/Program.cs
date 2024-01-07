@@ -13,12 +13,12 @@ namespace BotManager
             using(Clock clock = new Clock())
             using(var eewMonitor = EEWNotifier.Create(clock))
             using(var botm = Core.Create<SubscriptionArguments>(new MyCompiler("botmanage.dll"),
-                bm => new()
+                (named, bm) => new()
                 {
                     BotManager = bm,
                     Clock = clock,
                     EEWMonitor = eewMonitor,
-                    Logger = Log.GetLogger("subscription")
+                    Logger = Log.GetLogger("SBSC_" + named.Id)
                 }))
             {
                 await botm.Start();

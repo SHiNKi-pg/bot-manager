@@ -22,13 +22,13 @@ namespace BotManager.Engine
         #region Private Fields
         private readonly ICompiler compiler;
         private BotManager? _botManager;
-        private Func<IBotManager, SubscriptionArgument> gettingSubscriptionArgument;
+        private Func<INamed, IBotManager, SubscriptionArgument> gettingSubscriptionArgument;
 
         private readonly IDisposable compileSubscription;
         #endregion
 
         #region Constructor
-        public BotMechanism(ICompiler compiler, Func<IBotManager, SubscriptionArgument> gettingSubscriptionArgument)
+        public BotMechanism(ICompiler compiler, Func<INamed, IBotManager, SubscriptionArgument> gettingSubscriptionArgument)
         {
             this.gettingSubscriptionArgument = gettingSubscriptionArgument;
             this.compiler = compiler;
@@ -92,7 +92,7 @@ namespace BotManager.Engine
                         .NewAs<ISubscription<SubscriptionArgument>>()
                         .Subscribe(s =>
                         {
-                            var args = gettingSubscriptionArgument(_botManager);
+                            var args = gettingSubscriptionArgument(s, _botManager);
                             var subscription = s.SubscribeFrom(args);
 
                             // アセンブリのアンロードが要求されたらサブスクリプションを解除する
