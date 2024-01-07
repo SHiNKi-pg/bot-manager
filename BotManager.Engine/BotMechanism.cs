@@ -23,7 +23,8 @@ namespace BotManager.Engine
         private readonly ICompiler compiler;
         private BotManager? _botManager;
         private Func<INamed, IBotManager, SubscriptionArgument> gettingSubscriptionArgument;
-        private ILog logger;
+        private ILog logger;    // コンパイラ用ロガー
+        private readonly static ILog Logger = Log.GetLogger("engine");
 
         private readonly IDisposable compileSubscription;
         #endregion
@@ -35,6 +36,7 @@ namespace BotManager.Engine
             this.gettingSubscriptionArgument = gettingSubscriptionArgument;
             this.compiler = compiler;
             compileSubscription = CompileSubscription();
+            Logger.Debug("BotMechanism Created");
         }
 
         private IDisposable CompileSubscription()
@@ -139,6 +141,7 @@ namespace BotManager.Engine
 
         public async Task Start()
         {
+            Logger.Info("BotMechanism Start");
             // Gitリポジトリからスクリプトファイルを取得
             var directory = GitPullAndGetDirectory();
 
@@ -160,9 +163,11 @@ namespace BotManager.Engine
 
         public void Dispose()
         {
+            Logger.Debug("BotMechanism Disposing");
             compileSubscription.Dispose();
             _botManager?.Dispose();
             compiler.Dispose();
+            Logger.Debug("BotMechanism Disposed");
         }
     }
 }

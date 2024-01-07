@@ -15,12 +15,15 @@ namespace BotManager.Engine
     {
         #region Private Field
         private readonly Dictionary<string, IBot> _bots;
+
+        private readonly static ILog Logger = Log.GetLogger("engine");
         #endregion
 
         #region Constructor
         public BotManager()
         {
             _bots = new();
+            Logger.Debug("BotManager Created");
         }
         #endregion
 
@@ -28,22 +31,40 @@ namespace BotManager.Engine
 
         public async Task StartAsync()
         {
-            List<Task> tasklist = new();
-            foreach(var bot in _bots)
+            Logger.Info("BotManager StartAsync Start");
+            try
             {
-                tasklist.Add(bot.Value.StartAsync());
+                List<Task> tasklist = new();
+                foreach (var bot in _bots)
+                {
+                    tasklist.Add(bot.Value.StartAsync());
+                    Logger.Trace($"Bot {bot.Value.Id} Starting");
+                }
+                await Task.WhenAll(tasklist);
             }
-            await Task.WhenAll(tasklist);
+            finally
+            {
+                Logger.Info("BotManager StartAsync End");
+            }
         }
 
         public async Task EndAsync()
         {
-            List<Task> tasklist = new();
-            foreach (var bot in _bots)
+            Logger.Info("BotManager EndAsync Start");
+            try
             {
-                tasklist.Add(bot.Value.EndAsync());
+                List<Task> tasklist = new();
+                foreach (var bot in _bots)
+                {
+                    tasklist.Add(bot.Value.EndAsync());
+                    Logger.Trace($"Bot {bot.Value.Id} Ending");
+                }
+                await Task.WhenAll(tasklist);
             }
-            await Task.WhenAll(tasklist);
+            finally
+            {
+                Logger.Info("BotManager EndAsync End");
+            }
         }
 
         /// <summary>
@@ -71,11 +92,13 @@ namespace BotManager.Engine
 
         public void Dispose()
         {
+            Logger.Debug("BotManager Disposing");
             foreach (var kv in _bots)
             {
                 kv.Value.Dispose();
             }
             _bots.Clear();
+            Logger.Debug("BotManager Disposed");
         }
     }
 }
