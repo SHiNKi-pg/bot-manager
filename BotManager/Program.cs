@@ -1,4 +1,5 @@
-﻿using BotManager.Engine;
+﻿using BotManager.Common;
+using BotManager.Engine;
 using BotManager.External;
 using BotManager.Notifiers;
 using BotManager.Notifiers.EarthquakeMonitor;
@@ -16,7 +17,8 @@ namespace BotManager
                 {
                     BotManager = bm,
                     Clock = clock,
-                    EEWMonitor = eewMonitor
+                    EEWMonitor = eewMonitor,
+                    Logger = Log.GetLogger("subscription")
                 }))
             {
                 await botm.Start();
