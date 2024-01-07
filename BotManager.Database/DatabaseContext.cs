@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using BotManager.Database.Entities;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 using System;
 using System.Collections.Generic;
@@ -15,10 +16,12 @@ namespace BotManager.Database
         private string _connectionString;
         #endregion
         #region Constructor
+#pragma warning disable 8618
         public DatabaseContext(string connectionString)
         {
             this._connectionString = connectionString;
         }
+#pragma warning restore
         #endregion
 
         #region Overrides
@@ -29,6 +32,10 @@ namespace BotManager.Database
         #endregion
 
         #region DBSet
+        // NOTE: 実テーブル名のプロパティを作成しないとアクセスできない
+        public DbSet<User> MST_USER { get; internal set; }
+        public DbSet<User> Users => MST_USER;
+
         #endregion
 
         #region Method
@@ -36,6 +43,12 @@ namespace BotManager.Database
         {
             return base.Database.BeginTransactionAsync();
         }
+
+        public Task<int> SaveChangesAsync()
+        {
+            return base.SaveChangesAsync();
+        }
+
         #endregion
     }
 }
