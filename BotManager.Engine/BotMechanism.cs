@@ -23,6 +23,7 @@ namespace BotManager.Engine
         private readonly ICompiler compiler;
         private BotManager? _botManager;
         private Func<INamed, IBotManager, SubscriptionArgument> gettingSubscriptionArgument;
+        private ILog logger;
 
         private readonly IDisposable compileSubscription;
         #endregion
@@ -30,6 +31,7 @@ namespace BotManager.Engine
         #region Constructor
         public BotMechanism(ICompiler compiler, Func<INamed, IBotManager, SubscriptionArgument> gettingSubscriptionArgument)
         {
+            this.logger = Log.GetLogger("compiler");
             this.gettingSubscriptionArgument = gettingSubscriptionArgument;
             this.compiler = compiler;
             compileSubscription = CompileSubscription();
@@ -43,7 +45,31 @@ namespace BotManager.Engine
             disposables.Add(
                 compiler.CompileError.Subscribe(errors =>
                 {
-                    // TODO: エラーや警告の内容を表示する
+                    foreach(var diag in errors)
+                    {
+                        string message = string.Format("[{0}][{1}]L{2} : {3}",
+                            diag.Severity.ToString(),
+                            diag.Id,
+                            diag.Location.GetLineSpan().StartLinePosition.ToString(),
+                            diag.GetMessage()
+                            );
+
+                        switch (diag.Severity)
+                        {
+                            case Microsoft.CodeAnalysis.DiagnosticSeverity.Hidden:
+                                logger.Debug(message);
+                                break;
+                            case Microsoft.CodeAnalysis.DiagnosticSeverity.Info:
+                                logger.Info(message);
+                                break;
+                            case Microsoft.CodeAnalysis.DiagnosticSeverity.Warning:
+                                logger.Warn(message);
+                                break;
+                            case Microsoft.CodeAnalysis.DiagnosticSeverity.Error:
+                                logger.Error(message);
+                                break;
+                        }
+                    }
                 })
             );
 
@@ -51,6 +77,7 @@ namespace BotManager.Engine
             disposables.Add(
                 compiler.AssemblyUnloading.Subscribe(_ =>
                 {
+                    logger.Info("アセンブリアンロード要求");
                     _botManager?.Dispose();
                 })
             );
@@ -59,6 +86,7 @@ namespace BotManager.Engine
             disposables.Add(
                 compiler.AssemblyCreated.Subscribe(async asm =>
                 {
+                    logger.Info("コンパイル成功");
                     _botManager = new BotManager();
                     List<Task> tasklist = new();
                     var types = asm.GetTypes().ToObservable();
@@ -74,6 +102,7 @@ namespace BotManager.Engine
                     botobs.Subscribe(bot =>
                     {
                         _botManager.AddBot(bot);
+                        logger.Info($"{bot.Name} Bot({bot.Id}) 追加");
                         tasklist.Add(bot.StartAsync());
                     });
 
@@ -94,6 +123,7 @@ namespace BotManager.Engine
                         {
                             var args = gettingSubscriptionArgument(s, _botManager);
                             var subscription = s.SubscribeFrom(args);
+                            logger.Info($"サブスクリプション {s.Name}({s.Id}) 開始");
 
                             // アセンブリのアンロードが要求されたらサブスクリプションを解除する
                             compiler.AssemblyUnloading
