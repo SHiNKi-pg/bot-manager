@@ -51,6 +51,10 @@ namespace Compiler.Tests
                 [Action]
                 public class SubscriptionTest : ISubscription<SubscriptionArguments>
                 {
+                    public string Id => "ID";
+
+                    public string Name => "Name";
+
                     public IDisposable SubscribeFrom(SubscriptionArguments args)
                     {
                         return Disposable.Empty;
