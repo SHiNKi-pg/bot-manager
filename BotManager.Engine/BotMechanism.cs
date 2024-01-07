@@ -89,7 +89,7 @@ namespace BotManager.Engine
                         .HasAttribute<ActionAttribute>()
                         .NotHaveAttribute<ObsoleteAttribute>()
                         .NotHaveAttribute<IgnoreAttribute>()
-                        .NewAs<ISubscription>()
+                        .NewAs<ISubscription<SubscriptionArgument>>()
                         .Subscribe(s =>
                         {
                             var args = gettingSubscriptionArgument(_botManager);

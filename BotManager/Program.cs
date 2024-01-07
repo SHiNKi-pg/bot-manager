@@ -1,4 +1,7 @@
 ﻿using BotManager.Engine;
+using BotManager.External;
+using BotManager.Notifiers;
+using BotManager.Notifiers.EarthquakeMonitor;
 
 namespace BotManager
 {
@@ -6,7 +9,15 @@ namespace BotManager
     {
         static async Task Main(string[] args)
         {
-            using(var botm = Core.Create("botmanage.dll"))
+            using(Clock clock = new Clock())
+            using(IEEWMonitor eewMonitor = new EEWMonitor(clock))
+            using(var botm = Core.Create<SubscriptionArguments>("botmanage.dll",
+                bm => new()
+                {
+                    BotManager = bm,
+                    Clock = clock,
+                    EEWMonitor = eewMonitor
+                }))
             {
                 await botm.Start();
 

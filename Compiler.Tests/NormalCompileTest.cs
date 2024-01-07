@@ -46,11 +46,12 @@ namespace Compiler.Tests
                 using System.Reactive.Disposables;
                 using BotManager.Common.Scripting;
                 using BotManager.Common.Scripting.Attributes;
+                using BotManager.External;
 
                 [Action]
-                public class SubscriptionTest : ISubscription
+                public class SubscriptionTest : ISubscription<SubscriptionArguments>
                 {
-                    public IDisposable SubscribeFrom(ISubscriptionArguments args)
+                    public IDisposable SubscribeFrom(SubscriptionArguments args)
                     {
                         return Disposable.Empty;
                     }

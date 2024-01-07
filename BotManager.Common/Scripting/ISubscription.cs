@@ -9,13 +9,13 @@ namespace BotManager.Common.Scripting
     /// <summary>
     /// サブスクリプションインターフェース
     /// </summary>
-    public interface ISubscription
+    public interface ISubscription<Args> where Args : ISubscriptionArguments
     {
         /// <summary>
         /// イベントを購読します。
         /// </summary>
         /// <param name="args">通知元のオブジェクト等を含むオブジェクト</param>
         /// <returns></returns>
-        IDisposable SubscribeFrom(ISubscriptionArguments args);
+        IDisposable SubscribeFrom(Args args);
     }
 }

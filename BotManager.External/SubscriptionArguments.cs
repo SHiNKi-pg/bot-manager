@@ -19,17 +19,17 @@ namespace BotManager.External
         /// <summary>
         /// Botマネージャー
         /// </summary>
-        public required IBotManager BotManager { get; init; }
+        public IBotManager BotManager { get; init; }
 
         /// <summary>
         /// 現在時刻を通知する機構
         /// </summary>
-        public required IObservable<DateTime> Clock { get; init; }
+        public IObservable<DateTime> Clock { get; init; }
 
         /// <summary>
         /// 緊急地震速報通知
         /// </summary>
-        public required IEEWMonitor EEWMonitor { get; init; }
+        public IEEWMonitor EEWMonitor { get; init; }
 
         // TODO: 新しい引数を追加したい場合はここに記載していく
 #pragma warning restore
