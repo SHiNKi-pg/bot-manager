@@ -17,10 +17,10 @@ namespace Compiler.Tests
         [Fact(DisplayName = "Botスクリプトコンパイルテスト")]
         public async Task RepositoryCompileTest()
         {
-            // Git Clone or Git Pull
+            // ブランチ切替
             var setting = AppSettings.Script;
             var repositry = Git.GetOrClone(setting.RepositoryUrl, setting.Path);
-            repositry.Pull(setting.UserName, setting.Email);
+            repositry.Checkout(setting.BranchName);
 
             // ファイル名出力
             var files = repositry.LocalDirectory.DirectoryInfo.EnumerateFiles("*.cs", SearchOption.AllDirectories);
