@@ -22,6 +22,11 @@ namespace BotManager.Setting.Settings
         string RepositoryUrl { get; }
 
         /// <summary>
+        /// 読み取るブランチの名称
+        /// </summary>
+        string BranchName { get; }
+
+        /// <summary>
         /// Gitユーザー名
         /// </summary>
         string UserName { get; }
@@ -42,6 +47,8 @@ namespace BotManager.Setting.Settings
         public string UserName { get; set; }
 
         public string Email { get; set; }
+
+        public string BranchName { get; set; }
     }
 #pragma warning restore
 }

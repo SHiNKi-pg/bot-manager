@@ -24,6 +24,12 @@ namespace BotManager.Service.Git
         /// <param name="userName">ユーザー名</param>
         /// <param name="emailAddress">ユーザーのメールアドレス</param>
         MergeStatus Pull(string userName, string emailAddress);
+
+        /// <summary>
+        /// 指定したブランチに切り替えます。
+        /// </summary>
+        /// <param name="branchName">ブランチ名</param>
+        void Checkout(string branchName);
     }
     internal sealed class GitRepository : IGitRepositry
     {
@@ -66,6 +72,19 @@ namespace BotManager.Service.Git
             var mergeResult = Commands.Pull(repository, signature, options);
             Logger.Info($"git pull result : ${mergeResult.Status}");
             return mergeResult.Status;
+        }
+
+        public void Checkout(string branchName)
+        {
+            Logger.Info($"git checkout {branchName}");
+            var branch = repository.Branches[branchName];
+            if(branch is null)
+            {
+                Logger.Warn($"Branch '{branch}' is not found.");
+                return;
+            }
+            Commands.Checkout(repository, branch);
+            Logger.Info($"switch to branch {branchName}");
         }
         #endregion
     }
