@@ -63,6 +63,7 @@ namespace Compiler.Tests
             Import<TableAttribute>();
             Import<ColumnAttribute>();
             Import(typeof(DbSet<>));
+            Import<System.Net.Http.HttpClient>();
         }
     }
 }
