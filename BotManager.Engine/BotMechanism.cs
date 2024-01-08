@@ -157,6 +157,9 @@ namespace BotManager.Engine
                 // GitPull
                 repos.Pull(setting.UserName, setting.Email);
 
+                // GitCheckout
+                repos.Checkout(setting.BranchName);
+
                 return repos.LocalDirectory.DirectoryInfo;
             }
         }
