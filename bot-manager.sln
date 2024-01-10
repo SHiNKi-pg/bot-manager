@@ -63,7 +63,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Notifiers", "Notifiers", "{
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Notifiers.Test", "Notifiers.Test\Notifiers.Test.csproj", "{DD4D14D5-6C8E-4315-BD14-F5853281AE2D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BotManager.External", "BotManager.External\BotManager.External.csproj", "{30D106F0-8A43-4B0B-ACE0-5963D9918BE5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BotManager.External", "BotManager.External\BotManager.External.csproj", "{30D106F0-8A43-4B0B-ACE0-5963D9918BE5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BotManager.Tests", "BotManager.Tests\BotManager.Tests.csproj", "{93B992BB-EE9D-40EA-B106-7406E869293B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -175,6 +177,10 @@ Global
 		{30D106F0-8A43-4B0B-ACE0-5963D9918BE5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{30D106F0-8A43-4B0B-ACE0-5963D9918BE5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{30D106F0-8A43-4B0B-ACE0-5963D9918BE5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{93B992BB-EE9D-40EA-B106-7406E869293B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{93B992BB-EE9D-40EA-B106-7406E869293B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{93B992BB-EE9D-40EA-B106-7406E869293B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{93B992BB-EE9D-40EA-B106-7406E869293B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
