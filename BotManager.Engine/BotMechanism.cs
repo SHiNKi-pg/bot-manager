@@ -139,14 +139,14 @@ namespace BotManager.Engine
         }
         #endregion
 
-        public async Task Start()
+        public async Task CompileSources()
         {
             Logger.Info("BotMechanism Start");
             // Gitリポジトリからスクリプトファイルを取得
             var directory = GitPullAndGetDirectory();
 
             // コンパイル(C#)
-            await compiler.CompileFrom(directory.EnumerateFiles("*.cs", SearchOption.AllDirectories));
+            await compiler.CompileFromAsync(directory.EnumerateFiles("*.cs", SearchOption.AllDirectories));
         }
 
         private DirectoryInfo GitPullAndGetDirectory()
