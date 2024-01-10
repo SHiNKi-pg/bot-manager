@@ -15,8 +15,8 @@ namespace BotManager.Engine
         where SubscriptionArguments : ISubscriptionArguments, new()
     {
         /// <summary>
-        /// Bot機能を開始します。
+        /// ソースをコンパイルし、成功したらBotスクリプトを開始します。
         /// </summary>
-        Task Start();
+        Task CompileSources();
     }
 }

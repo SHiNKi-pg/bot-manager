@@ -25,7 +25,7 @@ namespace BotManager
                         Logger = Log.GetLogger("SBSC_" + named.Id)
                     }))
                 {
-                    await botm.Start();
+                    await botm.CompileSources();
 
                     // TODO: 待機処理を作成する
                     Console.ReadLine();
