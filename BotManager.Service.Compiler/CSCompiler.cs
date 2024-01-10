@@ -1,4 +1,5 @@
-﻿using Microsoft.CodeAnalysis;
+﻿using BotManager.Service.Compiler.Results;
+using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using System;
 using System.Collections.Generic;
@@ -15,7 +16,7 @@ namespace BotManager.Service.Compiler
     /// <summary>
     /// C#コンパイラークラス
     /// </summary>
-    public class CSharpCompiler : ICompiler, IDisposable
+    public class CSharpCompiler : ICompiler, IDisposable, IPrecompilable
     {
         #region Private Fields
 
@@ -227,5 +228,58 @@ namespace BotManager.Service.Compiler
         {
             syntaxTrees.Clear();
         }
+
+        #region Precompile
+        /// <summary>
+        /// 現在の設定で試験的にコンパイルを実行し、結果を通知します。このメソッドではコンパイルしたアセンブリは通知されません。通常は<seealso cref="Compile"/>を実行する前に呼び出します。
+        /// </summary>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        public IObservable<ICompileResult> Precompile()
+        {
+            return Observable.Create<ICompileResult>(observer =>
+            {
+                Random rnd = new();
+                string tmpAssemblyName = $"assemblyName_{rnd.Next(10000)}_{rnd.Next(10000)}_{rnd.Next(10000)}";
+                var compilation = CSharpCompilation.Create(tmpAssemblyName, syntaxTrees, references, compilationOptions);
+
+                var ms = new MemoryStream();
+                try
+                {
+                    // コンパイル
+                    var result = compilation.Emit(ms);
+                    observer.OnNext(new PreCompileSuccess(result.Success));
+
+                    // コンパイルエラーや警告をオブザーバーに通知
+                    observer.OnNext(new PreCompileMessage(result.Diagnostics));
+                }catch(Exception ex)
+                {
+                    observer.OnError(ex);
+                }
+                observer.OnCompleted();
+                return ms;
+            });
+        }
+
+        private class PreCompileSuccess : ICompileSuccessed
+        {
+            public bool Success { get; }
+
+            public PreCompileSuccess(bool success)
+            {
+                this.Success = success;
+            }
+        }
+
+        private class PreCompileMessage : ICompileMessage
+        {
+            public IEnumerable<Diagnostic> Messages { get; }
+
+            public PreCompileMessage(IEnumerable<Diagnostic> messages)
+            {
+                Messages = messages;
+            }
+        }
+        #endregion
     }
 }
