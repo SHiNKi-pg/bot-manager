@@ -28,7 +28,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BotManager
 {
-    internal class MyCompiler : CSharpCompiler
+    public class MyCompiler : CSharpCompiler
     {
         public MyCompiler(string assemblyName) : base(assemblyName, LanguageVersion.Latest)
         {

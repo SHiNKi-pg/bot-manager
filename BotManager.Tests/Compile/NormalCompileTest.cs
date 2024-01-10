@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Xunit.Abstractions;
 
-namespace Compiler.Tests
+namespace BotManager.Tests.Compile
 {
     public class NormalCompileTest : TestBase
     {
