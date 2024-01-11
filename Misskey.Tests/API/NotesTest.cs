@@ -41,8 +41,7 @@ namespace Misskey.Tests.API
         {
             try
             {
-                var api = client.GetMisskeyHttpApiClient();
-                var notes = await api.Notes.GetNotesAsync();
+                var notes = await client.Api.Notes.GetNotesAsync();
                 foreach(var note in notes)
                 {
                     output.WriteLine(note.Text);
@@ -60,8 +59,7 @@ namespace Misskey.Tests.API
         {
             try
             {
-                var api = client.GetMisskeyHttpApiClient();
-                var note = await api.Notes.CreateNote(text: "APIで投稿テスト\n" + DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss"));
+                var note = await client.Api.Notes.CreateNote(text: "APIで投稿テスト\n" + DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss"));
 
                 string noteId = note.Note.Id;
                 output.WriteLine("ノートID : {0}", noteId);
@@ -70,7 +68,7 @@ namespace Misskey.Tests.API
 
                 // 3秒後、投稿したノートの削除
                 await Task.Delay(3000);
-                await api.Notes.DeleteNote(noteId);
+                await client.Api.Notes.DeleteNote(noteId);
             }
             catch (Exception ex)
             {
