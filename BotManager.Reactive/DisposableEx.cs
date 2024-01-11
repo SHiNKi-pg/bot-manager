@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reactive.Disposables;
 using System.Reactive.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -35,5 +36,37 @@ namespace BotManager.Reactive
         {
             return new DisposalNotifier(baseDisposable);
         }
+
+        #region Then
+
+        /// <summary>
+        /// <see cref="IDisposable.Dispose"/>を呼び出したときに実行する処理を登録します。
+        /// </summary>
+        /// <param name="baseDisposable"></param>
+        /// <param name="dispose">実行する処理</param>
+        /// <returns></returns>
+        public static IDisposable Then(this IDisposable baseDisposable, Action dispose)
+        {
+            CompositeDisposable disposables = new();
+            disposables.Add(baseDisposable);
+            disposables.Add(Disposable.Create(dispose));
+            return disposables;
+        }
+
+        /// <summary>
+        /// <see cref="IDisposable.Dispose"/>を呼び出したときに実行する処理を登録します。
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="disposable"></param>
+        /// <param name="dispose">実行する処理</param>
+        /// <returns></returns>
+        public static IDisposable Then<T>(this T disposable, Action<T> dispose) where T : IDisposable
+        {
+            CompositeDisposable disposables = new();
+            disposables.Add(disposable);
+            disposables.Add(Disposable.Create(disposable, dispose));
+            return disposables;
+        }
+        #endregion
     }
 }
