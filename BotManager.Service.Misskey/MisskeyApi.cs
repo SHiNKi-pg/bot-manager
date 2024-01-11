@@ -13,7 +13,7 @@ namespace BotManager.Service.Misskey
     /// <summary>
     /// Misskey Web API
     /// </summary>
-    public partial class MisskeyApi : IMisskeyApi
+    internal partial class MisskeyApi : IMisskeyApi
     {
         #region Private Fields
         /// <summary>

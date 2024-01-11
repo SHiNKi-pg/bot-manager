@@ -11,7 +11,7 @@ namespace BotManager.Service.Misskey.Api
     /// <summary>
     /// MisskeyAPIベースクラス（エンドポイント別）
     /// </summary>
-    public abstract class MisskeyApiBase
+    internal abstract class MisskeyApiBase
     {
         #region Private Fields
         /// <summary>
