@@ -38,7 +38,12 @@ namespace BotManager.Service.Misskey
             this.host = host;
             this.token = token; 
             websocketClient = new(new($"wss://{host}/streaming&i={token}"));
+            this.Api = new MisskeyApi(host, token);
         }
+        #endregion
+
+        #region Property
+        public IMisskeyApi Api { get; }
         #endregion
 
         #region Streaming Timeline
@@ -198,16 +203,6 @@ namespace BotManager.Service.Misskey
         public async Task EndAsync()
         {
             await websocketClient.Stop(WebSocketCloseStatus.NormalClosure, "stop websockets");
-        }
-
-        /// <summary>
-        /// Misskey HTTP APIにアクセスするオブジェクトを返します。
-        /// </summary>
-        /// <returns></returns>
-        /// <exception cref="NotImplementedException"></exception>
-        public IMisskeyApi GetMisskeyHttpApiClient()
-        {
-            return new MisskeyApi(host, token);
         }
         #endregion
 
