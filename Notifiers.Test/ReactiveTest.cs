@@ -19,11 +19,40 @@ namespace Notifiers.Test
             this.output = helper;
         }
 
-        [Fact(DisplayName = "Interlocked Disposal Subscription")]
+        [Fact(DisplayName = "Dispose内部通知/外部でDisposeする")]
         public async Task InterlockDisposingTest()
         {
             var numobs = Observable
-                .Interval(TimeSpan.FromSeconds(1))
+                .Interval(TimeSpan.FromSeconds(0.01))
+                .GroupBy(n => n % 10)
+                ;
+
+            bool disposed = false;
+
+            var subscription = numobs.InterlockedSubscribe((g, d) =>
+            {
+                // Disposeされたことを受け取れるかテスト
+                g
+                .Subscribe(n => output.WriteLine("{0}-{1}", g.Key, n))
+                .Then(() =>
+                {
+                    disposed = true;
+                    output.WriteLine("Key:{0} Disposed", g.Key);
+                })
+                .DisposeOn(d)
+                ;
+            });
+            await Task.Delay(120);
+            subscription.Dispose();
+
+            Assert.True(disposed);  // 内部のSubscribeがDisposeされていればOK
+        }
+
+        [Fact(DisplayName = "Dispose内部通知/外部でDisposeしない")]
+        public async Task InterlockDisposingNoDisposeTest()
+        {
+            var numobs = Observable
+                .Interval(TimeSpan.FromSeconds(0.01))
                 .GroupBy(n => n % 10)
                 ;
 
@@ -31,12 +60,12 @@ namespace Notifiers.Test
             {
                 // Disposeされたことを受け取れるかテスト
                 g
-                .TakeUntil(d)
-                .Finally(() => output.WriteLine("Disposing"))
-                .Subscribe(n => output.WriteLine("{0}-{1}", g.Key, n));
+                .Subscribe(n => output.WriteLine("{0}-{1}", g.Key, n))
+                .Then(() => Assert.Fail($"Key : {g.Key} Disposed")) // 外部でDisposeされていないのにも関わらず呼ばれたら失敗
+                .DisposeOn(d)
+                ;
             });
-            await Task.Delay(25000);
-            subscription.Dispose();
+            await Task.Delay(120);
         }
     }
 }
