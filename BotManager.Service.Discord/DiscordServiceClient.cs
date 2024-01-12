@@ -124,6 +124,18 @@ namespace BotManager.Service.Discord
         }
 
         /// <summary>
+        /// 指定したサーバーのチャンネルを返します。
+        /// </summary>
+        /// <param name="guildId">サーバーID</param>
+        /// <param name="channelId">テキストチャンネルID</param>
+        /// <returns></returns>
+        public IWrappedTextChannel<SocketTextChannel> GetTextChannelInGuild(ulong guildId, ulong channelId)
+        {
+            var guild = client.GetGuild(guildId);
+            return guild.GetTextChannel(channelId).ToWrappedTextChannel();
+        }
+
+        /// <summary>
         /// オンライン状態を変更します。
         /// </summary>
         /// <param name="status"></param>

@@ -23,6 +23,14 @@ namespace BotManager.Service.Discord
         IWrappedGuild<SocketGuild> GetGuild(ulong guildId);
 
         /// <summary>
+        /// 指定したサーバーのチャンネルを返します。
+        /// </summary>
+        /// <param name="guildId">サーバーID</param>
+        /// <param name="channelId">テキストチャンネルID</param>
+        /// <returns></returns>
+        IWrappedTextChannel<SocketTextChannel> GetTextChannelInGuild(ulong guildId, ulong channelId);
+
+        /// <summary>
         /// 現在のオンライン状態を取得します。
         /// </summary>
         UserStatus Status { get; }
