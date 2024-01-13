@@ -68,6 +68,12 @@ namespace BotManager.Service.Misskey.Schemas
         public string? RenoteId { get; private set; }
 
         /// <summary>
+        /// 
+        /// </summary>
+        [JsonProperty("channelId")]
+        public string? ChannelId { get; private set; }
+
+        /// <summary>
         /// このオブジェクトをJSON文字列として返します。
         /// </summary>
         /// <returns></returns>
