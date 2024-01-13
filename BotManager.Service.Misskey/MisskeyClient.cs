@@ -13,6 +13,7 @@ using BotManager.Service.Misskey.Schemas.Streaming;
 using Newtonsoft.Json;
 using System.Reactive.Disposables;
 using BotManager.Service.Misskey.Schemas.Streaming.Captures;
+using BotManager.Common.Messaging;
 
 namespace BotManager.Service.Misskey
 {
@@ -203,6 +204,12 @@ namespace BotManager.Service.Misskey
         public async Task EndAsync()
         {
             await websocketClient.Stop(WebSocketCloseStatus.NormalClosure, "stop websockets");
+        }
+
+        public async Task<IMessage> Send(string content)
+        {
+            var createdNote = await Api.Notes.CreateNote(text: content);
+            return new Messaging.MisskeyMessage(this, createdNote.Note);
         }
         #endregion
 
