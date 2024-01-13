@@ -20,6 +20,11 @@ namespace BotManager.Common.Messaging
         /// 受信日時
         /// </summary>
         DateTime ReceivedTime { get; }
+
+        /// <summary>
+        /// このメッセージがBotの投稿かどうか取得します。
+        /// </summary>
+        bool IsBot { get; }
     }
 
     /// <summary>

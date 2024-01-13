@@ -24,6 +24,8 @@ namespace BotManager.Service.Discord.Messaging
 
         public ulong Id => message.Id;
 
+        public bool IsBot => message.Author.IsBot || message.Author.IsWebhook;
+
         public async Task Delete()
         {
             await message.DeleteAsync();
