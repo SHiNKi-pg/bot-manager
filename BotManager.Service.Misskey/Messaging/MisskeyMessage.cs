@@ -23,8 +23,7 @@ namespace BotManager.Service.Misskey.Messaging
 
         public DateTime ReceivedTime => note.CreatedAt.DateTime;
 
-        // TODO: メッセージを投稿したユーザがBotかどうかを取得する
-        public bool IsBot => false;
+        public bool IsBot => note.User?.IsBot ?? false;
 
         public async Task Delete()
         {
