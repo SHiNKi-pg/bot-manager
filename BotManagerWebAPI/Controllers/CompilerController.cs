@@ -1,6 +1,7 @@
 ﻿using BotManager.Engine;
 using BotManager.Service.Compiler.Results;
 using BotManager.Service.Git;
+using LibGit2Sharp;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis;
@@ -31,7 +32,7 @@ namespace BotManagerWebAPI.Controllers
 
                     using(compilerobs.Connect())
                     {
-                        await compilerobs;
+                        await compilerobs.Count();
                     }
 
                     // ブランチを元に戻す
@@ -39,8 +40,14 @@ namespace BotManagerWebAPI.Controllers
 
                     return StatusCode(200, new
                     {
-                        result = success,
-                        messages = messages
+                        Result = success,
+                        Messages = messages.Select(mes => new
+                        {
+                            Severity = mes.Severity,
+                            Id = mes.Id,
+                            Line = mes.Location.GetLineSpan().StartLinePosition.Line,
+                            Message = mes.GetMessage(),
+                        })
                     });
                 }
             }catch(Exception ex)
