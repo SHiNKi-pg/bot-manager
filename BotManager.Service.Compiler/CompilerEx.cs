@@ -14,6 +14,7 @@ namespace BotManager.Service.Compiler
     /// </summary>
     public static class CompilerEx
     {
+        #region CompileFrom
         /// <summary>
         /// 指定したソースファイルコレクションをコンパイルします。
         /// </summary>
@@ -91,5 +92,86 @@ namespace BotManager.Service.Compiler
         {
             return CompileFromAsync(compiler, files, Encoding.UTF8, true);
         }
+        #endregion
+
+        #region PreCompileFrom
+        /// <summary>
+        /// 指定したソースファイルコレクションをコンパイルします。
+        /// </summary>
+        /// <param name="compiler"></param>
+        /// <param name="files">ソースファイルコレクション</param>
+        /// <param name="encoding">文字コード</param>
+        /// <param name="useBOM">BOM付きかどうか</param>
+        /// <returns></returns>
+        public static async Task PreCompileFrom(this IPrecompilableCompiler compiler, IEnumerable<FileInfo> files, Encoding encoding, bool useBOM)
+        {
+            compiler.ClearSources();
+            foreach (var file in files)
+            {
+                await compiler.AddSourceFile(file.FullName, encoding, useBOM);
+            }
+            compiler.Compile();
+        }
+
+        /// <summary>
+        /// 文字コードを BOM付きUTF-8として、指定したソースファイルコレクションをコンパイルします。
+        /// </summary>
+        /// <param name="compiler">ソースファイルコレクション</param>
+        /// <param name="files"></param>
+        /// <returns></returns>
+        public static Task PreCompileFrom(this IPrecompilableCompiler compiler, IEnumerable<FileInfo> files)
+        {
+            return PreCompileFrom(compiler, files, Encoding.UTF8, true);
+        }
+
+        /// <summary>
+        /// コンパイルしてからアセンブリ作成通知がされるまで待機します。
+        /// </summary>
+        /// <param name="compiler"></param>
+        /// <returns></returns>
+        public static async Task PreCompileAsync(this IPrecompilableCompiler compiler)
+        {
+            using (ReplaySubject<IAssembly> subject = new(1))
+            {
+                using (compiler.AssemblyCreated
+                    .TakeUntil(compiler.CompileFailed)  // コンパイル失敗したら購読を止める
+                    .Take(1)    // 通知は最初の1回だけ取ることが出来ればよい
+                    .Subscribe(subject))
+                {
+                    compiler.Compile();
+                    await subject.Count();
+                }
+            }
+        }
+
+        /// <summary>
+        /// 指定したソースファイルコレクションをコンパイルし、アセンブリ作成通知がされるまで待機します。
+        /// </summary>
+        /// <param name="compiler"></param>
+        /// <param name="files">ソースファイルコレクション</param>
+        /// <param name="encoding">文字コード</param>
+        /// <param name="useBOM">BOM付きかどうか</param>
+        /// <returns></returns>
+        public static async Task PreCompileFromAsync(this IPrecompilableCompiler compiler, IEnumerable<FileInfo> files, Encoding encoding, bool useBOM)
+        {
+            compiler.ClearSources();
+            foreach (var file in files)
+            {
+                await compiler.AddSourceFile(file.FullName, encoding, useBOM);
+            }
+            await compiler.CompileAsync();
+        }
+
+        /// <summary>
+        /// 文字コードを BOM付きUTF-8として、指定したソースファイルコレクションをコンパイルし、アセンブリ作成通知がされるまで待機します。
+        /// </summary>
+        /// <param name="compiler">ソースファイルコレクション</param>
+        /// <param name="files"></param>
+        /// <returns></returns>
+        public static Task PreCompileFromAsync(this IPrecompilableCompiler compiler, IEnumerable<FileInfo> files)
+        {
+            return PreCompileFromAsync(compiler, files, Encoding.UTF8, true);
+        }
+        #endregion
     }
 }
