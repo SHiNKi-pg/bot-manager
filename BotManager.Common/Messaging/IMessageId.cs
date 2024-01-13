@@ -7,13 +7,14 @@ using System.Threading.Tasks;
 namespace BotManager.Common.Messaging
 {
     /// <summary>
-    /// 返信可能メッセージ受信可能インターフェース
+    /// IDプロパティを持つメッセージインターフェース
     /// </summary>
-    public interface IMessageReceived<out T> where T : IMessage
+    /// <typeparam name="T">IDの型</typeparam>
+    public interface IMessageId<out T> : IMessage
     {
         /// <summary>
-        /// メッセージを受信したことを通知します。
+        /// メッセージID
         /// </summary>
-        IObservable<T> MessageReceived { get; }
+        T Id { get; }
     }
 }

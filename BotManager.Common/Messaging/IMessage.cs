@@ -51,4 +51,13 @@ namespace BotManager.Common.Messaging
         /// <returns></returns>
         Task Delete();
     }
+
+    /// <summary>
+    /// メッセージID付き返信可能メッセージインターフェース
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    public interface IReplyableMessageWithId<out T> : IReplyableMessage, IMessageId<T>
+    {
+
+    }
 }
