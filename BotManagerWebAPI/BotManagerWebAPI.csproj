@@ -11,4 +11,12 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\BotManager.Engine\BotManager.Engine.csproj" />
+    <ProjectReference Include="..\BotManager.External\BotManager.External.csproj" />
+    <ProjectReference Include="..\BotManager.Service.Compiler\BotManager.Service.Compiler.csproj" />
+    <ProjectReference Include="..\BotManager.Setting\BotManager.Setting.csproj" />
+    <ProjectReference Include="..\BotManager\BotManager.csproj" />
+  </ItemGroup>
+
 </Project>
