@@ -14,6 +14,8 @@ using Newtonsoft.Json;
 using System.Reactive.Disposables;
 using BotManager.Service.Misskey.Schemas.Streaming.Captures;
 using BotManager.Common.Messaging;
+using BotManager.Service.Misskey.Messaging;
+using System.Reactive.Subjects;
 
 namespace BotManager.Service.Misskey
 {
@@ -26,6 +28,9 @@ namespace BotManager.Service.Misskey
         private string host;
         private string token;
         private WebsocketClient websocketClient;
+
+        private readonly IConnectableObservable<IReplyableMessage> messageReceived;
+        private readonly CompositeDisposable subscriptions;
         #endregion
 
         #region Constructor
@@ -37,14 +42,23 @@ namespace BotManager.Service.Misskey
         public MisskeyClient(string host, string token)
         {
             this.host = host;
-            this.token = token; 
+            this.token = token;
+            this.subscriptions = new();
             websocketClient = new(new($"wss://{host}/streaming&i={token}"));
             this.Api = new MisskeyApi(host, token);
+
+            // Event
+            this.messageReceived = GetHomeTimeline(GetType().FullName + "_home_timeline")
+                .Select(note => new MisskeyMessage(this, note))
+                .Publish();
+            subscriptions.Add(messageReceived.Connect());
         }
         #endregion
 
         #region Property
         public IMisskeyApi Api { get; }
+
+        public IObservable<IReplyableMessage> MessageReceived => messageReceived;
         #endregion
 
         #region Streaming Timeline
@@ -219,6 +233,7 @@ namespace BotManager.Service.Misskey
         /// </summary>
         public void Dispose()
         {
+            subscriptions.Dispose();
             websocketClient.Dispose();
         }
         #endregion
