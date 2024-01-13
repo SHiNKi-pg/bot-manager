@@ -156,13 +156,19 @@ namespace BotManager.Engine
         private DirectoryInfo GitPullAndGetDirectory()
         {
             var setting = AppSettings.Script;
-            using(var repos = Git.GetOrClone(setting.RepositoryUrl, setting.Path))
+            using(var repos = GetScriptRepositry())
             {
                 // GitCheckout
                 repos.Checkout(setting.BranchName);
 
                 return repos.LocalDirectory.DirectoryInfo;
             }
+        }
+
+        public IGitRepositry GetScriptRepositry()
+        {
+            var setting = AppSettings.Script;
+            return Git.GetOrClone(setting.RepositoryUrl, setting.Path);
         }
 
         public void Dispose()
