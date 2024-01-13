@@ -28,9 +28,9 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BotManager
 {
-    public class MyCompiler : CSharpCompiler
+    public class BotManagerCompiler : CSharpCompiler
     {
-        public MyCompiler(string assemblyName) : base(assemblyName, LanguageVersion.Latest)
+        public BotManagerCompiler(string assemblyName) : base(assemblyName, LanguageVersion.Latest)
         {
             // スクリプトで使用しているクラスを正しく読み取れるようにする
             Import<Regex>();

@@ -19,7 +19,7 @@ namespace BotManagerWebAPI
             Logger = Log.GetLogger("system");
             clock = new Clock();
             eewMonitor = EEWNotifier.Create(clock);
-            BotMechanism = Core.Create<SubscriptionArguments>(new MyCompiler("botmanage.dll"),
+            BotMechanism = Core.Create<SubscriptionArguments>(new BotManagerCompiler("botmanage.dll"),
             (named, bm) => new()
             {
                 BotManager = bm,
