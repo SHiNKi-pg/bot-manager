@@ -31,5 +31,10 @@ namespace BotManager.Database
         /// MST_USER
         /// </summary>
         DbSet<User> Users { get; }
+
+        /// <summary>
+        /// MST_BOT
+        /// </summary>
+        DbSet<Bot> Bots { get; }
     }
 }

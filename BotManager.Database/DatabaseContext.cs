@@ -41,6 +41,10 @@ namespace BotManager.Database
         public DbSet<User> MST_USER { get; internal set; }
         public DbSet<User> Users => MST_USER;
 
+        public DbSet<Bot> MST_BOT { get; internal set; }
+
+        public DbSet<Bot> Bots => MST_BOT;
+
         #endregion
 
         #region Method
