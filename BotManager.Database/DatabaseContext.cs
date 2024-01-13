@@ -45,6 +45,14 @@ namespace BotManager.Database
 
         public DbSet<Bot> Bots => MST_BOT;
 
+        public DbSet<DiscordUser> MST_DISCORD_USER { get; internal set; }
+
+        public DbSet<DiscordUser> DiscordUsers => MST_DISCORD_USER;
+
+        public DbSet<MisskeyUser> MST_MISSKEY_USER { get; internal set; }
+
+        public DbSet<MisskeyUser> MisskeyUsers => MST_MISSKEY_USER;
+
         #endregion
 
         #region Method

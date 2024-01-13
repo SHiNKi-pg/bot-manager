@@ -36,5 +36,15 @@ namespace BotManager.Database
         /// MST_BOT
         /// </summary>
         DbSet<Bot> Bots { get; }
+
+        /// <summary>
+        /// MST_DISCORD_USER
+        /// </summary>
+        DbSet<DiscordUser> DiscordUsers { get; }
+
+        /// <summary>
+        /// MST_MISSKEY_USER
+        /// </summary>
+        DbSet<MisskeyUser> MisskeyUsers { get; }
     }
 }
