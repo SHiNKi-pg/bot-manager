@@ -62,6 +62,18 @@ namespace BotManager.Service.Misskey.Schemas
         public string AvatarBlurhash { get; private set; } = "";
 
         /// <summary>
+        /// 
+        /// </summary>
+        [JsonProperty("isBot")]
+        public bool IsBot { get; private set; } = false;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [JsonProperty("isCat")]
+        public bool IsCat { get; private set; } = false;
+
+        /// <summary>
         /// このオブジェクトをJSON文字列として返します。
         /// </summary>
         /// <returns></returns>
