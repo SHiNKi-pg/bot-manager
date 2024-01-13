@@ -65,6 +65,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BotManager.External", "BotM
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BotManager.Tests", "BotManager.Tests\BotManager.Tests.csproj", "{93B992BB-EE9D-40EA-B106-7406E869293B}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Execution", "Execution", "{BABD0B80-C01C-4393-9DC7-866ACA41D97B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BotManagerWebAPI", "BotManagerWebAPI\BotManagerWebAPI.csproj", "{77E69481-941D-4DDE-9617-8E7974C04A09}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -175,6 +179,10 @@ Global
 		{93B992BB-EE9D-40EA-B106-7406E869293B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{93B992BB-EE9D-40EA-B106-7406E869293B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{93B992BB-EE9D-40EA-B106-7406E869293B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{77E69481-941D-4DDE-9617-8E7974C04A09}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{77E69481-941D-4DDE-9617-8E7974C04A09}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{77E69481-941D-4DDE-9617-8E7974C04A09}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{77E69481-941D-4DDE-9617-8E7974C04A09}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -196,6 +204,7 @@ Global
 		{3491F053-A5AA-43C2-91EF-51C5303EBCB6} = {EB74C6FC-FC0C-4185-90D5-B86E42F2AF3E}
 		{9F3DD49A-338C-4223-A280-8CA808DB7748} = {2759ECCC-1841-473D-BD88-DD8BA06A9E28}
 		{DD4D14D5-6C8E-4315-BD14-F5853281AE2D} = {9F3DD49A-338C-4223-A280-8CA808DB7748}
+		{77E69481-941D-4DDE-9617-8E7974C04A09} = {BABD0B80-C01C-4393-9DC7-866ACA41D97B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {14DEB328-F00E-4E18-B492-EA3C6F66ECEC}
