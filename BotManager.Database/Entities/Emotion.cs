@@ -45,17 +45,5 @@ namespace BotManager.Database.Entities
         /// </summary>
         [Column("CREATEDAT")]
         public DateTime CreatedAt { get; set; } = DateTime.Now;
-
-        /// <summary>
-        /// Bot
-        /// </summary>
-        [ForeignKey(nameof(BotId))]
-        public Bot? Bot { get; init; }
-
-        /// <summary>
-        /// User
-        /// </summary>
-        [ForeignKey(nameof(UserId))]
-        public User? User { get; init; }
     }
 }

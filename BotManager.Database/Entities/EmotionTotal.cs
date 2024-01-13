@@ -32,18 +32,5 @@ namespace BotManager.Database.Entities
         /// </summary>
         [Column("EMOTIONSUM")]
         public int TotalValue { get; init; }
-        
-
-        /// <summary>
-        /// Bot
-        /// </summary>
-        [ForeignKey(nameof(BotId))]
-        public Bot? Bot { get; init; }
-
-        /// <summary>
-        /// User
-        /// </summary>
-        [ForeignKey(nameof(UserId))]
-        public User? User { get; init; }
     }
 }
