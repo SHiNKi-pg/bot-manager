@@ -1,4 +1,5 @@
 ﻿using BotManager.Engine;
+using BotManager.Service.Compiler;
 using BotManager.Service.Compiler.Results;
 using BotManager.Service.Git;
 using LibGit2Sharp;
@@ -22,6 +23,9 @@ namespace BotManagerWebAPI.Controllers
                 using (var repos = Entry.BotMechanism.GetScriptRepositry())
                 {
                     repos.Checkout(branchName);
+
+                    // C#ソースファイルの再設定
+                    await compiler.SetSourceFilesAsync(repos.LocalDirectory.DirectoryInfo.EnumerateFiles("*.cs", SearchOption.AllDirectories));
                     var compilerobs = compiler.Precompile().Publish();
 
                     bool success = false;
