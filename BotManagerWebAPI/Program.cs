@@ -3,7 +3,7 @@ namespace BotManagerWebAPI
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
 
@@ -28,7 +28,22 @@ namespace BotManagerWebAPI
 
             app.MapControllers();
 
-            app.Run();
+            Entry.Logger.Info("Start");
+            try
+            {
+                await Entry.BotMechanism.CompileSources();
+                await app.RunAsync();
+                Entry.Logger.Info("End");
+            }
+            catch (Exception ex)
+            {
+                Entry.Logger.Fatal(ex, "BotManager Abort");
+                throw;
+            }
+            finally
+            {
+                Entry.Close();
+            }
         }
     }
 }
