@@ -46,5 +46,15 @@ namespace BotManager.Database
         /// MST_MISSKEY_USER
         /// </summary>
         DbSet<MisskeyUser> MisskeyUsers { get; }
+
+        /// <summary>
+        /// TBL_EMOTION。このテーブルでは UPDATEや DELETEは使用できません。
+        /// </summary>
+        DbSet<Emotion> Emotions { get; }
+
+        /// <summary>
+        /// MV_EMOTION。マテリアライズドビューを使用しているため、感情値の合計を <seealso cref="Emotions"/>で取得するよりもこちらで取得した方が高速になりますが、値が最新の状態であるとは限りません。
+        /// </summary>
+        DbSet<EmotionTotal> EmotionTotals { get; }
     }
 }

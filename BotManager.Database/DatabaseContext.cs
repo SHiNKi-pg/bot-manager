@@ -53,6 +53,14 @@ namespace BotManager.Database
 
         public DbSet<MisskeyUser> MisskeyUsers => MST_MISSKEY_USER;
 
+        public DbSet<Emotion> TBL_EMOTION { get; internal set; }
+
+        public DbSet<Emotion> Emotions => TBL_EMOTION;
+
+        public DbSet<EmotionTotal> MV_EMOTION { get; internal set; }
+
+        public DbSet<EmotionTotal> EmotionTotals => MV_EMOTION;
+
         #endregion
 
         #region Method
