@@ -67,7 +67,12 @@ namespace BotManager.Notifiers.EarthquakeMonitor
                     Logger.Info($"緊急地震速報({(eewInfo.IsAlert ? "警報" : "予報")})\n地震ID : {eewInfo.ReportId}(第{eewInfo.ReportNum}報)\n予想最大震度 : {eewInfo.Calcintensity}\nマグニチュード : {eewInfo.Magunitude}");
                     _eewSubject.OnNext(eewInfo);
                 }
-            }catch(Exception ex)
+            }
+            catch (ObjectDisposedException ex)
+            {
+                Logger.Error(ex, "EEW");
+            }
+            catch (Exception ex)
             {
                 Logger.Error(ex, "EEW");
                 _eewSubject.OnError(ex);

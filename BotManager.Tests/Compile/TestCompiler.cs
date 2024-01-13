@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BotManager.Tests.Compile
 {
-    public class TestCompiler : MyCompiler
+    public class TestCompiler : BotManagerCompiler
     {
         public TestCompiler(string assemblyName) : base(assemblyName) { }
     }

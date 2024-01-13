@@ -1,5 +1,7 @@
 ﻿using BotManager.Common;
 using BotManager.Common.Scripting;
+using BotManager.Service.Compiler;
+using BotManager.Service.Git;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,5 +20,16 @@ namespace BotManager.Engine
         /// ソースをコンパイルし、成功したらBotスクリプトを開始します。
         /// </summary>
         Task CompileSources();
+
+        /// <summary>
+        /// コンパイラを取得します。これは通常、スクリプトがコンパイルできるかどうかチェックするために使用されます。
+        /// </summary>
+        IPrecompilable PreCompiler { get; }
+
+        /// <summary>
+        /// スクリプトのリポジトリを返します。
+        /// </summary>
+        /// <returns></returns>
+        IGitRepositry GetScriptRepositry();
     }
 }

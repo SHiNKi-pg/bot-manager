@@ -20,7 +20,7 @@ namespace BotManager.Engine
         where SubscriptionArgument : ISubscriptionArguments, new()
     {
         #region Private Fields
-        private readonly ICompiler compiler;
+        private readonly IPrecompilableCompiler compiler;
         private BotManager? _botManager;
         private Func<INamed, IBotManager, SubscriptionArgument> gettingSubscriptionArgument;
         private ILog logger;    // コンパイラ用ロガー
@@ -30,7 +30,7 @@ namespace BotManager.Engine
         #endregion
 
         #region Constructor
-        public BotMechanism(ICompiler compiler, Func<INamed, IBotManager, SubscriptionArgument> gettingSubscriptionArgument)
+        public BotMechanism(IPrecompilableCompiler compiler, Func<INamed, IBotManager, SubscriptionArgument> gettingSubscriptionArgument)
         {
             this.logger = Log.GetLogger("compiler");
             this.gettingSubscriptionArgument = gettingSubscriptionArgument;
@@ -139,6 +139,10 @@ namespace BotManager.Engine
         }
         #endregion
 
+        #region Property
+        public IPrecompilable PreCompiler => compiler;
+        #endregion
+
         public async Task CompileSources()
         {
             Logger.Info("BotMechanism Start");
@@ -152,13 +156,19 @@ namespace BotManager.Engine
         private DirectoryInfo GitPullAndGetDirectory()
         {
             var setting = AppSettings.Script;
-            using(var repos = Git.GetOrClone(setting.RepositoryUrl, setting.Path))
+            using(var repos = GetScriptRepositry())
             {
                 // GitCheckout
                 repos.Checkout(setting.BranchName);
 
                 return repos.LocalDirectory.DirectoryInfo;
             }
+        }
+
+        public IGitRepositry GetScriptRepositry()
+        {
+            var setting = AppSettings.Script;
+            return Git.GetOrClone(setting.RepositoryUrl, setting.Path);
         }
 
         public void Dispose()

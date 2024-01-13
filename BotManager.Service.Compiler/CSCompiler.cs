@@ -16,7 +16,7 @@ namespace BotManager.Service.Compiler
     /// <summary>
     /// C#コンパイラークラス
     /// </summary>
-    public class CSharpCompiler : ICompiler, IDisposable, IPrecompilable
+    public class CSharpCompiler : ICompiler, IDisposable, IPrecompilableCompiler
     {
         #region Private Fields
 
