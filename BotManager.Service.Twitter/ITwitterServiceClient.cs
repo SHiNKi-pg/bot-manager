@@ -1,4 +1,5 @@
 ﻿using BotManager.Common;
+using BotManager.Common.Messaging;
 using LinqToTwitter;
 using System;
 using System.Collections.Generic;
@@ -11,7 +12,7 @@ namespace BotManager.Service.Twitter
     /// <summary>
     /// Twitter Bot用クライアントインターフェース
     /// </summary>
-    public interface ITwitterServiceClient : IServiceClient
+    public interface ITwitterServiceClient : IServiceClient, ISendable
     {
         /// <summary>
         /// 指定したテキストをツイートします。

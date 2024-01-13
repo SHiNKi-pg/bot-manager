@@ -1,4 +1,6 @@
-﻿using LinqToTwitter;
+﻿using BotManager.Common.Messaging;
+using BotManager.Service.Twitter.Messaging;
+using LinqToTwitter;
 using LinqToTwitter.OAuth;
 using System;
 using System.Collections.Generic;
@@ -108,6 +110,12 @@ namespace BotManager.Service.Twitter
         public async Task<TweetDeletedResponse?> DeleteTweet(string tweetId)
         {
             return await twitterContext.DeleteTweetAsync(tweetId);
+        }
+
+        public async Task<IMessage> Send(string content)
+        {
+            var tweet = await Tweet(content);
+            return new TwitterMessage(this, tweet);
         }
         #endregion
 
