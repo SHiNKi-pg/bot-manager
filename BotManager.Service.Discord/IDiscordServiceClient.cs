@@ -1,4 +1,5 @@
 ﻿using BotManager.Common;
+using BotManager.Common.Messaging;
 using BotManager.Service.Discord.Wrapper;
 using Discord;
 using Discord.WebSocket;
@@ -13,7 +14,7 @@ namespace BotManager.Service.Discord
     /// <summary>
     /// Bot用Discordクライアント
     /// </summary>
-    public interface IDiscordServiceClient : IServiceClient, IDiscordEventNotifier
+    public interface IDiscordServiceClient : IServiceClient, IDiscordEventNotifier, IMessageReceived<IReplyableMessage>
     {
         /// <summary>
         /// 指定したIDのサーバーのオブジェクトを返します。

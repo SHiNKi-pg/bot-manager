@@ -2,11 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reactive;
+using System.Reactive.Disposables;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using System.Text;
 using System.Threading.Tasks;
+using BotManager.Common.Messaging;
 using BotManager.Service.Discord.Extensions;
+using BotManager.Service.Discord.Messaging;
 using BotManager.Service.Discord.Wrapper;
 using Discord;
 using Discord.WebSocket;
@@ -21,6 +24,9 @@ namespace BotManager.Service.Discord
         #region Private Fields
         private readonly string token;
         private readonly DiscordSocketClient client;
+
+        private readonly IConnectableObservable<IReplyableMessage> messageReceived;
+        private readonly CompositeDisposable subscriptions;
         #endregion
 
         #region Constructor
@@ -33,6 +39,15 @@ namespace BotManager.Service.Discord
         {
             this.token = token;
             client = new(config);
+
+            this.subscriptions = new();
+
+            // Event
+            this.messageReceived = MessageReceived
+                .Select(m => new DiscordMessage(this, m))
+                .Publish();
+
+            subscriptions.Add(this.messageReceived.Connect());
         }
         #endregion
 
@@ -83,6 +98,8 @@ namespace BotManager.Service.Discord
         /// 現在のオンライン状態を取得します。
         /// </summary>
         public UserStatus Status => client.Status;
+
+        IObservable<IReplyableMessage> IMessageReceived<IReplyableMessage>.MessageReceived { get => messageReceived; }
         #endregion
 
         #region Method
@@ -152,6 +169,7 @@ namespace BotManager.Service.Discord
         /// </summary>
         public void Dispose()
         {
+            subscriptions.Dispose();
             client.Dispose();
         }
         #endregion
