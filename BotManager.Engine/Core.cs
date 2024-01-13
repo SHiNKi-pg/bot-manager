@@ -20,7 +20,7 @@ namespace BotManager.Engine
         /// <param name="compiler">ソースのコンパイルで使用するコンパイラオブジェクト</param>
         /// <param name="gettingSubscription">サブスクリプションの引数に設定するオブジェクトを作成する関数。第1引数はサブスクリプションの IDと名称を表します。</param>
         /// <returns></returns>
-        public static IBotMechanism<SubscriptionArguments> Create<SubscriptionArguments>(ICompiler compiler, Func<INamed, IBotManager, SubscriptionArguments> gettingSubscription)
+        public static IBotMechanism<SubscriptionArguments> Create<SubscriptionArguments>(IPrecompilableCompiler compiler, Func<INamed, IBotManager, SubscriptionArguments> gettingSubscription)
             where SubscriptionArguments : ISubscriptionArguments, new()
         {
             return new BotMechanism<SubscriptionArguments>(compiler, gettingSubscription);
