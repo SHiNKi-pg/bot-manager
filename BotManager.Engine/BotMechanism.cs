@@ -20,7 +20,7 @@ namespace BotManager.Engine
         where SubscriptionArgument : ISubscriptionArguments, new()
     {
         #region Private Fields
-        private readonly ICompiler compiler;
+        private readonly IPrecompilableCompiler compiler;
         private BotManager? _botManager;
         private Func<INamed, IBotManager, SubscriptionArgument> gettingSubscriptionArgument;
         private ILog logger;    // コンパイラ用ロガー
@@ -30,7 +30,7 @@ namespace BotManager.Engine
         #endregion
 
         #region Constructor
-        public BotMechanism(ICompiler compiler, Func<INamed, IBotManager, SubscriptionArgument> gettingSubscriptionArgument)
+        public BotMechanism(IPrecompilableCompiler compiler, Func<INamed, IBotManager, SubscriptionArgument> gettingSubscriptionArgument)
         {
             this.logger = Log.GetLogger("compiler");
             this.gettingSubscriptionArgument = gettingSubscriptionArgument;
