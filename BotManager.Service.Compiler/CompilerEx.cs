@@ -173,5 +173,34 @@ namespace BotManager.Service.Compiler
             return PreCompileFromAsync(compiler, files, Encoding.UTF8, true);
         }
         #endregion
+
+        #region SetSourceFiles
+        /// <summary>
+        /// 指定したソースファイルを追加します。
+        /// </summary>
+        /// <param name="sourceIncluding"></param>
+        /// <param name="files">ソースファイルコレクション</param>
+        /// <param name="encoding">文字コード</param>
+        /// <param name="useBOM">BOM付きかどうか</param>
+        /// <returns></returns>
+        public static async Task SetSourceFilesAsync(this ISourceIncluding sourceIncluding, IEnumerable<FileInfo> files, Encoding encoding, bool useBOM)
+        {
+            foreach(var file in files)
+            {
+                await sourceIncluding.AddSourceFile(file.FullName, encoding, useBOM);
+            }
+        }
+
+        /// <summary>
+        /// 文字コードを BOM付きUTF-8として、指定したソースファイルを追加します。
+        /// </summary>
+        /// <param name="sourceIncluding"></param>
+        /// <param name="files"></param>
+        /// <returns></returns>
+        public static Task SetSourceFilesAsync(this ISourceIncluding sourceIncluding, IEnumerable<FileInfo> files)
+        {
+            return SetSourceFilesAsync(sourceIncluding, files, Encoding.UTF8, true);
+        }
+        #endregion
     }
 }
