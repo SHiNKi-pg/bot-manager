@@ -29,7 +29,7 @@ namespace BotManager.Service.Misskey
         private string token;
         private WebsocketClient websocketClient;
 
-        private readonly IConnectableObservable<IReplyableMessage> messageReceived;
+        private readonly IConnectableObservable<IReplyableMessageWithId<string>> messageReceived;
         private readonly CompositeDisposable subscriptions;
         #endregion
 
@@ -58,7 +58,7 @@ namespace BotManager.Service.Misskey
         #region Property
         public IMisskeyApi Api { get; }
 
-        public IObservable<IReplyableMessage> MessageReceived => messageReceived;
+        public IObservable<IReplyableMessageWithId<string>> MessageReceived => messageReceived;
         #endregion
 
         #region Streaming Timeline
