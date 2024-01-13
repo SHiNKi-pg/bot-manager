@@ -56,6 +56,18 @@ namespace BotManager.Service.Misskey.Schemas
         public string Visibility { get; private set; } = "";
 
         /// <summary>
+        /// 
+        /// </summary>
+        [JsonProperty("replyId")]
+        public string? ReplyId { get; private set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [JsonProperty("renoteId")]
+        public string? RenoteId { get; private set; }
+
+        /// <summary>
         /// このオブジェクトをJSON文字列として返します。
         /// </summary>
         /// <returns></returns>
