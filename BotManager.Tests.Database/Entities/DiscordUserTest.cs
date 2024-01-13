@@ -36,7 +36,7 @@ namespace BotManager.Tests.Database.Entities
             {
                 var user = await db.DiscordUsers.AddAsync(new()
                 {
-                    Id = 0,
+                    Id = 1,
                     Name = "テスト",
                     MentionString = "Mention"
                 });
