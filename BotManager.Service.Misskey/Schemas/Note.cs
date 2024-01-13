@@ -23,7 +23,13 @@ namespace BotManager.Service.Misskey.Schemas
         /// 
         /// </summary>
         [JsonProperty("createdAt")]
-        public string CreatedAt { get; private set; } = "";
+        internal string createdAt { get; private set; } = "";
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [JsonIgnore]
+        public DateTimeOffset CreatedAt => DateTimeOffset.Parse(createdAt);
 
         /// <summary>
         /// 

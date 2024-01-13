@@ -1,4 +1,5 @@
 ﻿using BotManager.Common;
+using BotManager.Common.Messaging;
 using BotManager.Service.Discord.Wrapper;
 using Discord;
 using Discord.WebSocket;
@@ -13,7 +14,7 @@ namespace BotManager.Service.Discord
     /// <summary>
     /// Bot用Discordクライアント
     /// </summary>
-    public interface IDiscordServiceClient : IServiceClient, IDiscordEventNotifier
+    public interface IDiscordServiceClient : IServiceClient, IDiscordEventNotifier, IMessageReceived<IReplyableMessageWithId<ulong>>
     {
         /// <summary>
         /// 指定したIDのサーバーのオブジェクトを返します。
@@ -21,6 +22,14 @@ namespace BotManager.Service.Discord
         /// <param name="guildId">サーバーID</param>
         /// <returns></returns>
         IWrappedGuild<SocketGuild> GetGuild(ulong guildId);
+
+        /// <summary>
+        /// 指定したサーバーのチャンネルを返します。
+        /// </summary>
+        /// <param name="guildId">サーバーID</param>
+        /// <param name="channelId">テキストチャンネルID</param>
+        /// <returns></returns>
+        IWrappedTextChannel<SocketTextChannel> GetTextChannelInGuild(ulong guildId, ulong channelId);
 
         /// <summary>
         /// 現在のオンライン状態を取得します。
