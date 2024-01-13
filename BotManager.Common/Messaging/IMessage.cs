@@ -56,8 +56,11 @@ namespace BotManager.Common.Messaging
     /// メッセージID付き返信可能メッセージインターフェース
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public interface IReplyableMessageWithId<out T> : IReplyableMessage, IMessageId<T>
+    public interface IReplyableMessageWithId<T> : IReplyableMessage, IMessageId<T>
     {
-
+        /// <summary>
+        /// 返信先メッセージID
+        /// </summary>
+        T ReplyMessageId { get; }
     }
 }
