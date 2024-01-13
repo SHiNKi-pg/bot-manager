@@ -139,6 +139,10 @@ namespace BotManager.Engine
         }
         #endregion
 
+        #region Property
+        public IPrecompilable PreCompiler => compiler;
+        #endregion
+
         public async Task CompileSources()
         {
             Logger.Info("BotMechanism Start");
