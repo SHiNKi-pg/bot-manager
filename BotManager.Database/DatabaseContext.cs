@@ -41,6 +41,26 @@ namespace BotManager.Database
         public DbSet<User> MST_USER { get; internal set; }
         public DbSet<User> Users => MST_USER;
 
+        public DbSet<Bot> MST_BOT { get; internal set; }
+
+        public DbSet<Bot> Bots => MST_BOT;
+
+        public DbSet<DiscordUser> MST_DISCORD_USER { get; internal set; }
+
+        public DbSet<DiscordUser> DiscordUsers => MST_DISCORD_USER;
+
+        public DbSet<MisskeyUser> MST_MISSKEY_USER { get; internal set; }
+
+        public DbSet<MisskeyUser> MisskeyUsers => MST_MISSKEY_USER;
+
+        public DbSet<Emotion> TBL_EMOTION { get; internal set; }
+
+        public DbSet<Emotion> Emotions => TBL_EMOTION;
+
+        public DbSet<EmotionTotal> MV_EMOTION { get; internal set; }
+
+        public DbSet<EmotionTotal> EmotionTotals => MV_EMOTION;
+
         #endregion
 
         #region Method
