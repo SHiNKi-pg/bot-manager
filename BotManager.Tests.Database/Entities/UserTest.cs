@@ -7,38 +7,38 @@ using Xunit.Abstractions;
 
 namespace BotManager.Tests.Database.Entities
 {
-    public class BotTest
+    public class UserTest
     {
         private readonly ITestOutputHelper output;
 
-        public BotTest(ITestOutputHelper output)
+        public UserTest(ITestOutputHelper output)
         {
             this.output = output;
         }
 
-        [Fact(DisplayName = "MST_BOT SELECT")]
+        [Fact(DisplayName = "MST_USER SELECT")]
         public void Select()
         {
             using (var db = BotManager.Database.BotDatabase.Connect())
             {
-                var bots = db.Bots;
-                foreach(var bot in bots)
+                var users = db.Users;
+                foreach(var user in users)
                 {
-                    output.WriteLine($"{bot.Id.ToString()}: {bot.Name}");
+                    output.WriteLine($"{user.Id.ToString()}: {user.Name}");
                 }
             }
         }
 
-        [Fact(DisplayName = "MST_BOT INSERT")]
+        [Fact(DisplayName = "MST_USER INSERT")]
         public async Task Insert()
         {
             using (var db = BotManager.Database.BotDatabase.Connect())
             {
-                var user = await db.Bots.AddAsync(new()
+                var user = await db.Users.AddAsync(new()
                 {
-                    Id = "test",
                     Name = "テスト"
                 });
+                output.WriteLine(user.Entity.Id.ToString());
                 await db.SaveChangesAsync();
             }
         }
