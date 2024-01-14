@@ -159,7 +159,7 @@ namespace BotManager.Common.Utility
         /// <returns></returns>
         public static bool EveryMinute(this DateTime dateTime, int seconds)
         {
-            return dateTime.Minute == seconds;
+            return dateTime.Second == seconds;
         }
 
         /// <summary>
