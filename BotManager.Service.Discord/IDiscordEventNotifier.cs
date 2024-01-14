@@ -36,23 +36,28 @@ namespace BotManager.Service.Discord
         IObservable<Unit> Ready { get; }
 
         /// <summary>
-        /// メッセージにリアクションが付いた時に発生します。
+        /// メッセージにリアクションが付いた時に通知されます。
         /// </summary>
         IObservable<ReactionAddedEventArgs> ReactionAdded { get; }
 
         /// <summary>
-        /// コンポーネントのボタンが押された時に発生します。
+        /// コンポーネントのボタンが押された時に通知されます。
         /// </summary>
         IObservable<SocketMessageComponent> ButtonExecuted { get; }
 
         /// <summary>
-        /// メッセージが削除されると発生します。
+        /// メッセージが削除されると通知されます。
         /// </summary>
         IObservable<MessageDeletedEventArgs> MessageDeleted { get; }
 
         /// <summary>
-        /// メッセージが更新されると発生します。
+        /// メッセージが更新されると通知されます。
         /// </summary>
         IObservable<MessageUpdatedEventArgs> MessageUpdated { get; }
+
+        /// <summary>
+        /// モーダルが送信されると通知されます。
+        /// </summary>
+        IObservable<SocketModal> ModalSubmitted { get; }
     }
 }

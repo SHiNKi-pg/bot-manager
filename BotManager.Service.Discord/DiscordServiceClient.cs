@@ -98,6 +98,12 @@ namespace BotManager.Service.Discord
                 h => client.MessageUpdated += h,
                 h => client.MessageUpdated -= h
                 );
+
+            this.ModalSubmitted = Observable.FromEvent<Func<SocketModal, Task>, SocketModal>(
+                h => e => { h(e); return Task.CompletedTask; },
+                h => client.ModalSubmitted += h,
+                h => client.ModalSubmitted -= h
+                );
             #endregion
 
             // Event
@@ -137,6 +143,8 @@ namespace BotManager.Service.Discord
         public IObservable<MessageDeletedEventArgs> MessageDeleted { get; }
 
         public IObservable<MessageUpdatedEventArgs> MessageUpdated { get; }
+
+        public IObservable<SocketModal> ModalSubmitted { get; }
         #endregion
 
         #region Properties
