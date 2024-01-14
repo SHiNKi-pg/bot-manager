@@ -23,5 +23,17 @@ namespace BotManager.Service.Discord
             builder(embedBuilder);
             return embedBuilder.Build();
         }
+
+        /// <summary>
+        /// コンポーネントを作成します。
+        /// </summary>
+        /// <param name="builder">コンポーネントビルダ</param>
+        /// <returns></returns>
+        public static MessageComponent CreateComponent(Action<ComponentBuilder> builder)
+        {
+            ComponentBuilder componentBuilder = new();
+            builder(componentBuilder);
+            return componentBuilder.Build();
+        }
     }
 }
