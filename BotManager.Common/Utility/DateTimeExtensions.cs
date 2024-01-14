@@ -53,6 +53,21 @@ namespace BotManager.Common.Utility
         }
 
         /// <summary>
+        /// 現在日時の要素がそれぞれの条件を満たすかどうか返します。
+        /// </summary>
+        /// <param name="dateTime"></param>
+        /// <param name="month">月の条件</param>
+        /// <param name="day">日の条件</param>
+        /// <param name="hour">時間の条件</param>
+        /// <param name="minute">分の条件</param>
+        /// <param name="second">秒の条件</param>
+        /// <returns></returns>
+        public static bool EveryYear(this DateTime dateTime, Func<int, bool> month, Func<int, bool> day, Func<int, bool> hour, Func<int, bool> minute, Func<int, bool> second)
+        {
+            return month(dateTime.Hour) && day(dateTime.Day) && hour(dateTime.Hour) && minute(dateTime.Minute) && second(dateTime.Second);
+        }
+
+        /// <summary>
         /// 現在日時が指定した日と時刻かどうか返します。
         /// </summary>
         /// <param name="dateTime"></param>
@@ -67,6 +82,20 @@ namespace BotManager.Common.Utility
                 && dateTime.Hour == hours
                 && dateTime.Minute == minutes
                 && dateTime.Second == seconds;
+        }
+
+        /// <summary>
+        /// 現在日時の要素がそれぞれの条件を満たすかどうか返します。
+        /// </summary>
+        /// <param name="dateTime"></param>
+        /// <param name="day">日の条件</param>
+        /// <param name="hour">時間の条件</param>
+        /// <param name="minute">分の条件</param>
+        /// <param name="second">秒の条件</param>
+        /// <returns></returns>
+        public static bool EveryMonth(this DateTime dateTime, Func<int, bool> day, Func<int, bool> hour, Func<int, bool> minute, Func<int, bool> second)
+        {
+            return day(dateTime.Day) && hour(dateTime.Hour) && minute(dateTime.Minute) && second(dateTime.Second);
         }
 
         /// <summary>
@@ -85,6 +114,19 @@ namespace BotManager.Common.Utility
         }
 
         /// <summary>
+        /// 現在時刻の要素がそれぞれの条件を満たすかどうか返します。
+        /// </summary>
+        /// <param name="dateTime"></param>
+        /// <param name="hour">時間の条件</param>
+        /// <param name="minute">分の条件</param>
+        /// <param name="second">秒の条件</param>
+        /// <returns></returns>
+        public static bool EveryDay(this DateTime dateTime, Func<int, bool> hour, Func<int, bool> minute, Func<int, bool> second)
+        {
+            return hour(dateTime.Hour) && minute(dateTime.Minute) && second(dateTime.Second);
+        }
+
+        /// <summary>
         /// 現在時刻が指定した分秒かどうか返します。
         /// </summary>
         /// <param name="dateTime"></param>
@@ -98,6 +140,18 @@ namespace BotManager.Common.Utility
         }
 
         /// <summary>
+        /// 現在時刻の要素がそれぞれの条件を満たすかどうか返します。
+        /// </summary>
+        /// <param name="dateTime"></param>
+        /// <param name="minute">分の条件</param>
+        /// <param name="second">秒の条件</param>
+        /// <returns></returns>
+        public static bool EveryHour(this DateTime dateTime, Func<int, bool> minute, Func<int, bool> second)
+        {
+            return minute(dateTime.Minute) && second(dateTime.Second);
+        }
+
+        /// <summary>
         /// 現在時刻が指定した秒かどうか返します。
         /// </summary>
         /// <param name="dateTime"></param>
@@ -106,6 +160,17 @@ namespace BotManager.Common.Utility
         public static bool EveryMinute(this DateTime dateTime, int seconds)
         {
             return dateTime.Minute == seconds;
+        }
+
+        /// <summary>
+        /// 現在時刻の要素がそれぞれの条件を満たすかどうか返します。
+        /// </summary>
+        /// <param name="dateTime"></param>
+        /// <param name="second">秒の条件</param>
+        /// <returns></returns>
+        public static bool EveryMinute(this DateTime dateTime, Func<int, bool> second)
+        {
+            return second(dateTime.Second);
         }
     }
 }
