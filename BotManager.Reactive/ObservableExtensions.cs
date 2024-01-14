@@ -61,5 +61,19 @@ namespace BotManager.Reactive
             });
         }
         #endregion
+
+        #region TimeoutThenComplete
+        /// <summary>
+        /// 指定した時間が経過した場合、強制的に完了させます。
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="observable"></param>
+        /// <param name="dueTime">タイムアウト期間</param>
+        /// <returns></returns>
+        public static IObservable<T> TimeoutThenComplete<T>(this IObservable<T> observable, TimeSpan dueTime)
+        {
+            return observable.Timeout(dueTime, Observable.Empty<T>());
+        }
+        #endregion
     }
 }
