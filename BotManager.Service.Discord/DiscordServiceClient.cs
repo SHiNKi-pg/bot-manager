@@ -8,6 +8,7 @@ using System.Reactive.Subjects;
 using System.Text;
 using System.Threading.Tasks;
 using BotManager.Common.Messaging;
+using BotManager.Service.Discord.Event;
 using BotManager.Service.Discord.Extensions;
 using BotManager.Service.Discord.Messaging;
 using BotManager.Service.Discord.Wrapper;
@@ -70,6 +71,57 @@ namespace BotManager.Service.Discord
                 h => client.Ready += h,
                 h => client.Ready -= h
                 );
+
+            this.ReactionAdded = Observable.FromEvent<Func<Cacheable<IUserMessage, ulong>, Cacheable<IMessageChannel, ulong>, SocketReaction, Task>,
+                ReactionAddedEventArgs>(
+                    h => (a, b, c) => { h(new(a, b, c)); return Task.CompletedTask; },
+                    h => client.ReactionAdded += h,
+                    h => client.ReactionAdded -= h
+                );
+
+            this.ButtonExecuted = Observable.FromEvent<Func<SocketMessageComponent, Task>, SocketMessageComponent>(
+                h => e => { h(e); return Task.CompletedTask; },
+                h => client.ButtonExecuted += h,
+                h => client.ButtonExecuted -= h
+                );
+
+            this.MessageDeleted = Observable.FromEvent<Func<Cacheable<global::Discord.IMessage, ulong>, Cacheable<IMessageChannel, ulong>, Task>,
+                MessageDeletedEventArgs>(
+                h => (a, b) => { h(new(a, b)); return Task.CompletedTask; },
+                h => client.MessageDeleted += h,
+                h => client.MessageDeleted -= h
+                );
+
+            this.MessageUpdated = Observable.FromEvent<Func<Cacheable<global::Discord.IMessage, ulong>, SocketMessage, ISocketMessageChannel, Task>,
+                MessageUpdatedEventArgs>(
+                h => (a, b, c) => { h(new(a, b, c)); return Task.CompletedTask; },
+                h => client.MessageUpdated += h,
+                h => client.MessageUpdated -= h
+                );
+
+            this.ModalSubmitted = Observable.FromEvent<Func<SocketModal, Task>, SocketModal>(
+                h => e => { h(e); return Task.CompletedTask; },
+                h => client.ModalSubmitted += h,
+                h => client.ModalSubmitted -= h
+                );
+
+            this.SelectMenuExecuted = Observable.FromEvent<Func<SocketMessageComponent, Task>, SocketMessageComponent>(
+                h => e => { h(e); return Task.CompletedTask; },
+                h => client.SelectMenuExecuted += h,
+                h => client.SelectMenuExecuted -= h
+                );
+
+            this.UserJoined = Observable.FromEvent<Func<SocketGuildUser, Task>, SocketGuildUser>(
+                h => e => { h(e); return Task.CompletedTask; },
+                h => client.UserJoined += h,
+                h => client.UserJoined -= h
+                );
+
+            this.UserLeft = Observable.FromEvent<Func<SocketGuild, SocketUser, Task>, UserLeftEventArgs>(
+                h => (a, b) => { h(new(a, b)); return Task.CompletedTask; },
+                h => client.UserLeft += h,
+                h => client.UserLeft -= h
+                );
             #endregion
 
             // Event
@@ -101,6 +153,22 @@ namespace BotManager.Service.Discord
         /// サーバーデータが取得できた時に通知されます。
         /// </summary>
         public IObservable<Unit> Ready { get; }
+
+        public IObservable<ReactionAddedEventArgs> ReactionAdded { get; }
+
+        public IObservable<SocketMessageComponent> ButtonExecuted { get; }
+
+        public IObservable<MessageDeletedEventArgs> MessageDeleted { get; }
+
+        public IObservable<MessageUpdatedEventArgs> MessageUpdated { get; }
+
+        public IObservable<SocketModal> ModalSubmitted { get; }
+
+        public IObservable<SocketMessageComponent> SelectMenuExecuted { get; }
+
+        public IObservable<SocketGuildUser> UserJoined { get; }
+
+        public IObservable<UserLeftEventArgs> UserLeft { get; }
         #endregion
 
         #region Properties
