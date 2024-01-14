@@ -42,13 +42,35 @@ namespace BotManager.Service.Discord
 
             this.subscriptions = new();
 
-            // Event Property
+            #region Event Property
             this.MessageReceived = 
                 Observable.FromEvent<Func<SocketMessage, Task>, SocketMessage>(
-                    h => e => { h(e); return Task.CompletedTask; },
-                    h => client.MessageReceived += h,
-                    h => client.MessageReceived -= h
+                h => e => { h(e); return Task.CompletedTask; },
+                h => client.MessageReceived += h,
+                h => client.MessageReceived -= h
                 );
+
+            this.LoggedIn =
+                Observable.FromEvent<Func<Task>, Unit>(
+                h => () => { h(Unit.Default); return Task.CompletedTask; },
+                h => client.LoggedIn += h,
+                h => client.LoggedIn -= h
+                );
+
+            this.LoggedOut =
+                Observable.FromEvent<Func<Task>, Unit>(
+                h => () => { h(Unit.Default); return Task.CompletedTask; },
+                h => client.LoggedOut += h,
+                h => client.LoggedOut -= h
+                );
+
+            this.Ready =
+                Observable.FromEvent<Func<Task>, Unit>(
+                h => () => { h(Unit.Default); return Task.CompletedTask; },
+                h => client.Ready += h,
+                h => client.Ready -= h
+                );
+            #endregion
 
             // Event
             this.messageReceived = MessageReceived
@@ -68,32 +90,17 @@ namespace BotManager.Service.Discord
         /// <summary>
         /// ログインした時に通知されます。
         /// </summary>
-        public IObservable<Unit> LoggedIn =>
-            Observable.FromEvent<Func<Task>, Unit>(
-                h => () => { h(Unit.Default); return Task.CompletedTask; },
-                h => client.LoggedIn += h,
-                h => client.LoggedIn -= h
-                );
+        public IObservable<Unit> LoggedIn { get; }
 
         /// <summary>
         /// ログアウトした時に通知されます。
         /// </summary>
-        public IObservable<Unit> LoggedOut =>
-            Observable.FromEvent<Func<Task>, Unit>(
-                h => () => { h(Unit.Default); return Task.CompletedTask; },
-                h => client.LoggedOut += h,
-                h => client.LoggedOut -= h
-                );
+        public IObservable<Unit> LoggedOut { get; }
 
         /// <summary>
         /// サーバーデータが取得できた時に通知されます。
         /// </summary>
-        public IObservable<Unit> Ready =>
-            Observable.FromEvent<Func<Task>, Unit>(
-                h => () => { h(Unit.Default); return Task.CompletedTask; },
-                h => client.Ready += h,
-                h => client.Ready -= h
-                );
+        public IObservable<Unit> Ready { get; }
         #endregion
 
         #region Properties
