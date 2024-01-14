@@ -35,5 +35,18 @@ namespace BotManager.Service.Discord
             builder(componentBuilder);
             return componentBuilder.Build();
         }
+
+        /// <summary>
+        /// コンポーネントに行を追加します。
+        /// </summary>
+        /// <param name="componentBuilder"></param>
+        /// <param name="builder">コンポーネント行ビルダ</param>
+        /// <returns></returns>
+        public static ComponentBuilder AddRow(this ComponentBuilder componentBuilder, Action<ActionRowBuilder> builder)
+        {
+            ActionRowBuilder actionRowBuilder = new();
+            builder(actionRowBuilder);
+            return componentBuilder.AddRow(actionRowBuilder);
+        }
     }
 }
