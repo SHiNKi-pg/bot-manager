@@ -104,6 +104,12 @@ namespace BotManager.Service.Discord
                 h => client.ModalSubmitted += h,
                 h => client.ModalSubmitted -= h
                 );
+
+            this.SelectMenuExecuted = Observable.FromEvent<Func<SocketMessageComponent, Task>, SocketMessageComponent>(
+                h => e => { h(e); return Task.CompletedTask; },
+                h => client.SelectMenuExecuted += h,
+                h => client.SelectMenuExecuted -= h
+                );
             #endregion
 
             // Event
@@ -145,6 +151,8 @@ namespace BotManager.Service.Discord
         public IObservable<MessageUpdatedEventArgs> MessageUpdated { get; }
 
         public IObservable<SocketModal> ModalSubmitted { get; }
+
+        public IObservable<SocketMessageComponent> SelectMenuExecuted { get; }
         #endregion
 
         #region Properties

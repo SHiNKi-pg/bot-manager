@@ -59,5 +59,10 @@ namespace BotManager.Service.Discord
         /// モーダルが送信されると通知されます。
         /// </summary>
         IObservable<SocketModal> ModalSubmitted { get; }
+
+        /// <summary>
+        /// ドロップダウンリストからデータを選択した時に通知されます。
+        /// </summary>
+        IObservable<SocketMessageComponent> SelectMenuExecuted { get; }
     }
 }
