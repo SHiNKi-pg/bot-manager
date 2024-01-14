@@ -96,5 +96,16 @@ namespace BotManager.Common.Utility
             return dateTime.Minute == minutes
                 && dateTime.Second == seconds;
         }
+
+        /// <summary>
+        /// 現在時刻が指定した秒かどうか返します。
+        /// </summary>
+        /// <param name="dateTime"></param>
+        /// <param name="seconds">秒(0～59)</param>
+        /// <returns></returns>
+        public static bool EveryMinute(this DateTime dateTime, int seconds)
+        {
+            return dateTime.Minute == seconds;
+        }
     }
 }
