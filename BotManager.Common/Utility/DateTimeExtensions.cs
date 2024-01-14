@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace BotManager.Common.Utility
 {
@@ -46,6 +47,23 @@ namespace BotManager.Common.Utility
         {
             return dateTime.Month == month
                 && dateTime.Day == day
+                && dateTime.Hour == hours
+                && dateTime.Minute == minutes
+                && dateTime.Second == seconds;
+        }
+
+        /// <summary>
+        /// 現在日時が指定した日と時刻かどうか返します。
+        /// </summary>
+        /// <param name="dateTime"></param>
+        /// <param name="day">日</param>
+        /// <param name="hours">時間(0～23)</param>
+        /// <param name="minutes">分(0～59)</param>
+        /// <param name="seconds">秒(0～59)</param>
+        /// <returns></returns>
+        public static bool EveryMonth(this DateTime dateTime, int day, int hours, int minutes, int seconds)
+        {
+            return dateTime.Day == day
                 && dateTime.Hour == hours
                 && dateTime.Minute == minutes
                 && dateTime.Second == seconds;
