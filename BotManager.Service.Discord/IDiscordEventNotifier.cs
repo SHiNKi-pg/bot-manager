@@ -64,5 +64,15 @@ namespace BotManager.Service.Discord
         /// ドロップダウンリストからデータを選択した時に通知されます。
         /// </summary>
         IObservable<SocketMessageComponent> SelectMenuExecuted { get; }
+
+        /// <summary>
+        /// サーバーにユーザーが参加すると通知されます。
+        /// </summary>
+        IObservable<SocketGuildUser> UserJoined { get; }
+
+        /// <summary>
+        /// ユーザーがサーバーから離脱すると通知されます。
+        /// </summary>
+        IObservable<UserLeftEventArgs> UserLeft { get; }
     }
 }

@@ -110,6 +110,18 @@ namespace BotManager.Service.Discord
                 h => client.SelectMenuExecuted += h,
                 h => client.SelectMenuExecuted -= h
                 );
+
+            this.UserJoined = Observable.FromEvent<Func<SocketGuildUser, Task>, SocketGuildUser>(
+                h => e => { h(e); return Task.CompletedTask; },
+                h => client.UserJoined += h,
+                h => client.UserJoined -= h
+                );
+
+            this.UserLeft = Observable.FromEvent<Func<SocketGuild, SocketUser, Task>, UserLeftEventArgs>(
+                h => (a, b) => { h(new(a, b)); return Task.CompletedTask; },
+                h => client.UserLeft += h,
+                h => client.UserLeft -= h
+                );
             #endregion
 
             // Event
@@ -153,6 +165,10 @@ namespace BotManager.Service.Discord
         public IObservable<SocketModal> ModalSubmitted { get; }
 
         public IObservable<SocketMessageComponent> SelectMenuExecuted { get; }
+
+        public IObservable<SocketGuildUser> UserJoined { get; }
+
+        public IObservable<UserLeftEventArgs> UserLeft { get; }
         #endregion
 
         #region Properties
