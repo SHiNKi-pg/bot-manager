@@ -5,25 +5,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BotManager.Service.Discord
+namespace BotManager.Service.Discord.Utility
 {
     /// <summary>
-    /// Discord用ユーティリティクラス
+    /// メッセージコンポーネントユーティリティ
     /// </summary>
-    public static class DiscordUtility
+    public static class ComponentUtility
     {
-        /// <summary>
-        /// 埋め込みメッセージを作成します。
-        /// </summary>
-        /// <param name="builder">ビルダ</param>
-        /// <returns></returns>
-        public static Embed CreateEmbed(Action<EmbedBuilder> builder)
-        {
-            EmbedBuilder embedBuilder = new();
-            builder(embedBuilder);
-            return embedBuilder.Build();
-        }
-
         /// <summary>
         /// コンポーネントを作成します。
         /// </summary>
