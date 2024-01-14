@@ -39,5 +39,10 @@ namespace BotManager.Service.Discord
         /// メッセージにリアクションが付いた時に発生します。
         /// </summary>
         IObservable<ReactionAddedEventArgs> ReactionAdded { get; }
+
+        /// <summary>
+        /// コンポーネントのボタンが押された時に発生します。
+        /// </summary>
+        IObservable<SocketMessageComponent> ButtonExecuted { get; }
     }
 }

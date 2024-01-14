@@ -78,6 +78,12 @@ namespace BotManager.Service.Discord
                     h => client.ReactionAdded += h,
                     h => client.ReactionAdded -= h
                 );
+
+            this.ButtonExecuted = Observable.FromEvent<Func<SocketMessageComponent, Task>, SocketMessageComponent>(
+                h => e => { h(e); return Task.CompletedTask; },
+                h => client.ButtonExecuted += h,
+                h => client.ButtonExecuted -= h
+                );
             #endregion
 
             // Event
@@ -111,6 +117,8 @@ namespace BotManager.Service.Discord
         public IObservable<Unit> Ready { get; }
 
         public IObservable<ReactionAddedEventArgs> ReactionAdded { get; }
+
+        public IObservable<SocketMessageComponent> ButtonExecuted { get; }
         #endregion
 
         #region Properties
