@@ -58,7 +58,7 @@ namespace BotManager.Service.Misskey
         #region Property
         public IMisskeyApi Api { get; }
 
-        public IObservable<IReplyableMessageWithId<string>> MessageReceived => messageReceived;
+        public IObservable<IReplyableMessageWithId<string>> MessagingReceived => messageReceived;
         #endregion
 
         #region Streaming Timeline

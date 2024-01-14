@@ -14,6 +14,6 @@ namespace BotManager.Common.Messaging
         /// <summary>
         /// メッセージを受信したことを通知します。
         /// </summary>
-        IObservable<T> MessageReceived { get; }
+        IObservable<T> MessagingReceived { get; }
     }
 }

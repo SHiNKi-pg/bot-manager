@@ -49,7 +49,7 @@ namespace BotManager.Service.Misskey.Messaging
         {
             return Observable.Create<IReplyableMessageWithId<string>>(observer =>
             {
-                return client.MessageReceived
+                return client.MessagingReceived
                     .Where(m => m.ReplyMessageId == Id)
                     .Subscribe(observer);
             });
