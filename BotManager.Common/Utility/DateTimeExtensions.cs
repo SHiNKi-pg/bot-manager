@@ -83,5 +83,18 @@ namespace BotManager.Common.Utility
                 && dateTime.Minute == minutes
                 && dateTime.Second == seconds;
         }
+
+        /// <summary>
+        /// 現在時刻が指定した分秒かどうか返します。
+        /// </summary>
+        /// <param name="dateTime"></param>
+        /// <param name="minutes">分(0～59)</param>
+        /// <param name="seconds">秒(0～59)</param>
+        /// <returns></returns>
+        public static bool EveryHour(this DateTime dateTime, int minutes, int seconds)
+        {
+            return dateTime.Minute == minutes
+                && dateTime.Second == seconds;
+        }
     }
 }
