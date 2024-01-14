@@ -185,6 +185,7 @@ namespace BotManager.Service.Compiler
         /// <returns></returns>
         public static async Task SetSourceFilesAsync(this ISourceIncluding sourceIncluding, IEnumerable<FileInfo> files, Encoding encoding, bool useBOM)
         {
+            sourceIncluding.ClearSources();
             foreach(var file in files)
             {
                 await sourceIncluding.AddSourceFile(file.FullName, encoding, useBOM);

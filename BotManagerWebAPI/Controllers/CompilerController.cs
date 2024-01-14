@@ -45,13 +45,15 @@ namespace BotManagerWebAPI.Controllers
                     return StatusCode(200, new
                     {
                         Result = success,
-                        Messages = messages.Select(mes => new
-                        {
-                            Severity = mes.Severity,
-                            Id = mes.Id,
-                            Line = mes.Location.GetLineSpan().StartLinePosition.Line,
-                            Message = mes.GetMessage(),
-                        })
+                        Messages = messages
+                            .Where(mes => mes.Severity != DiagnosticSeverity.Hidden)
+                            .Select(mes => new
+                            {
+                                Severity = mes.Severity,
+                                Id = mes.Id,
+                                Line = mes.Location.GetLineSpan().StartLinePosition.Line,
+                                Message = mes.GetMessage(),
+                            })
                     });
                 }
             }catch(Exception ex)
