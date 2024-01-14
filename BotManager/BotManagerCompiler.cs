@@ -25,6 +25,7 @@ using System.Threading.Tasks;
 using Websocket.Client;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Diagnostics.CodeAnalysis;
 
 namespace BotManager
 {
@@ -64,6 +65,7 @@ namespace BotManager
             Import<ColumnAttribute>();
             Import(typeof(DbSet<>));
             Import<System.Net.Http.HttpClient>();
+            Import<StringSyntaxAttribute>();
         }
     }
 }
