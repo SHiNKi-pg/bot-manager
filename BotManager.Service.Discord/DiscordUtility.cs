@@ -48,5 +48,29 @@ namespace BotManager.Service.Discord
             builder(actionRowBuilder);
             return componentBuilder.AddRow(actionRowBuilder);
         }
+
+        /// <summary>
+        /// モーダルを作成します。
+        /// </summary>
+        /// <param name="builder">モーダルビルダ</param>
+        /// <returns></returns>
+        public static Modal CreateModal(Action<ModalBuilder> builder)
+        {
+            ModalBuilder modalBuilder = new();
+            builder(modalBuilder);
+            return modalBuilder.Build();
+        }
+
+        /// <summary>
+        /// セレクトメニューコンポーネントを作成します。
+        /// </summary>
+        /// <param name="builder">コンポーネントビルダ</param>
+        /// <returns></returns>
+        public static SelectMenuComponent CreateSelectMenu(Action<SelectMenuBuilder> builder)
+        {
+            SelectMenuBuilder selectMenuBuilder = new();
+            builder(selectMenuBuilder);
+            return selectMenuBuilder.Build();
+        }
     }
 }
