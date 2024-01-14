@@ -24,5 +24,18 @@ namespace BotManager.Reactive
             return observable.Take(1);
         }
         #endregion
+
+        #region WaitCompleteAsync
+        /// <summary>
+        /// オブザーバブルの通知の完了を待ちます。
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="observable"></param>
+        /// <returns></returns>
+        public static async Task WaitCompleteAsync<T>(this IObservable<T> observable)
+        {
+            await observable.Count();
+        }
+        #endregion
     }
 }
