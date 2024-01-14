@@ -58,7 +58,7 @@ namespace BotManager.Service.Misskey
         #region Property
         public IMisskeyApi Api { get; }
 
-        public IObservable<IReplyableMessageWithId<string>> MessageReceived => messageReceived;
+        public IObservable<IReplyableMessageWithId<string>> MessagingReceived => messageReceived;
         #endregion
 
         #region Streaming Timeline
@@ -220,7 +220,7 @@ namespace BotManager.Service.Misskey
             await websocketClient.Stop(WebSocketCloseStatus.NormalClosure, "stop websockets");
         }
 
-        public async Task<IMessage> Send(string content)
+        public async Task<IMessaging> Send(string content)
         {
             var createdNote = await Api.Notes.CreateNote(text: content);
             return new Messaging.MisskeyMessage(this, createdNote.Note);

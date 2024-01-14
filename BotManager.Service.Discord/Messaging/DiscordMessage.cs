@@ -34,7 +34,7 @@ namespace BotManager.Service.Discord.Messaging
             return Observable.Create<IReplyableMessageWithId<ulong>>(observer =>
             {
                 IMessageReceived<IReplyableMessageWithId<ulong>> messageReceived = client;
-                return messageReceived.MessageReceived
+                return messageReceived.MessagingReceived
                     .Where(m => m.ReplyMessageId == Id)
                     .Subscribe(observer);
             });

@@ -9,7 +9,7 @@ namespace BotManager.Common.Messaging
     /// <summary>
     /// メッセージインターフェース
     /// </summary>
-    public interface IMessage
+    public interface IMessaging
     {
         /// <summary>
         /// メッセージ内容
@@ -30,7 +30,7 @@ namespace BotManager.Common.Messaging
     /// <summary>
     /// 返信可能メッセージインターフェース
     /// </summary>
-    public interface IReplyableMessage : IMessage
+    public interface IReplyableMessage : IMessaging
     {
         /// <summary>
         /// このメッセージに対して返信します。
@@ -43,7 +43,7 @@ namespace BotManager.Common.Messaging
     /// <summary>
     /// 削除可能メッセージインターフェース
     /// </summary>
-    public interface IDeletableMessage : IMessage
+    public interface IDeletableMessage : IMessaging
     {
         /// <summary>
         /// このメッセージを削除します。

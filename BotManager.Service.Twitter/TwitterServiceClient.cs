@@ -112,7 +112,7 @@ namespace BotManager.Service.Twitter
             return await twitterContext.DeleteTweetAsync(tweetId);
         }
 
-        public async Task<IMessage> Send(string content)
+        public async Task<IMessaging> Send(string content)
         {
             var tweet = await Tweet(content);
             return new TwitterMessage(this, tweet);

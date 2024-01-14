@@ -10,7 +10,7 @@ namespace BotManager.Common.Messaging
     /// IDプロパティを持つメッセージインターフェース
     /// </summary>
     /// <typeparam name="T">IDの型</typeparam>
-    public interface IMessageId<out T> : IMessage
+    public interface IMessageId<out T> : IMessaging
     {
         /// <summary>
         /// メッセージID

@@ -177,7 +177,7 @@ namespace BotManager.Service.Discord
         /// </summary>
         public UserStatus Status => client.Status;
 
-        IObservable<IReplyableMessageWithId<ulong>> IMessageReceived<IReplyableMessageWithId<ulong>>.MessageReceived { get => messageReceived; }
+        IObservable<IReplyableMessageWithId<ulong>> IMessageReceived<IReplyableMessageWithId<ulong>>.MessagingReceived { get => messageReceived; }
         #endregion
 
         #region Method
