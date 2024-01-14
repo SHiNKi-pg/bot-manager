@@ -41,5 +41,40 @@ namespace BotManager.Common.Utility
             return match.Success;
         }
         #endregion
+
+        #region TryGetRegexGroup
+        /// <summary>
+        /// 指定した正規表現パターンにマッチした場合、その正規表現グループを返します。
+        /// </summary>
+        /// <param name="text"></param>
+        /// <param name="pattern">正規表現パターン</param>
+        /// <param name="groupCollection">正規表現のグループコレクション</param>
+        /// <returns></returns>
+        public static bool TryGetRegexGroup(this string text, [StringSyntax(StringSyntaxAttribute.Regex)] string pattern,
+            [NotNullWhen(true)] out GroupCollection? groupCollection)
+        {
+            Regex regex = new(pattern);
+            Match match = regex.Match(text);
+            groupCollection = match.Groups;
+            return match.Success;
+        }
+
+        /// <summary>
+        /// 指定した正規表現パターンにマッチした場合、その正規表現グループを返します。
+        /// </summary>
+        /// <param name="text"></param>
+        /// <param name="pattern">正規表現パターン</param>
+        /// <param name="options">オプション</param>
+        /// <param name="groupCollection">正規表現のグループコレクション</param>
+        /// <returns></returns>
+        public static bool TryGetRegexGroup(this string text, [StringSyntax(StringSyntaxAttribute.Regex)] string pattern, RegexOptions options, 
+            [NotNullWhen(true)] out GroupCollection? groupCollection)
+        {
+            Regex regex = new(pattern, options);
+            Match match = regex.Match(text);
+            groupCollection = match.Groups;
+            return match.Success;
+        }
+        #endregion
     }
 }
