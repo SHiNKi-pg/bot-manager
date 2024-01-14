@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reactive;
 using System.Reactive.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -35,6 +36,29 @@ namespace BotManager.Reactive
         public static async Task WaitCompleteAsync<T>(this IObservable<T> observable)
         {
             await observable.Count();
+        }
+        #endregion
+
+        #region GetCompleteObservable
+        /// <summary>
+        /// オブザーバブルの通知が完了したことを通知するオブザーバブルを返します。
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="observable"></param>
+        /// <returns></returns>
+        public static IObservable<Unit> GetCompleteObservable<T>(this IObservable<T> observable)
+        {
+            return Observable.Create<Unit>(observer =>
+            {
+                return observable.Subscribe(_ => { },
+                    observer.OnError,
+                    () =>
+                    {
+                        observer.OnNext(Unit.Default);
+                        observer.OnCompleted();
+                    }
+                );
+            });
         }
         #endregion
     }
