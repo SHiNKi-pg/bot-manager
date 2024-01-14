@@ -8,6 +8,7 @@ using System.Reactive.Subjects;
 using System.Text;
 using System.Threading.Tasks;
 using BotManager.Common.Messaging;
+using BotManager.Service.Discord.Event;
 using BotManager.Service.Discord.Extensions;
 using BotManager.Service.Discord.Messaging;
 using BotManager.Service.Discord.Wrapper;
@@ -70,6 +71,13 @@ namespace BotManager.Service.Discord
                 h => client.Ready += h,
                 h => client.Ready -= h
                 );
+
+            this.ReactionAdded = Observable.FromEvent<Func<Cacheable<IUserMessage, ulong>, Cacheable<IMessageChannel, ulong>, SocketReaction, Task>,
+                ReactionAddedEventArgs>(
+                    h => (a, b, c) => { h(new(a, b, c)); return Task.CompletedTask; },
+                    h => client.ReactionAdded += h,
+                    h => client.ReactionAdded -= h
+                );
             #endregion
 
             // Event
@@ -101,6 +109,8 @@ namespace BotManager.Service.Discord
         /// サーバーデータが取得できた時に通知されます。
         /// </summary>
         public IObservable<Unit> Ready { get; }
+
+        public IObservable<ReactionAddedEventArgs> ReactionAdded { get; }
         #endregion
 
         #region Properties

@@ -1,4 +1,5 @@
 ﻿using BotManager.Common;
+using BotManager.Service.Discord.Event;
 using Discord.WebSocket;
 using System;
 using System.Collections.Generic;
@@ -33,5 +34,10 @@ namespace BotManager.Service.Discord
         /// サーバーデータが取得できた時に通知されます。
         /// </summary>
         IObservable<Unit> Ready { get; }
+
+        /// <summary>
+        /// メッセージにリアクションが付いた時に発生します。
+        /// </summary>
+        IObservable<ReactionAddedEventArgs> ReactionAdded { get; }
     }
 }
