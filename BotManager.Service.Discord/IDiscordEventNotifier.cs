@@ -49,5 +49,10 @@ namespace BotManager.Service.Discord
         /// メッセージが削除されると発生します。
         /// </summary>
         IObservable<MessageDeletedEventArgs> MessageDeleted { get; }
+
+        /// <summary>
+        /// メッセージが更新されると発生します。
+        /// </summary>
+        IObservable<MessageUpdatedEventArgs> MessageUpdated { get; }
     }
 }
