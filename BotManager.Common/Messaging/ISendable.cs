@@ -16,6 +16,6 @@ namespace BotManager.Common.Messaging
         /// </summary>
         /// <param name="content">投稿メッセージ</param>
         /// <returns></returns>
-        Task<IMessage> Send(string content);
+        Task<IMessaging> Send(string content);
     }
 }

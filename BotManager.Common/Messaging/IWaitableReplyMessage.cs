@@ -10,7 +10,7 @@ namespace BotManager.Common.Messaging
     /// 返信待機可能メッセージ
     /// </summary>
     /// <typeparam name="T">受信するメッセージの型</typeparam>
-    public interface IWaitableMessage<out T> : IMessage where T : IMessage
+    public interface IWaitableMessage<out T> : IMessaging where T : IMessaging
     {
         /// <summary>
         /// このメッセージに対して返信されたメッセージを通知するオブジェクトを生成します。

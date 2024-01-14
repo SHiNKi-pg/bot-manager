@@ -12,7 +12,7 @@ namespace BotManager.Common
     /// </summary>
     /// <typeparam name="T"></typeparam>
     public interface IReceivableMessageBot<out T> : IBot
-        where T : IMessage
+        where T : IMessaging
     {
         /// <summary>
         /// メッセージを受信すると通知するオブジェクトを生成します。

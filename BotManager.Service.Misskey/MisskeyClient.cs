@@ -220,7 +220,7 @@ namespace BotManager.Service.Misskey
             await websocketClient.Stop(WebSocketCloseStatus.NormalClosure, "stop websockets");
         }
 
-        public async Task<IMessage> Send(string content)
+        public async Task<IMessaging> Send(string content)
         {
             var createdNote = await Api.Notes.CreateNote(text: content);
             return new Messaging.MisskeyMessage(this, createdNote.Note);
