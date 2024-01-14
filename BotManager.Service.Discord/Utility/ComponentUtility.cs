@@ -60,5 +60,18 @@ namespace BotManager.Service.Discord.Utility
             builder(selectMenuBuilder);
             return selectMenuBuilder.Build();
         }
+
+        /// <summary>
+        /// セレクトメニューの選択肢を追加します。
+        /// </summary>
+        /// <param name="selectMenuBuilder"></param>
+        /// <param name="builder">ビルダ</param>
+        /// <returns></returns>
+        public static SelectMenuBuilder AddOption(this SelectMenuBuilder selectMenuBuilder, Action<SelectMenuOptionBuilder> builder)
+        {
+            SelectMenuOptionBuilder selectMenuOptionBuilder = new();
+            builder(selectMenuOptionBuilder);
+            return selectMenuBuilder.AddOption(selectMenuOptionBuilder);
+        }
     }
 }
