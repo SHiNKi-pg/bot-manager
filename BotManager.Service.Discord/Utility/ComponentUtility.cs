@@ -73,5 +73,17 @@ namespace BotManager.Service.Discord.Utility
             builder(selectMenuOptionBuilder);
             return selectMenuBuilder.AddOption(selectMenuOptionBuilder);
         }
+
+        /// <summary>
+        /// ボタンを作成します。
+        /// </summary>
+        /// <param name="builder">コンポーネントビルダ</param>
+        /// <returns></returns>
+        public static ButtonComponent CreateButton(Action<ButtonBuilder> builder)
+        {
+            ButtonBuilder buttonBuilder = new();
+            builder(buttonBuilder);
+            return buttonBuilder.Build();
+        }
     }
 }
