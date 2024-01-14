@@ -42,6 +42,14 @@ namespace BotManager.Service.Discord
 
             this.subscriptions = new();
 
+            // Event Property
+            this.MessageReceived = 
+                Observable.FromEvent<Func<SocketMessage, Task>, SocketMessage>(
+                    h => e => { h(e); return Task.CompletedTask; },
+                    h => client.MessageReceived += h,
+                    h => client.MessageReceived -= h
+                );
+
             // Event
             this.messageReceived = MessageReceived
                 .Select(m => new DiscordMessage(this, m))
@@ -55,12 +63,7 @@ namespace BotManager.Service.Discord
         /// <summary>
         /// メッセージを受信した時に通知されます。
         /// </summary>
-        public IObservable<SocketMessage> MessageReceived =>
-            Observable.FromEvent<Func<SocketMessage, Task>, SocketMessage>(
-                h => e => { h(e); return Task.CompletedTask; },
-                h => client.MessageReceived += h,
-                h => client.MessageReceived -= h
-                );
+        public IObservable<SocketMessage> MessageReceived { get; }
 
         /// <summary>
         /// ログインした時に通知されます。
