@@ -11,7 +11,7 @@ namespace BotManager.Service.Discord.Event
     /// <summary>
     /// <seealso cref="IDiscordEventNotifier.ReactionAdded"/>から通知されるオブジェクトのクラス。
     /// </summary>
-    public class ReactionAddedEventArgs
+    public sealed class ReactionAddedEventArgs
     {
         /// <summary>
         /// 

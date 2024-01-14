@@ -84,6 +84,13 @@ namespace BotManager.Service.Discord
                 h => client.ButtonExecuted += h,
                 h => client.ButtonExecuted -= h
                 );
+
+            this.MessageDeleted = Observable.FromEvent<Func<Cacheable<global::Discord.IMessage, ulong>, Cacheable<IMessageChannel, ulong>, Task>,
+                MessageDeletedEventArgs>(
+                h => (a, b) => { h(new(a, b)); return Task.CompletedTask; },
+                h => client.MessageDeleted += h,
+                h => client.MessageDeleted -= h
+                );
             #endregion
 
             // Event
@@ -119,6 +126,8 @@ namespace BotManager.Service.Discord
         public IObservable<ReactionAddedEventArgs> ReactionAdded { get; }
 
         public IObservable<SocketMessageComponent> ButtonExecuted { get; }
+
+        public IObservable<MessageDeletedEventArgs> MessageDeleted { get; }
         #endregion
 
         #region Properties

@@ -44,5 +44,10 @@ namespace BotManager.Service.Discord
         /// コンポーネントのボタンが押された時に発生します。
         /// </summary>
         IObservable<SocketMessageComponent> ButtonExecuted { get; }
+
+        /// <summary>
+        /// メッセージが削除されると発生します。
+        /// </summary>
+        IObservable<MessageDeletedEventArgs> MessageDeleted { get; }
     }
 }
