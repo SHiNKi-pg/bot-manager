@@ -68,5 +68,20 @@ namespace BotManager.Common.Utility
                 && dateTime.Minute == minutes
                 && dateTime.Second == seconds;
         }
+
+        /// <summary>
+        /// 現在日時が指定した時刻かどうか返します。
+        /// </summary>
+        /// <param name="dateTime"></param>
+        /// <param name="hours">時間(0～23)</param>
+        /// <param name="minutes">分(0～59)</param>
+        /// <param name="seconds">秒(0～59)</param>
+        /// <returns></returns>
+        public static bool EveryDay(this DateTime dateTime, int hours, int minutes, int seconds)
+        {
+            return dateTime.Hour == hours
+                && dateTime.Minute == minutes
+                && dateTime.Second == seconds;
+        }
     }
 }
