@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reactive.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -11,6 +12,17 @@ namespace BotManager.Reactive
     /// </summary>
     public static class ObservableExtensions
     {
-
+        #region Once
+        /// <summary>
+        /// オブザーバブルからの通知を1度だけ購読します。
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="observable"></param>
+        /// <returns></returns>
+        public static IObservable<T> Once<T>(this IObservable<T> observable)
+        {
+            return observable.Take(1);
+        }
+        #endregion
     }
 }
