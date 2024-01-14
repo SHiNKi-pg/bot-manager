@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reactive;
+using System.Reactive.Disposables;
 using System.Reactive.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -73,6 +74,32 @@ namespace BotManager.Reactive
         public static IObservable<T> TimeoutThenComplete<T>(this IObservable<T> observable, TimeSpan dueTime)
         {
             return observable.Timeout(dueTime, Observable.Empty<T>());
+        }
+        #endregion
+
+        #region Then
+        /// <summary>
+        /// 値の通知が完了したら代わりに指定したオブザーバブルの通知を行います。
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="observable"></param>
+        /// <param name="nextObservable"></param>
+        /// <returns></returns>
+        public static IObservable<T> Then<T>(this IObservable<T> observable, IObservable<T> nextObservable)
+        {
+            return Observable.Create<T>(observer =>
+            {
+                CompositeDisposable disposables = new();
+                disposables.Add(observable.Subscribe(
+                    observer.OnNext,
+                    observer.OnError,
+                    () =>
+                    {
+                        disposables.Add(nextObservable.Subscribe(observer));
+                    }
+                    ));
+                return disposables;
+            });
         }
         #endregion
     }
