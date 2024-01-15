@@ -40,5 +40,21 @@ namespace BotManager.Common.Extensions
         }
 
         #endregion
+
+        #region Merge
+        /// <summary>
+        /// この Botの指定したイベントの通知が全て1つのストリームに統合されて後続に流れるようにします。
+        /// </summary>
+        /// <typeparam name="TBot"></typeparam>
+        /// <typeparam name="TSource"></typeparam>
+        /// <param name="bots"></param>
+        /// <param name="observableSelector">イベント通知</param>
+        /// <returns></returns>
+        public static IObservable<IValueSender<TBot, TSource>> Merge<TBot, TSource>(this IEnumerable<TBot> bots, Func<TBot, IObservable<TSource>> observableSelector) where TBot : IBot
+        {
+            var observables = bots.Select(b => observableSelector(b).Select(t => new _Sender<TBot, TSource>(b, t)));
+            return Observable.Merge(observables);
+        }
+        #endregion
     }
 }
