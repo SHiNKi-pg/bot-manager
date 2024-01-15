@@ -1,4 +1,4 @@
-﻿using BotManager.Database.Entities;
+using BotManager.Database.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 using System;
@@ -56,5 +56,28 @@ namespace BotManager.Database
         /// MV_EMOTION。マテリアライズドビューを使用しているため、感情値の合計を <seealso cref="Emotions"/>で取得するよりもこちらで取得した方が高速になりますが、値が最新の状態であるとは限りません。
         /// </summary>
         DbSet<EmotionTotal> EmotionTotals { get; }
+
+        /// <summary>
+        /// MST_USER_NAME
+        /// </summary>
+        DbSet<UserName> UserNames { get; }
+        
+        #region Procedure
+        /// <summary>
+        /// Misskeyの感情テーブル等のデータをDiscordのテーブルに移行します。このメソッドで実行する内容はロールバックできません。
+        /// </summary>
+        /// <param name="userid">移行先ユーザーID</param>
+        /// <param name="misskeyUserId">移行するMisskeyのユーザーID</param>
+        /// <returns></returns>
+        Task TransferFromMisskeyAsync(ulong userid, string misskeyUserId);
+
+        /// <summary>
+        /// Discordの感情テーブル等のデータをMisskeyのテーブルに移行します。このメソッドで実行する内容はロールバックできません。
+        /// </summary>
+        /// <param name="userid">移行先ユーザーID</param>
+        /// <param name="discordUserId">移行するDiscordのユーザーID</param>
+        /// <returns></returns>
+        Task TransferFromDiscordAsync(ulong userid, ulong discordUserId);
+        #endregion
     }
 }

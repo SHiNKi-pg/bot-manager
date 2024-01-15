@@ -19,7 +19,7 @@ namespace BotManager.Database.Entities
         /// ユーザーID
         /// </summary>
         [Column("USERID")]
-        public ulong Id { get; }
+        public ulong Id { get; set; }
 
         /// <summary>
         /// ユーザー名
