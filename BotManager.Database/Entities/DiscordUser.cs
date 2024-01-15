@@ -32,5 +32,11 @@ namespace BotManager.Database.Entities
         /// </summary>
         [Column("MENTION")]
         public required string MentionString { get; set; }
+
+        /// <summary>
+        /// メインユーザーID
+        /// </summary>
+        [Column("USERID")]
+        public ulong? UserId { get; set; }
     }
 }
