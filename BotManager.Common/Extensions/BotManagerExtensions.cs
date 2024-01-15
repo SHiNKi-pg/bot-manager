@@ -9,7 +9,7 @@ namespace BotManager.Common.Extensions
     /// <summary>
     /// <seealso cref="IBotManager"/>拡張メソッド定義
     /// </summary>
-    public class BotManagerExtensions
+    public static class BotManagerExtensions
     {
     }
 }
