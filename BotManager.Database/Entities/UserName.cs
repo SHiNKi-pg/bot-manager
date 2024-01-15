@@ -25,23 +25,23 @@ namespace BotManager.Database.Entities
         /// 左側の名前
         /// </summary>
         [Column("LEFTNAME")]
-        public string LeftName { get; set; } = "";
+        public string? LeftName { get; set; } = "";
 
         /// <summary>
         /// 中央の名前
         /// </summary>
         [Column("MIDDLENAME")]
-        public string MiddleName { get; set; } = "";
+        public string? MiddleName { get; set; } = "";
 
         /// <summary>
         /// 右側の名前
         /// </summary>
         [Column("RIGHTNAME")]
-        public string RightName { get; set; } = "";
+        public string? RightName { get; set; } = "";
 
         /// <summary>
         /// <seealso cref="LeftName"/>と <seealso cref="MiddleName"/>、 <see cref="RightName"/>を組み合わせた名称を取得します。
         /// </summary>
-        public string Name => LeftName + MiddleName + RightName;
+        public string Name => (LeftName ?? "") + (MiddleName ?? "") + (RightName ?? "");
     }
 }
