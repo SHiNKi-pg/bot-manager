@@ -56,5 +56,18 @@ namespace BotManager.Common.Extensions
             return Observable.Merge(observables);
         }
         #endregion
+
+        #region Which
+        /// <summary>
+        /// 管理中のBotのうち、指定した型のBotを列挙します。
+        /// </summary>
+        /// <typeparam name="TBot"></typeparam>
+        /// <param name="botManager"></param>
+        /// <returns></returns>
+        public static IEnumerable<TBot> Which<TBot>(this IBotManager botManager) where TBot : IBot
+        {
+            return botManager.Bots.OfType<TBot>();
+        }
+        #endregion
     }
 }
