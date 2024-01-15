@@ -69,5 +69,19 @@ namespace BotManager.Common.Extensions
             return botManager.Bots.OfType<TBot>();
         }
         #endregion
+
+        #region WhichWhere
+        /// <summary>
+        /// 管理中のBotのうち、指定した型であり、指定した条件を満たすBotを列挙します。
+        /// </summary>
+        /// <typeparam name="TBot"></typeparam>
+        /// <param name="botManager"></param>
+        /// <param name="predicate"></param>
+        /// <returns></returns>
+        public static IEnumerable<TBot> WhichWhere<TBot>(this IBotManager botManager, Func<TBot, bool> predicate) where TBot : IBot
+        {
+            return botManager.Which<TBot>().Where(predicate);
+        }
+        #endregion
     }
 }
