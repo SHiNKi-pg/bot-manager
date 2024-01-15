@@ -26,6 +26,8 @@ using Websocket.Client;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics.CodeAnalysis;
+using Newtonsoft.Json.Linq;
+using BotManager.Json;
 
 namespace BotManager
 {
@@ -66,6 +68,8 @@ namespace BotManager
             Import(typeof(DbSet<>));
             Import<System.Net.Http.HttpClient>();
             Import<StringSyntaxAttribute>();
+            Import<JObject>();
+            Import(typeof(JsonUtility));
         }
     }
 }
