@@ -23,6 +23,7 @@
   <ItemGroup>
     <ProjectReference Include="..\BotManager.Engine\BotManager.Engine.csproj" />
     <ProjectReference Include="..\BotManager.External\BotManager.External.csproj" />
+    <ProjectReference Include="..\BotManager.Json\BotManager.Json.csproj" />
     <ProjectReference Include="..\BotManager.Service.Compiler\BotManager.Service.Compiler.csproj" />
     <ProjectReference Include="..\BotManager.Setting\BotManager.Setting.csproj" />
   </ItemGroup>
