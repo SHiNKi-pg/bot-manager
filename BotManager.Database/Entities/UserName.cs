@@ -12,7 +12,7 @@ namespace BotManager.Database.Entities
     /// MST_USER_NAMEテーブル
     /// </summary>
     [Table("MST_USER_NAME")]
-    [PrimaryKey("USERID")]
+    [PrimaryKey(nameof(Id))]
     public class UserName
     {
         /// <summary>
