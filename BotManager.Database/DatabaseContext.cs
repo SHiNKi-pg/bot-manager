@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore.Storage;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Common;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -94,6 +95,59 @@ namespace BotManager.Database
             finally
             {
                 Logger.Debug("DBContext Disposed Async");
+            }
+        }
+
+        public async Task TransferFromMisskeyAsync(ulong userid, string misskeyUserId)
+        {
+            using(var command = base.Database.GetDbConnection().CreateCommand())
+            {
+                await base.Database.OpenConnectionAsync();
+                command.CommandType = CommandType.StoredProcedure;
+                command.CommandText = "PKG_DISCORD.TRANSFER_FROM_MISSKEY";
+
+                // userid
+                var param = command.CreateParameter();
+                param.Size = 12;
+                param.DbType = DbType.Int64;
+                param.Value = userid;
+                command.Parameters.Add(param);
+
+                // misskeyUserId
+                param = command.CreateParameter();
+                param.DbType = DbType.AnsiString;
+                param.Value = misskeyUserId;
+                command.Parameters.Add(param);
+
+                await command.PrepareAsync();
+                await command.ExecuteNonQueryAsync();
+            }
+        }
+
+        public async Task TransferFromDiscordAsync(ulong userid, ulong discordUserId)
+        {
+            using (var command = base.Database.GetDbConnection().CreateCommand())
+            {
+                await base.Database.OpenConnectionAsync();
+                command.CommandType = CommandType.StoredProcedure;
+                command.CommandText = "PKG_MISSKEY.TRANSFER_FROM_DISCORD";
+
+                // userid
+                var param = command.CreateParameter();
+                param.Size = 12;
+                param.DbType = DbType.Int64;
+                param.Value = userid;
+                command.Parameters.Add(param);
+
+                // discordUserId
+                param = command.CreateParameter();
+                param.Size = 20;
+                param.DbType = DbType.Int64;
+                param.Value = discordUserId;
+                command.Parameters.Add(param);
+
+                await command.PrepareAsync();
+                await command.ExecuteNonQueryAsync();
             }
         }
         #endregion
