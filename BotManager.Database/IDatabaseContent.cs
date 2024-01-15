@@ -56,5 +56,10 @@ namespace BotManager.Database
         /// MV_EMOTION。マテリアライズドビューを使用しているため、感情値の合計を <seealso cref="Emotions"/>で取得するよりもこちらで取得した方が高速になりますが、値が最新の状態であるとは限りません。
         /// </summary>
         DbSet<EmotionTotal> EmotionTotals { get; }
+
+        /// <summary>
+        /// MST_USER_NAME
+        /// </summary>
+        DbSet<UserName> UserNames { get; }
     }
 }

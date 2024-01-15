@@ -61,6 +61,9 @@ namespace BotManager.Database
 
         public DbSet<EmotionTotal> EmotionTotals => MV_EMOTION;
 
+        public DbSet<UserName> MST_USER_NAME { get; internal set; }
+        public DbSet<UserName> UserNames => MST_USER_NAME;
+
         #endregion
 
         #region Method
