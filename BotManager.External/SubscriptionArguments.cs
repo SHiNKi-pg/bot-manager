@@ -35,7 +35,11 @@ namespace BotManager.External
         /// ログ出力オブジェクト
         /// </summary>
         public ILog Logger { get; init; }
-
+        
+        /// <summary>
+        /// キャンセル通知
+        /// </summary>
+        public CancellationToken CancellationToken { get; init; }
         // TODO: 新しい引数を追加したい場合はここに記載していく
 #pragma warning restore
     }

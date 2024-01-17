@@ -70,6 +70,7 @@ namespace BotManager
             Import<StringSyntaxAttribute>();
             Import<JObject>();
             Import(typeof(JsonUtility));
+            Import<ValueTask>();
         }
     }
 }

@@ -22,20 +22,23 @@ namespace BotManager.Engine
         #region Private Fields
         private readonly IPrecompilableCompiler compiler;
         private BotManager? _botManager;
-        private Func<INamed, IBotManager, SubscriptionArgument> gettingSubscriptionArgument;
+        private Func<INamed, IBotManager, CancellationToken, SubscriptionArgument> gettingSubscriptionArgument;
         private ILog logger;    // コンパイラ用ロガー
         private readonly static ILog Logger = Log.GetLogger("engine");
+
+        private CancellationDisposable cancellation;
 
         private readonly IDisposable compileSubscription;
         #endregion
 
         #region Constructor
-        public BotMechanism(IPrecompilableCompiler compiler, Func<INamed, IBotManager, SubscriptionArgument> gettingSubscriptionArgument)
+        public BotMechanism(IPrecompilableCompiler compiler, Func<INamed, IBotManager, CancellationToken, SubscriptionArgument> gettingSubscriptionArgument)
         {
             this.logger = Log.GetLogger("compiler");
             this.gettingSubscriptionArgument = gettingSubscriptionArgument;
             this.compiler = compiler;
             compileSubscription = CompileSubscription();
+            cancellation = new();
             Logger.Debug("BotMechanism Created");
         }
 
@@ -80,6 +83,8 @@ namespace BotManager.Engine
                 compiler.AssemblyUnloading.Subscribe(_ =>
                 {
                     logger.Info("アセンブリアンロード要求");
+                    cancellation.Dispose();
+                    cancellation = new();
                     _botManager?.Dispose();
                 })
             );
@@ -123,7 +128,7 @@ namespace BotManager.Engine
                         .NewAs<ISubscription<SubscriptionArgument>>()
                         .Subscribe(s =>
                         {
-                            var args = gettingSubscriptionArgument(s, _botManager);
+                            var args = gettingSubscriptionArgument(s, _botManager, cancellation.Token);
                             var subscription = s.SubscribeFrom(args);
                             logger.Info($"サブスクリプション {s.Name}({s.Id}) 開始");
 
