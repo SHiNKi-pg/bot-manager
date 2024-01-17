@@ -14,6 +14,7 @@ namespace BotManager.External.ScriptSupport
     /// <typeparam name="T">受け取る型</typeparam>
     public abstract class CommandBase<T> : IAsyncDistributee<T>
     {
+        #region Property
         /// <summary>
         /// 実行優先度。高い数値であるほど実行順序は上の方になります。
         /// </summary>
@@ -28,7 +29,24 @@ namespace BotManager.External.ScriptSupport
         /// このイベント通知について、他の処理を実行する場合はこの処理の実行を許可しないかどうかを取得します。
         /// </summary>
         public bool DisallowAnotherExecution { get; }
+        #endregion
 
+        #region Constructor
+        /// <summary>
+        /// <see cref="CommandBase{T}"/>オブジェクトを作成します。
+        /// </summary>
+        /// <param name="priority">実行優先度。高い数値であるほど実行順序は上の方になります。</param>
+        /// <param name="noContinuous">この処理を実行した後、このイベント通知について他の処理を実行させないかどうかを取得します。</param>
+        /// <param name="disallowAnotherExecution">このイベント通知について、他の処理を実行する場合はこの処理の実行を許可しないかどうかを取得します。</param>
+        public CommandBase(int priority, bool noContinuous = false, bool disallowAnotherExecution = false)
+        {
+            this.Priority = priority;
+            this.NoContinuous = noContinuous;
+            this.DisallowAnotherExecution = disallowAnotherExecution;
+        }
+        #endregion
+
+        #region Method
         /// <summary>
         /// <seealso cref="OnNextAsync(T, CancellationToken)"/>を実行する条件
         /// </summary>
@@ -64,5 +82,6 @@ namespace BotManager.External.ScriptSupport
         {
             return ValueTask.CompletedTask;
         }
+        #endregion
     }
 }
