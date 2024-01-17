@@ -15,6 +15,7 @@
     <ProjectReference Include="..\BotManager.Common\BotManager.Common.csproj" />
     <ProjectReference Include="..\BotManager.Database\BotManager.Database.csproj" />
     <ProjectReference Include="..\BotManager.External\BotManager.External.csproj" />
+    <ProjectReference Include="..\BotManager.Json\BotManager.Json.csproj" />
     <ProjectReference Include="..\BotManager.Notifiers.EarthquakeMonitor\BotManager.Notifiers.EarthquakeMonitor.csproj" />
     <ProjectReference Include="..\BotManager.Notifiers\BotManager.Notifiers.csproj" />
     <ProjectReference Include="..\BotManager.Reactive.Json\BotManager.Reactive.Json.csproj" />
