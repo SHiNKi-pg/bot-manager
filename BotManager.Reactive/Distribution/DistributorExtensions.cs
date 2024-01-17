@@ -13,6 +13,7 @@ namespace BotManager.Reactive.Distribution
     /// </summary>
     public static class DistributorExtensions
     {
+        #region GenerateObservable
         /// <summary>
         /// <seealso cref="IDistributor{T}"/>から<see cref="IObservable{T}"/>オブジェクトを生成します。
         /// </summary>
@@ -54,6 +55,221 @@ namespace BotManager.Reactive.Distribution
         {
             return distributor.GenerateObservable(priority, _ => true, noContinuous, disallowAnotherExecution);
         }
+        #endregion
+
+        #region Add
+        /// <summary>
+        /// <see cref="IObserver{T}"/>に分配するように設定します。
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="distributor"></param>
+        /// <param name="observer">通知を受け取るオブザーバー</param>
+        /// <param name="priority">実行優先度</param>
+        /// <param name="condition">値の通知を受ける条件</param>
+        /// <param name="noContinuous">値を通知した後、これ以降の<seealso cref="IDistributee{T}"/>を処理しないか</param>
+        /// <param name="disallowAnotherExecution">値を通知する際、他の<seealso cref="IDistributee{T}"/>を実行する場合は値の通知をしないかどうか</param>
+        /// <returns></returns>
+        public static IDisposable Add<T>(this IDistributor<T> distributor, Func<T, bool> condition, IObserver<T> observer, int priority, bool noContinuous = false, bool disallowAnotherExecution = false)
+        {
+            return distributor.Add(new AnonymousDistributee<T>()
+            {
+                Priority = priority,
+                Condition = condition,
+                NoContinuous = noContinuous,
+                DisallowAnotherExecution = disallowAnotherExecution,
+                onNext = observer.OnNext,
+                onCompleted = observer.OnCompleted,
+                onError = observer.OnError
+            });
+        }
+
+        /// <summary>
+        /// <see cref="IObserver{T}"/>に分配するように設定します。
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="distributor"></param>
+        /// <param name="observer">通知を受け取るオブザーバー</param>
+        /// <param name="priority">実行優先度</param>
+        /// <param name="noContinuous">値を通知した後、これ以降の<seealso cref="IDistributee{T}"/>を処理しないか</param>
+        /// <param name="disallowAnotherExecution">値を通知する際、他の<seealso cref="IDistributee{T}"/>を実行する場合は値の通知をしないかどうか</param>
+        /// <returns></returns>
+        public static IDisposable Add<T>(this IDistributor<T> distributor, IObserver<T> observer, int priority, bool noContinuous = false, bool disallowAnotherExecution = false)
+        {
+            return distributor.Add(_ => true, observer, priority, noContinuous, disallowAnotherExecution);
+        }
+
+        /// <summary>
+        /// 値を受け取った時に特定の処理を実行するように設定します。
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="distributor"></param>
+        /// <param name="onNext">値の通知を受け取った時に実行する処理</param>
+        /// <param name="priority">実行優先度</param>
+        /// <param name="condition">値の通知を受ける条件</param>
+        /// <param name="noContinuous">値を通知した後、これ以降の<seealso cref="IDistributee{T}"/>を処理しないか</param>
+        /// <param name="disallowAnotherExecution">値を通知する際、他の<seealso cref="IDistributee{T}"/>を実行する場合は値の通知をしないかどうか</param>
+        /// <returns></returns>
+        public static IDisposable Add<T>(this IDistributor<T> distributor, Func<T, bool> condition, Action<T> onNext,
+            int priority, bool noContinuous = false, bool disallowAnotherExecution = false)
+        {
+            return distributor.Add(new AnonymousDistributee<T>()
+            {
+                Priority = priority,
+                Condition = condition,
+                NoContinuous = noContinuous,
+                DisallowAnotherExecution = disallowAnotherExecution,
+                onNext = onNext,
+            });
+        }
+
+        /// <summary>
+        /// 値を受け取った時に特定の処理を実行するように設定します。
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="distributor"></param>
+        /// <param name="onNext">値の通知を受け取った時に実行する処理</param>
+        /// <param name="priority">実行優先度</param>
+        /// <param name="noContinuous">値を通知した後、これ以降の<seealso cref="IDistributee{T}"/>を処理しないか</param>
+        /// <param name="disallowAnotherExecution">値を通知する際、他の<seealso cref="IDistributee{T}"/>を実行する場合は値の通知をしないかどうか</param>
+        /// <returns></returns>
+        public static IDisposable Add<T>(this IDistributor<T> distributor, Action<T> onNext,
+            int priority, bool noContinuous = false, bool disallowAnotherExecution = false)
+        {
+            return distributor.Add(_ => true, onNext, priority, noContinuous, disallowAnotherExecution);
+        }
+
+        /// <summary>
+        /// 値を受け取った時に特定の処理を実行するように設定します。
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="distributor"></param>
+        /// <param name="onNext">値の通知を受け取った時に実行する処理</param>
+        /// <param name="onError">エラー通知を受け取った時に実行する処理</param>
+        /// <param name="priority">実行優先度</param>
+        /// <param name="condition">値の通知を受ける条件</param>
+        /// <param name="noContinuous">値を通知した後、これ以降の<seealso cref="IDistributee{T}"/>を処理しないか</param>
+        /// <param name="disallowAnotherExecution">値を通知する際、他の<seealso cref="IDistributee{T}"/>を実行する場合は値の通知をしないかどうか</param>
+        /// <returns></returns>
+        public static IDisposable Add<T>(this IDistributor<T> distributor, Func<T, bool> condition, Action<T> onNext, Action<Exception> onError,
+            int priority, bool noContinuous = false, bool disallowAnotherExecution = false)
+        {
+            return distributor.Add(new AnonymousDistributee<T>()
+            {
+                Priority = priority,
+                Condition = condition,
+                NoContinuous = noContinuous,
+                DisallowAnotherExecution = disallowAnotherExecution,
+                onNext = onNext,
+                onError = onError,
+            });
+        }
+
+        /// <summary>
+        /// 値を受け取った時に特定の処理を実行するように設定します。
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="distributor"></param>
+        /// <param name="onNext">値の通知を受け取った時に実行する処理</param>
+        /// <param name="onError">エラー通知を受け取った時に実行する処理</param>
+        /// <param name="priority">実行優先度</param>
+        /// <param name="noContinuous">値を通知した後、これ以降の<seealso cref="IDistributee{T}"/>を処理しないか</param>
+        /// <param name="disallowAnotherExecution">値を通知する際、他の<seealso cref="IDistributee{T}"/>を実行する場合は値の通知をしないかどうか</param>
+        /// <returns></returns>
+        public static IDisposable Add<T>(this IDistributor<T> distributor, Action<T> onNext, Action<Exception> onError,
+            int priority, bool noContinuous = false, bool disallowAnotherExecution = false)
+        {
+            return distributor.Add(_ => true, onNext, onError, priority, noContinuous, disallowAnotherExecution);
+        }
+
+        /// <summary>
+        /// 値を受け取った時に特定の処理を実行するように設定します。
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="distributor"></param>
+        /// <param name="onNext">値の通知を受け取った時に実行する処理</param>
+        /// <param name="onCompleted">値の通知が完了した時に実行する処理</param>
+        /// <param name="priority">実行優先度</param>
+        /// <param name="condition">値の通知を受ける条件</param>
+        /// <param name="noContinuous">値を通知した後、これ以降の<seealso cref="IDistributee{T}"/>を処理しないか</param>
+        /// <param name="disallowAnotherExecution">値を通知する際、他の<seealso cref="IDistributee{T}"/>を実行する場合は値の通知をしないかどうか</param>
+        /// <returns></returns>
+        public static IDisposable Add<T>(this IDistributor<T> distributor, Func<T, bool> condition, Action<T> onNext, Action onCompleted,
+            int priority, bool noContinuous = false, bool disallowAnotherExecution = false)
+        {
+            return distributor.Add(new AnonymousDistributee<T>()
+            {
+                Priority = priority,
+                Condition = condition,
+                NoContinuous = noContinuous,
+                DisallowAnotherExecution = disallowAnotherExecution,
+                onNext = onNext,
+                onCompleted = onCompleted,
+            });
+        }
+
+        /// <summary>
+        /// 値を受け取った時に特定の処理を実行するように設定します。
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="distributor"></param>
+        /// <param name="onNext">値の通知を受け取った時に実行する処理</param>
+        /// <param name="onCompleted">値の通知が完了した時に実行する処理</param>
+        /// <param name="priority">実行優先度</param>
+        /// <param name="noContinuous">値を通知した後、これ以降の<seealso cref="IDistributee{T}"/>を処理しないか</param>
+        /// <param name="disallowAnotherExecution">値を通知する際、他の<seealso cref="IDistributee{T}"/>を実行する場合は値の通知をしないかどうか</param>
+        /// <returns></returns>
+        public static IDisposable Add<T>(this IDistributor<T> distributor, Action<T> onNext, Action onCompleted,
+            int priority, bool noContinuous = false, bool disallowAnotherExecution = false)
+        {
+            return distributor.Add(_ => true, onNext, onCompleted, priority, noContinuous, disallowAnotherExecution);
+        }
+
+        /// <summary>
+        /// 値を受け取った時に特定の処理を実行するように設定します。
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="distributor"></param>
+        /// <param name="onNext">値の通知を受け取った時に実行する処理</param>
+        /// <param name="onError">エラー通知を受け取った時に実行する処理</param>
+        /// <param name="onCompleted">値の通知が完了した時に実行する処理</param>
+        /// <param name="priority">実行優先度</param>
+        /// <param name="condition">値の通知を受ける条件</param>
+        /// <param name="noContinuous">値を通知した後、これ以降の<seealso cref="IDistributee{T}"/>を処理しないか</param>
+        /// <param name="disallowAnotherExecution">値を通知する際、他の<seealso cref="IDistributee{T}"/>を実行する場合は値の通知をしないかどうか</param>
+        /// <returns></returns>
+        public static IDisposable Add<T>(this IDistributor<T> distributor, Func<T, bool> condition, Action<T> onNext, Action<Exception> onError, Action onCompleted,
+            int priority, bool noContinuous = false, bool disallowAnotherExecution = false)
+        {
+            return distributor.Add(new AnonymousDistributee<T>()
+            {
+                Priority = priority,
+                Condition = condition,
+                NoContinuous = noContinuous,
+                DisallowAnotherExecution = disallowAnotherExecution,
+                onNext = onNext,
+                onError = onError,
+                onCompleted = onCompleted,
+            });
+        }
+
+        /// <summary>
+        /// 値を受け取った時に特定の処理を実行するように設定します。
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="distributor"></param>
+        /// <param name="onNext">値の通知を受け取った時に実行する処理</param>
+        /// <param name="onError">エラー通知を受け取った時に実行する処理</param>
+        /// <param name="onCompleted">値の通知が完了した時に実行する処理</param>
+        /// <param name="priority">実行優先度</param>
+        /// <param name="noContinuous">値を通知した後、これ以降の<seealso cref="IDistributee{T}"/>を処理しないか</param>
+        /// <param name="disallowAnotherExecution">値を通知する際、他の<seealso cref="IDistributee{T}"/>を実行する場合は値の通知をしないかどうか</param>
+        /// <returns></returns>
+        public static IDisposable Add<T>(this IDistributor<T> distributor, Action<T> onNext, Action<Exception> onError, Action onCompleted,
+            int priority, bool noContinuous = false, bool disallowAnotherExecution = false)
+        {
+            return distributor.Add(_ => true, onNext, onError, onCompleted, priority, noContinuous, disallowAnotherExecution);
+        }
+        #endregion
 
         #region Private Class
 
