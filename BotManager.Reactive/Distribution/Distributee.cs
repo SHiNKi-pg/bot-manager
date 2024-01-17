@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 namespace BotManager.Reactive.Distribution
 {
     /// <summary>
-    /// 実行条件付きオブザーバーインターフェース
+    /// 分配可能インターフェース
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public interface IDistributee<in T> : IObserver<T>
+    public interface IDistributable<in T>
     {
         /// <summary>
         /// 実行優先度。値が高いほど優先度が上がります。
@@ -18,7 +18,7 @@ namespace BotManager.Reactive.Distribution
         int Priority { get; }
 
         /// <summary>
-        /// この処理を実行した後に他に条件を満たす<seealso cref="IDistributee{T}"/>を実行させないかどうか取得します。
+        /// この処理を実行した後に他に条件を満たす<seealso cref="IDistributable{T}"/>を実行させないかどうか取得します。
         /// </summary>
         bool NoContinuous { get; }
 
@@ -33,5 +33,23 @@ namespace BotManager.Reactive.Distribution
         /// <param name="value"></param>
         /// <returns></returns>
         bool Conditions(T value);
+    }
+
+    /// <summary>
+    /// 実行条件付きオブザーバーインターフェース
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    public interface IDistributee<in T> : IDistributable<T>, IObserver<T>
+    {
+
+    }
+
+    /// <summary>
+    /// 非同期実行条件付きオブザーバーインターフェース
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    public interface IAsyncDistributee<in T> : IDistributable<T>, IAsyncObserver<T>
+    {
+
     }
 }
