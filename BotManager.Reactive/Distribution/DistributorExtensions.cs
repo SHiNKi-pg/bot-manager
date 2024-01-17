@@ -41,6 +41,20 @@ namespace BotManager.Reactive.Distribution
             });
         }
 
+        /// <summary>
+        /// <seealso cref="IDistributor{T}"/>から<see cref="IObservable{T}"/>オブジェクトを生成します。
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="distributor"></param>
+        /// <param name="priority">優先度</param>
+        /// <param name="noContinuous">値を通知した後、これ以降の<seealso cref="IDistributee{T}"/>を処理しないか</param>
+        /// <param name="disallowAnotherExecution">値を通知する際、他の<seealso cref="IDistributee{T}"/>を実行する場合は値の通知をしないかどうか</param>
+        /// <returns></returns>
+        public static IObservable<T> GenerateObservable<T>(this IDistributor<T> distributor, int priority,  bool noContinuous = false, bool disallowAnotherExecution = false)
+        {
+            return distributor.GenerateObservable(priority, _ => true, noContinuous, disallowAnotherExecution);
+        }
+
         #region Private Class
 
         private class AnonymousDistributee<T> : IDistributee<T>
