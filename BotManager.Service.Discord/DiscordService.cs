@@ -30,7 +30,10 @@ namespace BotManager.Service.Discord
         /// <returns></returns>
         public static IDiscordServiceClient Create(string token)
         {
-            return Create(token, new());
+            return Create(token, new()
+            {
+                GatewayIntents = global::Discord.GatewayIntents.All,
+            });
         }
     }
 }
