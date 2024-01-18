@@ -1,6 +1,7 @@
 ﻿using BotManager.Common;
 using BotManager.Common.Scripting;
 using BotManager.Common.Scripting.Attributes;
+using BotManager.Database.Entities;
 using BotManager.Service.Compiler;
 using BotManager.Service.Git;
 using System;
@@ -93,6 +94,13 @@ namespace BotManager.Engine
                 })
             );
 
+            disposables.Add(
+                compiler.CompileFailed.Subscribe(_ =>
+                {
+                    logger.Warn("コンパイル失敗");
+                })
+            );
+
             // コンパイル成功時
             disposables.Add(
                 compiler.AssemblyCreated.Subscribe(async asm =>
@@ -115,6 +123,7 @@ namespace BotManager.Engine
                         _botManager.AddBot(bot);
                         logger.Info($"{bot.Name} Bot({bot.Id}) 追加");
                         tasklist.Add(bot.StartAsync());
+                        logger.Info($"Bot {bot.Id}の起動を開始しました。");
                     });
 
                     // Botが全てコンパイル、
@@ -123,6 +132,7 @@ namespace BotManager.Engine
                         await botobs.Count();
                     }
                     await Task.WhenAll(tasklist);
+                    logger.Info($"すべてのBotの起動が完了しました！");
 
                     // コマンドのコンパイル
                     var subscobs = types
