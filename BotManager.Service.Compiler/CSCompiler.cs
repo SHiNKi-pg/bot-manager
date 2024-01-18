@@ -217,7 +217,7 @@ namespace BotManager.Service.Compiler
         {
             using(StreamReader sr = new(filePath, encoding))
             {
-                AddSource(await sr.ReadToEndAsync());
+                syntaxTrees.Add(CSharpSyntaxTree.ParseText(await sr.ReadToEndAsync(), parseOptions, filePath));
             }
         }
 

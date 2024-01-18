@@ -50,29 +50,33 @@ namespace BotManager.Engine
             disposables.Add(
                 compiler.CompileError.Subscribe(errors =>
                 {
-                    foreach(var diag in errors)
+                    foreach(var group in errors.GroupBy(d => d.Location.SourceTree?.FilePath ?? ""))
                     {
-                        string message = string.Format("[{0}][{1}]L{2} : {3}",
-                            diag.Severity.ToString(),
-                            diag.Id,
-                            diag.Location.GetLineSpan().StartLinePosition.ToString(),
-                            diag.GetMessage()
-                            );
-
-                        switch (diag.Severity)
+                        logger.Info(group.Key);
+                        foreach (var diag in group)
                         {
-                            case Microsoft.CodeAnalysis.DiagnosticSeverity.Hidden:
-                                logger.Debug(message);
-                                break;
-                            case Microsoft.CodeAnalysis.DiagnosticSeverity.Info:
-                                logger.Info(message);
-                                break;
-                            case Microsoft.CodeAnalysis.DiagnosticSeverity.Warning:
-                                logger.Warn(message);
-                                break;
-                            case Microsoft.CodeAnalysis.DiagnosticSeverity.Error:
-                                logger.Error(message);
-                                break;
+                            string message = string.Format("[{0}][{1}]L{2} : {3}",
+                                diag.Severity.ToString(),
+                                diag.Id,
+                                diag.Location.GetLineSpan().StartLinePosition.ToString(),
+                                diag.GetMessage()
+                                );
+
+                            switch (diag.Severity)
+                            {
+                                case Microsoft.CodeAnalysis.DiagnosticSeverity.Hidden:
+                                    logger.Debug(message);
+                                    break;
+                                case Microsoft.CodeAnalysis.DiagnosticSeverity.Info:
+                                    logger.Info(message);
+                                    break;
+                                case Microsoft.CodeAnalysis.DiagnosticSeverity.Warning:
+                                    logger.Warn(message);
+                                    break;
+                                case Microsoft.CodeAnalysis.DiagnosticSeverity.Error:
+                                    logger.Error(message);
+                                    break;
+                            }
                         }
                     }
                 })
