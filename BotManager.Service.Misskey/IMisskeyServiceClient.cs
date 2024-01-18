@@ -11,7 +11,7 @@ namespace BotManager.Service.Misskey
     /// <summary>
     /// Misskey Bot用クライアントインターフェース
     /// </summary>
-    public interface IMisskeyServiceClient : IServiceClient, IMisskeyEventNotifier, ISendable, IMessageReceived<IReplyableMessageWithId<string>>
+    public interface IMisskeyServiceClient : IServiceClient, IMisskeyEventNotifier, ISendable, IMessageReceived<IReplyableMessageWithId<string, string>>
     {
         /// <summary>
         /// Misskey HTTP APIにアクセスするオブジェクトを取得します。

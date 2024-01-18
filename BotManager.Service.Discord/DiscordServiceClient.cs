@@ -26,7 +26,7 @@ namespace BotManager.Service.Discord
         private readonly string token;
         private readonly DiscordSocketClient client;
 
-        private readonly IConnectableObservable<IReplyableMessageWithId<ulong>> messageReceived;
+        private readonly IConnectableObservable<IReplyableMessageWithId<ulong, ulong>> messageReceived;
         private readonly CompositeDisposable subscriptions;
         #endregion
 
@@ -46,7 +46,14 @@ namespace BotManager.Service.Discord
             #region Event Property
             this.MessageReceived = 
                 Observable.FromEvent<Func<SocketMessage, Task>, SocketMessage>(
-                h => e => { h(e); return Task.CompletedTask; },
+                h => e => {
+                    if (e.Author.Id != client.CurrentUser.Id)
+                    {
+                        // 自身の投稿したメッセージには反応しないようにする
+                        h(e);
+                    }
+                    return Task.CompletedTask; 
+                },
                 h => client.MessageReceived += h,
                 h => client.MessageReceived -= h
                 );
@@ -177,7 +184,11 @@ namespace BotManager.Service.Discord
         /// </summary>
         public UserStatus Status => client.Status;
 
-        IObservable<IReplyableMessageWithId<ulong>> IMessageReceived<IReplyableMessageWithId<ulong>>.MessagingReceived { get => messageReceived; }
+        IObservable<IReplyableMessageWithId<ulong, ulong>> IMessageReceived<IReplyableMessageWithId<ulong, ulong>>.MessagingReceived { get => messageReceived; }
+
+        public SocketSelfUser CurrentUser => client.CurrentUser;
+
+        public IDiscordClient Native => client;
         #endregion
 
         #region Method

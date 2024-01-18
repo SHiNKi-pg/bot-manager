@@ -25,6 +25,8 @@ namespace BotManager.Service.Twitter.Messaging
 
         public bool IsBot => false;
 
+        public string AuthorName => string.Empty;
+
         public async Task Delete()
         {
             if(tweet is not null && tweet.ID is not null)
