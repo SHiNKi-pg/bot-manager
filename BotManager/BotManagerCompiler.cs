@@ -28,6 +28,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics.CodeAnalysis;
 using Newtonsoft.Json.Linq;
 using BotManager.Json;
+using System.ComponentModel;
 
 namespace BotManager
 {
@@ -71,6 +72,7 @@ namespace BotManager
             Import<JObject>();
             Import(typeof(JsonUtility));
             Import<ValueTask>();
+            Import<IListSource>();
         }
     }
 }
