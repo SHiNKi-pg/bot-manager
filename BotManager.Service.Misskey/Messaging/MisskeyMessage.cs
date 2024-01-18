@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace BotManager.Service.Misskey.Messaging
 {
-    internal class MisskeyMessage : IReplyableMessageWithId<string>, IDeletableMessage, IWaitableMessage<IReplyableMessageWithId<string>>
+    internal class MisskeyMessage : IReplyableMessageWithId<string, string>, IDeletableMessage, IWaitableMessage<IReplyableMessageWithId<string, string>>
     {
         private readonly Note note;
         private readonly IMisskeyServiceClient client;
@@ -30,6 +30,10 @@ namespace BotManager.Service.Misskey.Messaging
 
         public string ReplyMessageId => note.ReplyId ?? string.Empty;
 
+        public string AuthorId => note.UserId;
+
+        public string AuthorName => note.User?.UserName ?? string.Empty;
+
         public async Task Delete()
         {
             await client.Api.Notes.DeleteNote(note.Id);
@@ -45,9 +49,9 @@ namespace BotManager.Service.Misskey.Messaging
             return new MisskeyMessage(this.client, replyNote.Note);
         }
 
-        public IObservable<IReplyableMessageWithId<string>> CreateReceiveNotifier()
+        public IObservable<IReplyableMessageWithId<string, string>> CreateReceiveNotifier()
         {
-            return Observable.Create<IReplyableMessageWithId<string>>(observer =>
+            return Observable.Create<IReplyableMessageWithId<string, string>>(observer =>
             {
                 return client.MessagingReceived
                     .Where(m => m.ReplyMessageId == Id)

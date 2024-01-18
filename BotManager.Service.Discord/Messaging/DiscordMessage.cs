@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BotManager.Service.Discord.Messaging
 {
-    internal class DiscordMessage : IReplyableMessageWithId<ulong>, IDeletableMessage, IWaitableMessage<IReplyableMessageWithId<ulong>>
+    internal class DiscordMessage : IReplyableMessageWithId<ulong, ulong>, IDeletableMessage, IWaitableMessage<IReplyableMessageWithId<ulong, ulong>>
     {
         private readonly global::Discord.IMessage message;
         private readonly IDiscordServiceClient client;
@@ -29,11 +29,15 @@ namespace BotManager.Service.Discord.Messaging
 
         public ulong ReplyMessageId => message.Reference.MessageId.Value;
 
-        public IObservable<IReplyableMessageWithId<ulong>> CreateReceiveNotifier()
+        public string AuthorName => message.Author.Username;
+
+        public ulong AuthorId => message.Author.Id;
+
+        public IObservable<IReplyableMessageWithId<ulong, ulong>> CreateReceiveNotifier()
         {
-            return Observable.Create<IReplyableMessageWithId<ulong>>(observer =>
+            return Observable.Create<IReplyableMessageWithId<ulong, ulong>>(observer =>
             {
-                IMessageReceived<IReplyableMessageWithId<ulong>> messageReceived = client;
+                IMessageReceived<IReplyableMessageWithId<ulong, ulong>> messageReceived = client;
                 return messageReceived.MessagingReceived
                     .Where(m => m.ReplyMessageId == Id)
                     .Subscribe(observer);

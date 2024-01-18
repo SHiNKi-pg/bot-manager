@@ -9,7 +9,7 @@ namespace BotManager.Common.Messaging
     /// <summary>
     /// メッセージインターフェース
     /// </summary>
-    public interface IMessaging
+    public interface IMessaging : IAuthor
     {
         /// <summary>
         /// メッセージ内容
@@ -62,5 +62,15 @@ namespace BotManager.Common.Messaging
         /// 返信先メッセージID
         /// </summary>
         T ReplyMessageId { get; }
+    }
+
+    /// <summary>
+    /// メッセージとユーザーID付き返信可能メッセージインターフェース
+    /// </summary>
+    /// <typeparam name="TMessageId"></typeparam>
+    /// <typeparam name="TAuthorId"></typeparam>
+    public interface IReplyableMessageWithId<TMessageId, TAuthorId> : IReplyableMessageWithId<TMessageId>, IAuthorId<TAuthorId>
+    {
+
     }
 }

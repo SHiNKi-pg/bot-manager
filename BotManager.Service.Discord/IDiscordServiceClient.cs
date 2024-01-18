@@ -14,7 +14,7 @@ namespace BotManager.Service.Discord
     /// <summary>
     /// Bot用Discordクライアント
     /// </summary>
-    public interface IDiscordServiceClient : IServiceClient, IDiscordEventNotifier, IMessageReceived<IReplyableMessageWithId<ulong>>
+    public interface IDiscordServiceClient : IServiceClient, IDiscordEventNotifier, IMessageReceived<IReplyableMessageWithId<ulong, ulong>>
     {
         /// <summary>
         /// 指定したIDのサーバーのオブジェクトを返します。

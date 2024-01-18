@@ -26,7 +26,7 @@ namespace BotManager.Service.Discord
         private readonly string token;
         private readonly DiscordSocketClient client;
 
-        private readonly IConnectableObservable<IReplyableMessageWithId<ulong>> messageReceived;
+        private readonly IConnectableObservable<IReplyableMessageWithId<ulong, ulong>> messageReceived;
         private readonly CompositeDisposable subscriptions;
         #endregion
 
@@ -177,7 +177,7 @@ namespace BotManager.Service.Discord
         /// </summary>
         public UserStatus Status => client.Status;
 
-        IObservable<IReplyableMessageWithId<ulong>> IMessageReceived<IReplyableMessageWithId<ulong>>.MessagingReceived { get => messageReceived; }
+        IObservable<IReplyableMessageWithId<ulong, ulong>> IMessageReceived<IReplyableMessageWithId<ulong, ulong>>.MessagingReceived { get => messageReceived; }
 
         public SocketSelfUser CurrentUser => client.CurrentUser;
 
