@@ -5,6 +5,7 @@ using BotManager.Notifiers;
 using BotManager.Service.Compiler;
 using BotManager.Common;
 using BotManager;
+using System.Reactive.Linq;
 
 namespace BotManagerConsole
 {
@@ -30,8 +31,37 @@ namespace BotManagerConsole
                 {
                     await botm.CompileSources();
 
-                    // TODO: 待機処理を作成する
-                    Console.ReadLine();
+                    Console.WriteLine("Please Enter Command...");
+                    Console.WriteLine("quit : Exit bot manager");
+                    Console.WriteLine("reload : reload and compile script");
+                    while (true)
+                    {
+                        string? command = Console.ReadLine();
+                        if (string.IsNullOrEmpty(command))
+                        {
+                            Console.WriteLine("Please Enter Command...");
+                            Console.WriteLine("quit : Exit bot manager");
+                            Console.WriteLine("reload : reload and compile script");
+                            continue;
+                        }
+
+                        if(command == "quit")
+                        {
+                            break;
+                        }
+                        else if(command == "reload")
+                        {
+                            Console.WriteLine("Please Wait...");
+                            await botm.CompileSources();
+                            Console.WriteLine("Script Reloaded");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Command not found...");
+                            Console.WriteLine("quit : Exit bot manager");
+                            Console.WriteLine("reload : reload and compile script");
+                        }
+                    }
                 }
 
                 sysLog.Info("BotManager End");
