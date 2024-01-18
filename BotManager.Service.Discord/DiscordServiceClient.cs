@@ -178,6 +178,10 @@ namespace BotManager.Service.Discord
         public UserStatus Status => client.Status;
 
         IObservable<IReplyableMessageWithId<ulong>> IMessageReceived<IReplyableMessageWithId<ulong>>.MessagingReceived { get => messageReceived; }
+
+        public SocketSelfUser CurrentUser => client.CurrentUser;
+
+        public IDiscordClient Native => client;
         #endregion
 
         #region Method

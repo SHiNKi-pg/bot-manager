@@ -42,5 +42,15 @@ namespace BotManager.Service.Discord
         /// <param name="status"></param>
         /// <returns></returns>
         Task SetUserStatus(UserStatus status);
+
+        /// <summary>
+        /// このクライアントのユーザーを取得します。
+        /// </summary>
+        SocketSelfUser CurrentUser { get; }
+
+        /// <summary>
+        /// サードライブラリのクライアントを取得します。
+        /// </summary>
+        IDiscordClient Native { get; }
     }
 }
