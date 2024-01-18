@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reactive.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Twitter.Tests;
@@ -37,6 +38,17 @@ namespace Discord.Tests
 
             // 終了
             await client.EndAsync();
+        }
+
+        [Fact(DisplayName = "MessageReceiving")]
+        public async Task MessageReceivingTest()
+        {
+            await client.StartAsync();
+
+            var mes = await client.MessageReceived
+                .Take(1)
+                .Timeout(TimeSpan.FromSeconds(30));
+            output.WriteLine(mes.Content);
         }
     }
 }
