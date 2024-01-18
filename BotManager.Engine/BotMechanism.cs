@@ -95,6 +95,13 @@ namespace BotManager.Engine
             );
 
             disposables.Add(
+                compiler.CompileSuccess.Subscribe(_ =>
+                {
+                    logger.Info("コンパイル成功");
+                })
+            ); ;
+
+            disposables.Add(
                 compiler.CompileFailed.Subscribe(_ =>
                 {
                     logger.Warn("コンパイル失敗");
@@ -105,7 +112,7 @@ namespace BotManager.Engine
             disposables.Add(
                 compiler.AssemblyCreated.Subscribe(async asm =>
                 {
-                    logger.Info("コンパイル成功");
+                    logger.Info("アセンブリが作成されました。");
                     _botManager = new BotManager();
                     List<Task> tasklist = new();
                     var types = asm.GetTypes().ToObservable();
