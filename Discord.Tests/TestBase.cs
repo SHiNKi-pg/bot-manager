@@ -21,7 +21,7 @@ namespace Twitter.Tests
             this.setting = AppSettings.GetBotDictionary()["test"].DiscordSetting!;
             var certification = setting.Certificate!;
             this.output = output;
-            client = DiscordService.Create(certification.Token, new());
+            client = DiscordService.Create(certification.Token);
         }
 
         public virtual void Dispose()
