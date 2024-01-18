@@ -46,7 +46,14 @@ namespace BotManager.Service.Discord
             #region Event Property
             this.MessageReceived = 
                 Observable.FromEvent<Func<SocketMessage, Task>, SocketMessage>(
-                h => e => { h(e); return Task.CompletedTask; },
+                h => e => {
+                    if (e.Author.Id != client.CurrentUser.Id)
+                    {
+                        // 自身の投稿したメッセージには反応しないようにする
+                        h(e);
+                    }
+                    return Task.CompletedTask; 
+                },
                 h => client.MessageReceived += h,
                 h => client.MessageReceived -= h
                 );
