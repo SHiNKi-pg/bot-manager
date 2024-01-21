@@ -24,7 +24,7 @@ namespace BotManager.Service.Misskey.Messaging
 
         public string Content => note.Text ?? string.Empty;
 
-        public DateTime ReceivedTime => note.CreatedAt.DateTime;
+        public DateTime ReceivedTime => note.CreatedAt.LocalDateTime;
 
         public bool IsBot => note.User?.IsBot ?? false;
 
