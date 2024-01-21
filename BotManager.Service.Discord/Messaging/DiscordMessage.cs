@@ -1,4 +1,5 @@
 ﻿using BotManager.Common.Messaging;
+using Discord;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -51,7 +52,13 @@ namespace BotManager.Service.Discord.Messaging
 
         public async Task<IReplyableMessage> Reply(string content)
         {
-            var mes = await message.Channel.SendMessageAsync(content, messageReference: message.Reference);
+            ulong? guildId = null;
+            if(message is ITextChannel channel)
+            {
+                guildId = channel.GuildId;
+            }
+            MessageReference reference = new(message.Id, message.Channel.Id, guildId);
+            var mes = await message.Channel.SendMessageAsync(content, messageReference: reference);
             return new DiscordMessage(client, mes);
         }
     }
