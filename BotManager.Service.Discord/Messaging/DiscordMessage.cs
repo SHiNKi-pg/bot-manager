@@ -21,7 +21,7 @@ namespace BotManager.Service.Discord.Messaging
 
         public string Content => message.Content;
 
-        public DateTime ReceivedTime => message.CreatedAt.DateTime;
+        public DateTime ReceivedTime => message.CreatedAt.LocalDateTime;
 
         public ulong Id => message.Id;
 
