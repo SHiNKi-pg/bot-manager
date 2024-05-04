@@ -16,6 +16,8 @@ using BotManager.Service.Misskey.Schemas.Streaming.Captures;
 using BotManager.Common.Messaging;
 using BotManager.Service.Misskey.Messaging;
 using System.Reactive.Subjects;
+using BotManager.Common;
+using System.Reactive;
 
 namespace BotManager.Service.Misskey
 {
@@ -31,6 +33,9 @@ namespace BotManager.Service.Misskey
 
         private readonly IConnectableObservable<IReplyableMessageWithId<string, string>> messageReceived;
         private readonly CompositeDisposable subscriptions;
+        private readonly ILog logger;
+
+        private readonly ReplaySubject<Unit> readyobs;
         #endregion
 
         #region Constructor
@@ -41,11 +46,42 @@ namespace BotManager.Service.Misskey
         /// <param name="token">アクセストークン</param>
         public MisskeyClient(string host, string token)
         {
+            logger = Log.GetLogger("misskey-ws");
+            readyobs = new(1);
             this.host = host;
             this.token = token;
             this.subscriptions = new();
-            websocketClient = new(new($"wss://{host}/streaming&i={token}"));
+            websocketClient = new(new($"wss://{host}/streaming&i={token}"), () => new()
+            {
+                Options =
+                {
+                    KeepAliveInterval = TimeSpan.Zero,
+                }
+            });
+
+            subscriptions.Add(
+                websocketClient.DisconnectionHappened
+                .Subscribe(d => logger.Warn(d.CloseStatusDescription ?? "Websocket connection disconnected"))
+                );
+
+            subscriptions.Add(
+                websocketClient.ReconnectionHappened
+                .Subscribe(r => logger.Info("Websocket reconnection:" + r.Type.ToString()))
+                );
+
+            subscriptions.Add(
+                websocketClient.MessageReceived
+                .Where(rm => rm.MessageType == WebSocketMessageType.Text)
+                .Subscribe(rm => logger.Trace("Message Received: " + rm.Text)));
+
             this.Api = new MisskeyApi(host, token);
+
+            subscriptions.Add(websocketClient.MessageReceived
+                .Retry()
+                .Where(rm => rm.MessageType == WebSocketMessageType.Text)
+                .Select(rm => rm.Text)
+                .Subscribe(t => Console.WriteLine(t))
+                );
 
             // Event
             this.messageReceived = GetHomeTimeline(GetType().FullName + "_home_timeline")
@@ -67,6 +103,11 @@ namespace BotManager.Service.Misskey
         {
             return Observable.Create<Note>(async observer =>
             {
+                logger.Debug($"{channelName}-{id} connection : Wait for ready");
+                // スタートするまで待機する
+                await readyobs.Take(1).Count();
+                logger.Debug("Misskey Ready.");
+
                 // チャンネル接続
                 var connectionData = new MisskeyBase<StreamingConnectionBody>()
                 { 
@@ -85,6 +126,7 @@ namespace BotManager.Service.Misskey
                 // データ購読
                 var subscription = websocketClient
                     .MessageReceived
+                    .Retry()
                     .Where(mr => mr.MessageType == WebSocketMessageType.Text)
                     .Select(mr => mr.Text)
                     .IsNotNull()
@@ -97,6 +139,7 @@ namespace BotManager.Service.Misskey
                 // Dispose時にチャンネルから切断
                 var disconnection = Disposable.Create(() =>
                 {
+                    logger.Debug($"{channelName}-{id} connection : disconnection");
                     var disconnectionData = new MisskeyBase<StreamingDisconnectionBody>()
                     {
                         Type = "disconnect",
@@ -206,9 +249,11 @@ namespace BotManager.Service.Misskey
         /// MisskeyClientを開始します。
         /// </summary>
         /// <returns></returns>
-        public Task StartAsync()
+        public async Task StartAsync()
         {
-            return websocketClient.Start();
+            await websocketClient.Start();
+            readyobs.OnNext(Unit.Default);
+            logger.Info("Misskey Started");
         }
 
         /// <summary>
@@ -218,6 +263,7 @@ namespace BotManager.Service.Misskey
         public async Task EndAsync()
         {
             await websocketClient.Stop(WebSocketCloseStatus.NormalClosure, "stop websockets");
+            logger.Info("Misskey End");
         }
 
         public async Task<IMessaging> Send(string content)
@@ -235,6 +281,8 @@ namespace BotManager.Service.Misskey
         {
             subscriptions.Dispose();
             websocketClient.Dispose();
+            readyobs.Dispose();
+            logger.Debug("Misskey Client Disposed");
         }
         #endregion
     }
